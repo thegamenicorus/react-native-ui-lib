@@ -3,6 +3,7 @@ var _reactNative=require('react-native');
 
 
 
+var _propTypes=require('prop-types');var _propTypes2=_interopRequireDefault(_propTypes);
 var _lodash=require('lodash');var _lodash2=_interopRequireDefault(_lodash);
 var _style=require('./style');var _style2=_interopRequireDefault(_style);
 var _commons=require('../../commons');
@@ -101,4 +102,4 @@ onPress:function onPress(){return _this3.updateValue(_this3.state.value+1);}})))
 
 
 
-}}]);return Stepper;}(_commons.BaseComponent);Stepper.displayName='Stepper';Stepper.propTypes={label:PropTypes.string,min:PropTypes.number.isRequired,max:PropTypes.number,containerStyle:PropTypes.object,onValueChange:PropTypes.func,initialValue:PropTypes.number.isRequired};exports.default=Stepper;
+}}]);return Stepper;}(_commons.BaseComponent);Stepper.displayName='Stepper';Stepper.propTypes={label:_propTypes2.default.string,min:_propTypes2.default.number.isRequired,max:_propTypes2.default.number,containerStyle:_propTypes2.default.object,onValueChange:_propTypes2.default.func,initialValue:_propTypes2.default.number.isRequired};exports.default=Stepper;
