@@ -41,5 +41,4 @@ android/app/libs
 *.keystore
 
 # UILib
-dist
 yarn.lock
