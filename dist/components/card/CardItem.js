@@ -6,7 +6,7 @@ var _commons=require('../../commons');function _interopRequireDefault(obj){retur
 
 
 
-CardItem=function(_BaseComponent){_inherits(CardItem,_BaseComponent);function CardItem(){var _ref;var _temp,_this,_ret;_classCallCheck(this,CardItem);for(var _len=arguments.length,args=Array(_len),_key=0;_key<_len;_key++){args[_key]=arguments[_key];}return _ret=(_temp=(_this=_possibleConstructorReturn(this,(_ref=CardItem.__proto__||Object.getPrototypeOf(CardItem)).call.apply(_ref,[this].concat(args))),_this),_this.
+CardItem=function(_BaseComponent){_inherits(CardItem,_BaseComponent);function CardItem(){_classCallCheck(this,CardItem);return _possibleConstructorReturn(this,(CardItem.__proto__||Object.getPrototypeOf(CardItem)).apply(this,arguments));}_createClass(CardItem,[{key:'generateStyles',value:function generateStyles()
 
 
 
@@ -21,8 +21,8 @@ CardItem=function(_BaseComponent){_inherits(CardItem,_BaseComponent);function Ca
 
 
 
-defaultProps={
-row:true},_temp),_possibleConstructorReturn(_this,_ret);}_createClass(CardItem,[{key:'generateStyles',value:function generateStyles()
+
+
 
 
 {
@@ -36,10 +36,10 @@ _react2.default.createElement(_reactNative.View,{style:[this.styles.container,st
 this.props.children));
 
 
-}}]);return CardItem;}(_commons.BaseComponent);CardItem.displayName='CardItem';CardItem.propTypes={row:_propTypes2.default.bool,column:_propTypes2.default.bool};exports.default=CardItem;
+}}]);return CardItem;}(_commons.BaseComponent);CardItem.displayName='CardItem';CardItem.propTypes={row:_propTypes2.default.bool,column:_propTypes2.default.bool};CardItem.defaultProps={row:true};exports.default=CardItem;
 
 
-function createStyles(_ref2){var column=_ref2.column;
+function createStyles(_ref){var column=_ref.column;
 return _reactNative.StyleSheet.create({
 container:{
 flexDirection:column?'column':'row'}});

@@ -384,8 +384,7 @@ function createStyles(_ref)
 
 {var placeholderTextColor=_ref.placeholderTextColor,hideUnderline=_ref.hideUnderline,centered=_ref.centered,floatingPlaceholder=_ref.floatingPlaceholder;
 return _reactNative.StyleSheet.create({
-container:{
-flexGrow:1},
+container:{},
 
 innerContainer:{
 flexDirection:'row',
