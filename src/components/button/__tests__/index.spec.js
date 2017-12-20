@@ -1,9 +1,39 @@
 import Button from '../index';
 import {Colors, BorderRadiuses, Typography, ThemeManager} from '../../../style';
+import {Constants} from '../../../helpers';
 
 describe('Button', () => {
   beforeEach(() => {
     ThemeManager.setComponentTheme('Button', {});
+    mockIOS();
+  });
+
+  describe('isOutline', () => {
+    it('should return false when outline or outlineColor props were not sent', () => {
+      const uut = new Button({});
+      expect(uut.isOutline).toBe(false);
+    });
+
+    it('should return true if either outline or outlineColor props were sent', () => {
+      expect(new Button({outline: true}).isOutline).toBe(true);
+      expect(new Button({outlineColor: 'blue'}).isOutline).toBe(true);
+      expect(new Button({outline: true, outlineColor: 'blue'}).isOutline).toBe(true);
+    });
+  });
+
+  describe('isFilled', () => {
+    it('should return true if button is not a link or outline', () => {
+      expect(new Button({}).isFilled).toBe(true);
+    });
+
+    it('should return false if button is an outline button', () => {
+      expect(new Button({outline: true}).isFilled).toBe(false);
+      expect(new Button({outlineColor: 'blue'}).isFilled).toBe(false);
+    });
+
+    it('should return false if button is a link', () => {
+      expect(new Button({link: true}).isFilled).toBe(false);
+    });
   });
 
   describe('getBackgroundColor', () => {
@@ -43,6 +73,19 @@ describe('Button', () => {
     it('should return theme disabled color if button is disabled', () => {
       const uut = new Button({'bg-orange30': true, disabled: true});
       expect(uut.getBackgroundColor()).toEqual(ThemeManager.CTADisabledColor);
+    });
+  });
+
+  describe('getActiveBackgroundColor', () => {
+    it('should return undefined by default', () => {
+      const uut = new Button({});
+      expect(uut.getActiveBackgroundColor()).toBe(undefined);
+    });
+
+    it('should return value according to getActiveBackgroundColor callback prop', () => {
+      const getActiveBackgroundColor = () => 'red';
+      const uut = new Button({getActiveBackgroundColor});
+      expect(uut.getActiveBackgroundColor()).toBe('red');
     });
   });
 
@@ -91,30 +134,61 @@ describe('Button', () => {
     });
   });
 
-  describe('getLabelSizeStyle', () => {
+  describe('getContentSizeStyle', () => {
     it('should return style for large button', () => {
       const uut = new Button({size: 'large'});
-      expect(uut.getLabelSizeStyle()).toEqual({paddingHorizontal: 36});
+      expect(uut.getContentSizeStyle()).toEqual({paddingHorizontal: 36});
+      mockAndroid();
+      expect(uut.getContentSizeStyle()).toEqual({paddingHorizontal: 28});
     });
 
     it('should return style for medium button', () => {
       const uut = new Button({size: 'medium'});
-      expect(uut.getLabelSizeStyle()).toEqual({paddingHorizontal: 24, ...Typography.text80});
+      expect(uut.getContentSizeStyle()).toEqual({paddingHorizontal: 18});
+      mockAndroid();
+      expect(uut.getContentSizeStyle()).toEqual({paddingHorizontal: 20});
     });
 
     it('should return style for small button', () => {
       const uut = new Button({size: 'small'});
-      expect(uut.getLabelSizeStyle()).toEqual({paddingHorizontal: 15, ...Typography.text80});
+      expect(uut.getContentSizeStyle()).toEqual({paddingHorizontal: 15});
     });
 
     it('should return style for xSmall button', () => {
       const uut = new Button({size: Button.sizes.xSmall});
-      expect(uut.getLabelSizeStyle()).toEqual({paddingHorizontal: 12, ...Typography.text80});
+      expect(uut.getContentSizeStyle()).toEqual({paddingHorizontal: 12});
     });
 
     it('should have no padding of button is a link', () => {
       const uut = new Button({size: 'medium', link: true});
-      expect(uut.getLabelSizeStyle()).toEqual({paddingHorizontal: 0, ...Typography.text80});
+      expect(uut.getContentSizeStyle()).toEqual({paddingHorizontal: 0});
+    });
+
+    it('should have no padding if avoidInnerPadding prop was sent', () => {
+      const uut = new Button({size: 'medium', avoidInnerPadding: true});
+      expect(uut.getContentSizeStyle()).toEqual();
+    });
+  });
+
+  describe('getLabelSizeStyle', () => {
+    it('should return style for large button', () => {
+      const uut = new Button({size: 'large'});
+      expect(uut.getLabelSizeStyle()).toEqual({});
+    });
+
+    it('should return style for medium button', () => {
+      const uut = new Button({size: 'medium'});
+      expect(uut.getLabelSizeStyle()).toEqual({...Typography.text80});
+    });
+
+    it('should return style for small button', () => {
+      const uut = new Button({size: 'small'});
+      expect(uut.getLabelSizeStyle()).toEqual({...Typography.text80});
+    });
+
+    it('should return style for xSmall button', () => {
+      const uut = new Button({size: Button.sizes.xSmall});
+      expect(uut.getLabelSizeStyle()).toEqual({...Typography.text80});
     });
   });
 
@@ -126,7 +200,7 @@ describe('Button', () => {
 
     it('should return borderWidth style with default borderColor when outline is true', () => {
       const uut = new Button({outline: true});
-      expect(uut.getOutlineStyle()).toEqual({borderWidth: 1, borderColor: Colors.dark70});
+      expect(uut.getOutlineStyle()).toEqual({borderWidth: 1, borderColor: Colors.blue30});
     });
 
     it('should return undefined when link is true, even when outline is true', () => {
@@ -142,6 +216,11 @@ describe('Button', () => {
     it('should return outline even if only got outlineColor prop', () => {
       const uut = new Button({outlineColor: 'yellow'});
       expect(uut.getOutlineStyle()).toEqual({borderWidth: 1, borderColor: 'yellow'});
+    });
+
+    it('should return disabled color for outline if button is disabled', () => {
+      const uut = new Button({disabled: true, outline: true});
+      expect(uut.getOutlineStyle()).toEqual({borderWidth: 1, borderColor: Colors.dark70});
     });
   });
 
@@ -175,22 +254,95 @@ describe('Button', () => {
   describe('getContainerSizeStyle', () => {
     it('should return style for large button', () => {
       const uut = new Button({size: 'large'});
+      const uut2 = new Button({size: 'large', outline: true});
       expect(uut.getContainerSizeStyle()).toEqual({paddingVertical: 16, minWidth: 138});
+      expect(uut2.getContainerSizeStyle()).toEqual({paddingVertical: 15, minWidth: 138});
+
+      mockAndroid();
+      expect(uut.getContainerSizeStyle()).toEqual({paddingVertical: 15, minWidth: 128});
+      expect(uut2.getContainerSizeStyle()).toEqual({paddingVertical: 14, minWidth: 128});
     });
 
     it('should return style for medium button', () => {
       const uut = new Button({size: 'medium'});
-      expect(uut.getContainerSizeStyle()).toEqual({paddingVertical: 11, minWidth: 125});
+      const uut2 = new Button({size: 'medium', outline: true});
+      expect(uut.getContainerSizeStyle()).toEqual({paddingVertical: 11, minWidth: 95});
+      expect(uut2.getContainerSizeStyle()).toEqual({paddingVertical: 10, minWidth: 95});
+
+      mockAndroid();
+      expect(uut.getContainerSizeStyle()).toEqual({paddingVertical: 10, minWidth: 88});
+      expect(uut2.getContainerSizeStyle()).toEqual({paddingVertical: 9, minWidth: 88});
     });
 
     it('should return style for small button', () => {
       const uut = new Button({size: 'small'});
-      expect(uut.getContainerSizeStyle()).toEqual({paddingVertical: 5, minWidth: 74});
+      const uut2 = new Button({size: 'small', outline: true});
+      expect(uut.getContainerSizeStyle()).toEqual({paddingVertical: 6, minWidth: 74});
+      expect(uut2.getContainerSizeStyle()).toEqual({paddingVertical: 5, minWidth: 74});
+
+      mockAndroid();
+      expect(uut.getContainerSizeStyle()).toEqual({paddingVertical: 6, minWidth: 72});
+      expect(uut2.getContainerSizeStyle()).toEqual({paddingVertical: 5, minWidth: 72});
     });
 
     it('should return style for xSmall button', () => {
       const uut = new Button({size: Button.sizes.xSmall});
+      const uut2 = new Button({size: Button.sizes.xSmall, outline: true});
+      expect(uut.getContainerSizeStyle()).toEqual({paddingVertical: 5, minWidth: 66});
+      expect(uut2.getContainerSizeStyle()).toEqual({paddingVertical: 4, minWidth: 66});
+
+      mockAndroid();
       expect(uut.getContainerSizeStyle()).toEqual({paddingVertical: 4, minWidth: 60});
+      expect(uut2.getContainerSizeStyle()).toEqual({paddingVertical: 3, minWidth: 60});
+    });
+
+    it('should avoid minWidth limitation if avoidMinWidth was sent', () => {
+      const uut = new Button({size: Button.sizes.medium, avoidMinWidth: true});
+      expect(uut.getContainerSizeStyle()).toEqual({paddingVertical: 11});
+    });
+  });
+
+  describe('getIconStyle', () => {
+    it('should return the right spacing according to button size when label exists', () => {
+      let uut = new Button({size: Button.sizes.large});
+      expect(uut.getIconStyle()).toEqual({tintColor: Colors.white, marginRight: 8});
+      uut = new Button({size: Button.sizes.medium});
+      expect(uut.getIconStyle()).toEqual({tintColor: Colors.white, marginRight: 8});
+      uut = new Button({size: Button.sizes.small});
+      expect(uut.getIconStyle()).toEqual({tintColor: Colors.white, marginRight: 4});
+      uut = new Button({size: Button.sizes.xSmall});
+      expect(uut.getIconStyle()).toEqual({tintColor: Colors.white, marginRight: 4});
+    });
+
+    it('should return icon style according to button size when label exists', () => {
+      let uut = new Button({size: Button.sizes.large, disabled: true, outline: true});
+      expect(uut.getIconStyle()).toEqual({marginRight: 8, tintColor: Colors.dark60});
+      uut = new Button({size: Button.sizes.large, disabled: true, link: true});
+      expect(uut.getIconStyle()).toEqual({marginRight: 8, tintColor: Colors.dark60});
+      uut = new Button({size: Button.sizes.large, disabled: true});
+      expect(uut.getIconStyle()).toEqual({tintColor: Colors.white, marginRight: 8});
+    });
+
+    it('should set tintColor according to getLabelColor logic', () => {
+      const uut = new Button({size: Button.sizes.large});
+      jest.spyOn(uut, 'getLabelColor');
+      uut.getLabelColor.mockReturnValue('red');
+      expect(uut.getIconStyle()).toEqual({marginRight: 8, tintColor: 'red'});
+    });
+
+    it('should include custom iconStyle provided as a prop', () => {
+      const uut = new Button({size: Button.sizes.large, iconStyle: {marginRight: 9, tintColor: 'red'}});
+      expect(uut.getIconStyle()).toEqual({marginRight: 9, tintColor: 'red'});
     });
   });
 });
+
+function mockIOS() {
+  Constants.isIOS = true;
+  Constants.isAndroid = false;
+}
+
+function mockAndroid() {
+  Constants.isIOS = false;
+  Constants.isAndroid = true;
+}

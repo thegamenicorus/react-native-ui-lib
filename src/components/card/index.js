@@ -46,6 +46,10 @@ class Card extends BaseComponent {
      */
     enableShadow: PropTypes.bool,
     /**
+     * elevation value (Android only)
+     */
+    elevation: PropTypes.number,
+    /**
      * Additional styles for the top container
      */
     containerStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
@@ -81,6 +85,13 @@ class Card extends BaseComponent {
     return position;
   }
 
+  get elevationStyle() {
+    const {elevation, enableShadow} = this.getThemeProps();
+    if (enableShadow) {
+      return {elevation: elevation || 2};
+    }
+  }
+
   renderChildren() {
     const {borderRadius} = this.props;
     const children = React.Children.map(this.props.children, (child, index) => {
@@ -112,7 +123,7 @@ class Card extends BaseComponent {
     const ShadowContainer = enableShadow ? MultipleShadow : View;
     return (
       <Container
-        style={[this.styles.container, {borderRadius}, containerStyle]}
+        style={[this.styles.container, {borderRadius}, this.elevationStyle, containerStyle]}
         onPress={onPress}
         delayPressIn={10}
         activeOpacity={0.6}

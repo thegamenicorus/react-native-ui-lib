@@ -237,6 +237,25 @@ export default class ButtonsScreen extends DemoScreen {
               onPress={() => this.showSnippet(this.button_16)}
             />
 
+            <Button
+              label="Disabled Outline"
+              outline
+              disabled
+              style={{marginBottom: ButtonSpace}}
+              ref={element => (this.button_16 = element)}
+              onPress={() => this.showSnippet(this.button_16)}
+            />
+
+            <Button
+              label="disabled outline + icon"
+              outline
+              disabled
+              iconSource={plusIcon}
+              style={{marginBottom: ButtonSpace}}
+              ref={element => (this.button_16 = element)}
+              onPress={() => this.showSnippet(this.button_16)}
+            />
+
             <Text style={styles.header}>Let your curves show</Text>
             {Constants.isIOS ? (
               <Button
@@ -270,6 +289,23 @@ export default class ButtonsScreen extends DemoScreen {
               onPress={() => this.showSnippet(this.button_19)}
             />
             <Text style={styles.header}>Special Cases</Text>
+
+            <Button
+              style={{marginBottom: ButtonSpace}}
+              size="small"
+              iconSource={plusIcon}
+              iconStyle={{tintColor: 'white'}}
+              label="Icon"
+            />
+
+            <Button
+              style={{marginBottom: ButtonSpace}}
+              blue30
+              outline
+              iconSource={plusIcon}
+              label="Icon"
+            />
+
             <Button onPress={() => Alert.alert('Button #3')} style={{marginBottom: ButtonSpace}}>
               <Text>
                 {Assets.emojis.cloud} {Assets.emojis.airplane} {Assets.emojis.sunny}

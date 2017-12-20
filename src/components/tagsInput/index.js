@@ -1,5 +1,6 @@
 import React from 'react';
-import {
+import ReactNative, {
+  NativeModules,
   StyleSheet,
   ViewPropTypes,
   Image,
@@ -49,6 +50,10 @@ export default class TagsInput extends BaseComponent {
      */
     onCreateTag: PropTypes.func,
     /**
+     * callback for when pressing a tag in the following format (tagIndex, markedTagIndex) => {...}
+     */
+    onTagPress: PropTypes.func,
+    /**
      * if true, tags *removal* Ux won't be available
      */
     disableTagRemoval: PropTypes.bool,
@@ -74,6 +79,11 @@ export default class TagsInput extends BaseComponent {
     hideUnderline: PropTypes.bool,
   };
 
+  static onChangeTagsActions = {
+    ADDED: 'added',
+    REMOVED: 'removed',
+  };
+
   constructor(props) {
     super(props);
 
@@ -83,6 +93,7 @@ export default class TagsInput extends BaseComponent {
     this.renderTag = this.renderTag.bind(this);
     this.getLabel = this.getLabel.bind(this);
     this.onKeyPress = this.onKeyPress.bind(this);
+    this.markTagIndex = this.markTagIndex.bind(this);
 
     this.state = {
       value: props.value,
@@ -92,7 +103,11 @@ export default class TagsInput extends BaseComponent {
   }
 
   componentDidMount() {
-    DeviceEventEmitter.addListener('onBackspacePress', this.onKeyPress);
+    const textInputHandle = ReactNative.findNodeHandle(this.input);
+    if (textInputHandle && NativeModules.TextInputDelKeyHandler) {
+      NativeModules.TextInputDelKeyHandler.register(textInputHandle);
+      DeviceEventEmitter.addListener('onBackspacePress', this.onKeyPress);
+    }
   }
 
   componentWillUnmount() {
@@ -119,20 +134,25 @@ export default class TagsInput extends BaseComponent {
       value: '',
       tags: newTags,
     });
-    _.invoke(this.props, 'onChangeTags', newTags);
+    _.invoke(this.props, 'onChangeTags', newTags, TagsInput.onChangeTagsActions.ADDED, newTag);
     this.input.clear();
   }
 
   removeMarkedTag() {
     const {tags, tagIndexToRemove} = this.state;
     if (!_.isUndefined(tagIndexToRemove)) {
+      const removedTag = tags[tagIndexToRemove];
       tags.splice(tagIndexToRemove, 1);
       this.setState({
         tags,
         tagIndexToRemove: undefined,
       });
-      _.invoke(this.props, 'onChangeTags', tags);
+      _.invoke(this.props, 'onChangeTags', tags, TagsInput.onChangeTagsActions.REMOVED, removedTag);
     }
+  }
+
+  markTagIndex(tagIndex) {
+    this.setState({tagIndexToRemove: tagIndex});
   }
 
   onChangeText(value) {
@@ -141,11 +161,20 @@ export default class TagsInput extends BaseComponent {
   }
 
   onTagPress(index) {
+    const {onTagPress} = this.props;
     const {tagIndexToRemove} = this.state;
+
+    // custom press handler
+    if (onTagPress) {
+      onTagPress(index, tagIndexToRemove);
+      return;
+    }
+
+    // default press handler
     if (tagIndexToRemove === index) {
       this.removeMarkedTag();
     } else {
-      this.setState({tagIndexToRemove: index});
+      this.markTagIndex(index);
     }
   }
 
@@ -163,20 +192,19 @@ export default class TagsInput extends BaseComponent {
       return;
     }
 
-    const {value, tags} = this.state;
+    const {value, tags, tagIndexToRemove} = this.state;
     const tagsCount = _.size(tags);
     const keyCode = _.get(event, 'nativeEvent.key');
     const hasNoValue = _.isEmpty(value);
     const pressedBackspace = Constants.isAndroid || keyCode === 'Backspace';
     const hasTags = tagsCount > 0;
-    const isLastTagAlreadyMarked = this.isLastTagMarked();
 
     if (pressedBackspace) {
-      if (hasNoValue && hasTags && !isLastTagAlreadyMarked) {
+      if (hasNoValue && hasTags && _.isUndefined(tagIndexToRemove)) {
         this.setState({
           tagIndexToRemove: tagsCount - 1,
         });
-      } else if (isLastTagAlreadyMarked) {
+      } else if (!_.isUndefined(tagIndexToRemove)) {
         this.removeMarkedTag();
       }
     }
@@ -212,7 +240,7 @@ export default class TagsInput extends BaseComponent {
     const {tagIndexToRemove} = this.state;
     const shouldMarkTag = tagIndexToRemove === index;
     if (_.isFunction(renderTag)) {
-      return renderTag(tag, index, shouldMarkTag);
+      return renderTag(tag, index, shouldMarkTag, this.getLabel(tag));
     }
     return (
       <View
@@ -245,12 +273,12 @@ export default class TagsInput extends BaseComponent {
         <TextInput
           ref={r => (this.input = r)}
           text80
+          blurOnSubmit={false}
           {...others}
           value={value}
           onSubmitEditing={this.addTag}
           onChangeText={this.onChangeText}
           onKeyPress={this.onKeyPress}
-          blurOnSubmit={false}
           enableErrors={false}
           hideUnderline
           selectionColor={isLastTagMarked ? 'transparent' : undefined}
@@ -293,6 +321,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     minWidth: 120,
     marginVertical: GUTTER_SPACING / 2,
+    paddingVertical: 4.5,
   },
   tag: {
     backgroundColor: Colors.blue30,
