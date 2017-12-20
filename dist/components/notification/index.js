@@ -5,7 +5,7 @@ var _toast=require('../toast');var _toast2=_interopRequireDefault(_toast);functi
 Notification=function(_BaseComponent){_inherits(Notification,_BaseComponent);
 function Notification(props){_classCallCheck(this,Notification);var _this=_possibleConstructorReturn(this,(Notification.__proto__||Object.getPrototypeOf(Notification)).call(this,
 props));
-console.warn('"Notification" component will be changed soon, please use "Toast" component instead.');return _this;
+console.error('"Notification" component will be changed soon, please use "Toast" component instead.');return _this;
 }_createClass(Notification,[{key:'render',value:function render()
 
 {

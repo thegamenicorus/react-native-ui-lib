@@ -94,6 +94,11 @@ Toast=function(_BaseComponent){_inherits(Toast,_BaseComponent);
 
 
 
+
+
+
+
+
 function Toast(props){_classCallCheck(this,Toast);var _this=_possibleConstructorReturn(this,(Toast.__proto__||Object.getPrototypeOf(Toast)).call(this,
 props));_this.state={isVisible:false,animationConfig:_this.getAnimation(true),contentAnimation:_this.getContentAnimation(true),duration:DURATION,delay:DELAY};var _this$props=
 
@@ -220,7 +225,7 @@ onPress:onDismiss})));
 }},{key:'render',value:function render()
 
 {var _getThemeProps2=
-this.getThemeProps(),backgroundColor=_getThemeProps2.backgroundColor,actions=_getThemeProps2.actions,allowDismiss=_getThemeProps2.allowDismiss,enableBlur=_getThemeProps2.enableBlur;var
+this.getThemeProps(),backgroundColor=_getThemeProps2.backgroundColor,actions=_getThemeProps2.actions,allowDismiss=_getThemeProps2.allowDismiss,enableBlur=_getThemeProps2.enableBlur,zIndex=_getThemeProps2.zIndex;var
 animationConfig=this.state.animationConfig;
 var hasOneAction=_lodash2.default.size(actions)===1;
 var hasTwoActions=_lodash2.default.size(actions)===2;
@@ -240,7 +245,8 @@ this.styles.container,
 hasOneAction&&this.styles.containerWithOneAction,
 positionStyle,
 backgroundColor&&{backgroundColor:backgroundColor},
-{height:height}]},
+{height:height},
+{zIndex:zIndex}]},
 
 animationConfig),
 
@@ -270,7 +276,7 @@ visible=this.props.visible;
 this.setState({
 isVisible:visible});
 
-}}]);return Toast;}(_commons.BaseComponent);Toast.displayName='Toast';Toast.propTypes={visible:_propTypes2.default.bool,position:_propTypes2.default.oneOf(['relative','top','bottom']),height:_propTypes2.default.number,backgroundColor:_propTypes2.default.string,color:_propTypes2.default.string,message:_propTypes2.default.string,messageStyle:_propTypes2.default.oneOfType([_propTypes2.default.object,_propTypes2.default.number,_propTypes2.default.array]),actions:_propTypes2.default.arrayOf(_propTypes2.default.shape(_button2.default.propTypes)),onDismiss:_propTypes2.default.func,allowDismiss:_propTypes2.default.bool,centerMessage:_propTypes2.default.bool,animated:_propTypes2.default.bool,enableBlur:_propTypes2.default.bool,blurOptions:_propTypes2.default.object};Toast.defaultProps={position:'top',color:_style.Colors.white,animated:true};exports.default=Toast;
+}}]);return Toast;}(_commons.BaseComponent);Toast.displayName='Toast';Toast.propTypes={visible:_propTypes2.default.bool,position:_propTypes2.default.oneOf(['relative','top','bottom']),height:_propTypes2.default.number,backgroundColor:_propTypes2.default.string,color:_propTypes2.default.string,message:_propTypes2.default.string,messageStyle:_propTypes2.default.oneOfType([_propTypes2.default.object,_propTypes2.default.number,_propTypes2.default.array]),actions:_propTypes2.default.arrayOf(_propTypes2.default.shape(_button2.default.propTypes)),onDismiss:_propTypes2.default.func,allowDismiss:_propTypes2.default.bool,centerMessage:_propTypes2.default.bool,animated:_propTypes2.default.bool,enableBlur:_propTypes2.default.bool,blurOptions:_propTypes2.default.object,zIndex:_propTypes2.default.number};Toast.defaultProps={position:'top',color:_style.Colors.white,animated:true,zIndex:100};exports.default=Toast;
 
 
 function createStyles(){
@@ -352,5 +358,8 @@ to:{height:0}}});
 }
 
 function getHeight(_ref4){var height=_ref4.height,actions=_ref4.actions;
-return height||_lodash2.default.size(actions)===2?92:48;
+if(_lodash2.default.isUndefined(height)){
+return _lodash2.default.size(actions)===2?92:48;
+}
+return height;
 }

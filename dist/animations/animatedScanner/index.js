@@ -108,14 +108,14 @@ style:[this.styles.container,
 opacity&&{opacity:opacity},
 backgroundColor&&{backgroundColor:backgroundColor},
 {
-right:animatedProgress.interpolate({
+left:animatedProgress.interpolate({
 inputRange:[0,100],
-outputRange:['100%','0%']})}]},
+outputRange:['0%','100%']})}]},
 
 
 
 
-!isDone&&!hideScannerLine&&_react2.default.createElement(_view2.default,{style:this.styles.scanner}))));
+isDone&&!hideScannerLine&&_react2.default.createElement(_view2.default,{style:this.styles.scanner}))));
 
 
 
@@ -164,6 +164,7 @@ opacity:0.9},
 
 scanner:{
 position:'absolute',
+left:0,
 top:0,
 bottom:0,
 right:0,

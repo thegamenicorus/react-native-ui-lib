@@ -7,17 +7,34 @@ expect(uut.getChildrenLength({children:[{}]})).toBe(1);
 expect(uut.getChildrenLength({})).toBe(0);
 });
 
-it('should calcOffset',function(){
-expect(uut.calcOffset({pageWidth:120,children:[{},{},{}]},{currentPage:0})).toBe(120);
-expect(uut.calcOffset({pageWidth:120,children:[{},{},{}]},{currentPage:1})).toBe(240);
-expect(uut.calcOffset({pageWidth:120,children:[{},{},{}]},{currentPage:2})).toBe(360);
+describe('calcOffset',function(){
+it('should calcOffset (default mode)',function(){
+expect(uut.calcOffset({pageWidth:120,children:[{},{},{}]},{currentPage:0})).toBe(0);
+expect(uut.calcOffset({pageWidth:120,children:[{},{},{}]},{currentPage:1})).toBe(120);
+expect(uut.calcOffset({pageWidth:120,children:[{},{},{}]},{currentPage:2})).toBe(240);
 });
 
+it('should calcOffset (loop mode)',function(){
+expect(uut.calcOffset({loop:true,pageWidth:120,children:[{},{},{}]},{currentPage:0})).toBe(120);
+expect(uut.calcOffset({loop:true,pageWidth:120,children:[{},{},{}]},{currentPage:1})).toBe(240);
+expect(uut.calcOffset({loop:true,pageWidth:120,children:[{},{},{}]},{currentPage:2})).toBe(360);
+});
+});
+
+describe('calcPageIndex',function(){
 it('should calcPageIndex',function(){
-expect(uut.calcPageIndex(120,{pageWidth:120,children:[{},{},{}]})).toBe(0);
-expect(uut.calcPageIndex(245,{pageWidth:120,children:[{},{},{}]})).toBe(1);
-expect(uut.calcPageIndex(481,{pageWidth:120,children:[{},{},{}]})).toBe(0);
-expect(uut.calcPageIndex(5,{pageWidth:120,children:[{},{},{}]})).toBe(2);
+expect(uut.calcPageIndex(120,{pageWidth:120,children:[{},{},{}]})).toBe(1);
+expect(uut.calcPageIndex(245,{pageWidth:120,children:[{},{},{}]})).toBe(2);
+expect(uut.calcPageIndex(481,{pageWidth:120,children:[{},{},{}]})).toBe(2);
+expect(uut.calcPageIndex(5,{pageWidth:120,children:[{},{},{}]})).toBe(0);
+});
+
+it('should calcPageIndex (loop mode)',function(){
+expect(uut.calcPageIndex(120,{loop:true,pageWidth:120,children:[{},{},{}]})).toBe(0);
+expect(uut.calcPageIndex(245,{loop:true,pageWidth:120,children:[{},{},{}]})).toBe(1);
+expect(uut.calcPageIndex(481,{loop:true,pageWidth:120,children:[{},{},{}]})).toBe(0);
+expect(uut.calcPageIndex(5,{loop:true,pageWidth:120,children:[{},{},{}]})).toBe(2);
+});
 });
 
 it('should return isOutsideLimits',function(){

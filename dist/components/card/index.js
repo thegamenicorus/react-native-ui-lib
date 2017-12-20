@@ -60,6 +60,10 @@ Card=function(_BaseComponent){_inherits(Card,_BaseComponent);function Card(){_cl
 
 
 
+
+
+
+
 {
 this.styles=createStyles(this.props);
 }},{key:'calcImagePosition',value:function calcImagePosition(
@@ -80,6 +84,13 @@ position.push(row?'right':'bottom');
 
 return position;
 }},{key:'renderChildren',value:function renderChildren()
+
+
+
+
+
+
+
 
 {var _this2=this;var
 borderRadius=this.props.borderRadius;
@@ -112,7 +123,7 @@ var Container=onPress?_touchableOpacity2.default:_view2.default;
 var ShadowContainer=enableShadow?_MultipleShadow2.default:_view2.default;
 return(
 _react2.default.createElement(Container,_extends({
-style:[this.styles.container,{borderRadius:borderRadius},containerStyle],
+style:[this.styles.container,{borderRadius:borderRadius},this.elevationStyle,containerStyle],
 onPress:onPress,
 delayPressIn:10,
 activeOpacity:0.6,
@@ -126,7 +137,7 @@ this.renderChildren()))));
 
 
 
-}}]);return Card;}(_commons.BaseComponent);Card.displayName='Card';Card.propTypes=_extends({},_MultipleShadow2.default.propTypes,{width:_propTypes2.default.oneOfType([_propTypes2.default.number,_propTypes2.default.string]),height:_propTypes2.default.oneOfType([_propTypes2.default.number,_propTypes2.default.string]),row:_propTypes2.default.bool,borderRadius:_propTypes2.default.number,onPress:_propTypes2.default.func,enableShadow:_propTypes2.default.bool,containerStyle:_propTypes2.default.oneOfType([_propTypes2.default.object,_propTypes2.default.number,_propTypes2.default.array]),testID:_propTypes2.default.string});Card.defaultProps={borderRadius:_style.BorderRadiuses.br40,enableShadow:true};
+}},{key:'elevationStyle',get:function get(){var _getThemeProps2=this.getThemeProps(),elevation=_getThemeProps2.elevation,enableShadow=_getThemeProps2.enableShadow;if(enableShadow){return{elevation:elevation||2};}}}]);return Card;}(_commons.BaseComponent);Card.displayName='Card';Card.propTypes=_extends({},_MultipleShadow2.default.propTypes,{width:_propTypes2.default.oneOfType([_propTypes2.default.number,_propTypes2.default.string]),height:_propTypes2.default.oneOfType([_propTypes2.default.number,_propTypes2.default.string]),row:_propTypes2.default.bool,borderRadius:_propTypes2.default.number,onPress:_propTypes2.default.func,enableShadow:_propTypes2.default.bool,elevation:_propTypes2.default.number,containerStyle:_propTypes2.default.oneOfType([_propTypes2.default.object,_propTypes2.default.number,_propTypes2.default.array]),testID:_propTypes2.default.string});Card.defaultProps={borderRadius:_style.BorderRadiuses.br40,enableShadow:true};
 
 
 function createStyles(_ref){var width=_ref.width,height=_ref.height,enableShadow=_ref.enableShadow;

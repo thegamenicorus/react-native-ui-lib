@@ -1,5 +1,6 @@
 Object.defineProperty(exports,"__esModule",{value:true});var _extends=Object.assign||function(target){for(var i=1;i<arguments.length;i++){var source=arguments[i];for(var key in source){if(Object.prototype.hasOwnProperty.call(source,key)){target[key]=source[key];}}}return target;};var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _react=require('react');var _react2=_interopRequireDefault(_react);
-var _reactNative=require('react-native');
+var _reactNative=require('react-native');var _reactNative2=_interopRequireDefault(_reactNative);
+
 
 
 
@@ -74,6 +75,15 @@ TagsInput=function(_BaseComponent){_inherits(TagsInput,_BaseComponent);
 
 
 
+
+
+
+
+
+
+
+
+
 function TagsInput(props){_classCallCheck(this,TagsInput);var _this=_possibleConstructorReturn(this,(TagsInput.__proto__||Object.getPrototypeOf(TagsInput)).call(this,
 props));
 
@@ -83,6 +93,7 @@ _this.renderTagWrapper=_this.renderTagWrapper.bind(_this);
 _this.renderTag=_this.renderTag.bind(_this);
 _this.getLabel=_this.getLabel.bind(_this);
 _this.onKeyPress=_this.onKeyPress.bind(_this);
+_this.markTagIndex=_this.markTagIndex.bind(_this);
 
 _this.state={
 value:props.value,
@@ -92,7 +103,11 @@ tagIndexToRemove:undefined};return _this;
 }_createClass(TagsInput,[{key:'componentDidMount',value:function componentDidMount()
 
 {
+var textInputHandle=_reactNative2.default.findNodeHandle(this.input);
+if(textInputHandle&&_reactNative.NativeModules.TextInputDelKeyHandler){
+_reactNative.NativeModules.TextInputDelKeyHandler.register(textInputHandle);
 _reactNative.DeviceEventEmitter.addListener('onBackspacePress',this.onKeyPress);
+}
 }},{key:'componentWillUnmount',value:function componentWillUnmount()
 
 {
@@ -119,20 +134,25 @@ this.setState({
 value:'',
 tags:newTags});
 
-_lodash2.default.invoke(this.props,'onChangeTags',newTags);
+_lodash2.default.invoke(this.props,'onChangeTags',newTags,TagsInput.onChangeTagsActions.ADDED,newTag);
 this.input.clear();
 }},{key:'removeMarkedTag',value:function removeMarkedTag()
 
 {var _state2=
 this.state,tags=_state2.tags,tagIndexToRemove=_state2.tagIndexToRemove;
 if(!_lodash2.default.isUndefined(tagIndexToRemove)){
+var removedTag=tags[tagIndexToRemove];
 tags.splice(tagIndexToRemove,1);
 this.setState({
 tags:tags,
 tagIndexToRemove:undefined});
 
-_lodash2.default.invoke(this.props,'onChangeTags',tags);
+_lodash2.default.invoke(this.props,'onChangeTags',tags,TagsInput.onChangeTagsActions.REMOVED,removedTag);
 }
+}},{key:'markTagIndex',value:function markTagIndex(
+
+tagIndex){
+this.setState({tagIndexToRemove:tagIndex});
 }},{key:'onChangeText',value:function onChangeText(
 
 value){
@@ -141,11 +161,20 @@ _lodash2.default.invoke(this.props,'onChangeText',value);
 }},{key:'onTagPress',value:function onTagPress(
 
 index){var
+onTagPress=this.props.onTagPress;var
 tagIndexToRemove=this.state.tagIndexToRemove;
+
+
+if(onTagPress){
+onTagPress(index,tagIndexToRemove);
+return;
+}
+
+
 if(tagIndexToRemove===index){
 this.removeMarkedTag();
 }else{
-this.setState({tagIndexToRemove:index});
+this.markTagIndex(index);
 }
 }},{key:'isLastTagMarked',value:function isLastTagMarked()
 
@@ -163,20 +192,19 @@ if(this.props.disableTagRemoval){
 return;
 }var _state4=
 
-this.state,value=_state4.value,tags=_state4.tags;
+this.state,value=_state4.value,tags=_state4.tags,tagIndexToRemove=_state4.tagIndexToRemove;
 var tagsCount=_lodash2.default.size(tags);
 var keyCode=_lodash2.default.get(event,'nativeEvent.key');
 var hasNoValue=_lodash2.default.isEmpty(value);
 var pressedBackspace=_helpers.Constants.isAndroid||keyCode==='Backspace';
 var hasTags=tagsCount>0;
-var isLastTagAlreadyMarked=this.isLastTagMarked();
 
 if(pressedBackspace){
-if(hasNoValue&&hasTags&&!isLastTagAlreadyMarked){
+if(hasNoValue&&hasTags&&_lodash2.default.isUndefined(tagIndexToRemove)){
 this.setState({
 tagIndexToRemove:tagsCount-1});
 
-}else if(isLastTagAlreadyMarked){
+}else if(!_lodash2.default.isUndefined(tagIndexToRemove)){
 this.removeMarkedTag();
 }
 }
@@ -212,7 +240,7 @@ this.props,tagStyle=_props2.tagStyle,renderTag=_props2.renderTag;var
 tagIndexToRemove=this.state.tagIndexToRemove;
 var shouldMarkTag=tagIndexToRemove===index;
 if(_lodash2.default.isFunction(renderTag)){
-return renderTag(tag,index,shouldMarkTag);
+return renderTag(tag,index,shouldMarkTag,this.getLabel(tag));
 }
 return(
 _react2.default.createElement(_view2.default,{
@@ -244,13 +272,13 @@ return(
 _react2.default.createElement(_view2.default,{style:styles.inputWrapper},
 _react2.default.createElement(_inputs.TextInput,_extends({
 ref:function ref(r){return _this3.input=r;},
-text80:true},
+text80:true,
+blurOnSubmit:false},
 others,{
 value:value,
 onSubmitEditing:this.addTag,
 onChangeText:this.onChangeText,
 onKeyPress:this.onKeyPress,
-blurOnSubmit:false,
 enableErrors:false,
 hideUnderline:true,
 selectionColor:isLastTagMarked?'transparent':undefined,
@@ -275,7 +303,7 @@ this.renderTextInput())));
 
 
 
-}}]);return TagsInput;}(_commons.BaseComponent);TagsInput.displayName='TagsInput';TagsInput.propTypes={tags:_propTypes2.default.arrayOf(_propTypes2.default.oneOfType([_propTypes2.default.object,_propTypes2.default.string])),getLabel:_propTypes2.default.func,renderTag:_propTypes2.default.func,onChangeTags:_propTypes2.default.func,onCreateTag:_propTypes2.default.func,disableTagRemoval:_propTypes2.default.bool,disableTagAdding:_propTypes2.default.bool,containerStyle:_reactNative.ViewPropTypes.style,tagStyle:_reactNative.ViewPropTypes.style,inputStyle:_inputs.TextInput.propTypes.style,hideUnderline:_propTypes2.default.bool};exports.default=TagsInput;
+}}]);return TagsInput;}(_commons.BaseComponent);TagsInput.displayName='TagsInput';TagsInput.propTypes={tags:_propTypes2.default.arrayOf(_propTypes2.default.oneOfType([_propTypes2.default.object,_propTypes2.default.string])),getLabel:_propTypes2.default.func,renderTag:_propTypes2.default.func,onChangeTags:_propTypes2.default.func,onCreateTag:_propTypes2.default.func,onTagPress:_propTypes2.default.func,disableTagRemoval:_propTypes2.default.bool,disableTagAdding:_propTypes2.default.bool,containerStyle:_reactNative.ViewPropTypes.style,tagStyle:_reactNative.ViewPropTypes.style,inputStyle:_inputs.TextInput.propTypes.style,hideUnderline:_propTypes2.default.bool};TagsInput.onChangeTagsActions={ADDED:'added',REMOVED:'removed'};exports.default=TagsInput;
 
 
 var GUTTER_SPACING=8;
@@ -292,7 +320,8 @@ alignItems:'center'},
 inputWrapper:{
 flexGrow:1,
 minWidth:120,
-marginVertical:GUTTER_SPACING/2},
+marginVertical:GUTTER_SPACING/2,
+paddingVertical:4.5},
 
 tag:{
 backgroundColor:_style.Colors.blue30,

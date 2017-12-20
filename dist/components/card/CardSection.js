@@ -46,7 +46,7 @@ _react2.default.createElement(Container,_extends({},blurOptions,{style:[this.sty
 this.props.children));
 
 
-}}]);return CardSection;}(_commons.BaseComponent);CardSection.displayName='CardSection';CardSection.propTypes={enableBlur:_propTypes2.default.bool,blurOptions:_propTypes2.default.object,body:_propTypes2.default.bool,footer:_propTypes2.default.bool,testId:_propTypes2.default.string};exports.default=CardSection;
+}}]);return CardSection;}(_commons.BaseComponent);CardSection.displayName='Card.Section';CardSection.propTypes={enableBlur:_propTypes2.default.bool,blurOptions:_propTypes2.default.object,body:_propTypes2.default.bool,footer:_propTypes2.default.bool,testId:_propTypes2.default.string};exports.default=CardSection;
 
 
 function createStyles(_ref){var body=_ref.body,footer=_ref.footer;

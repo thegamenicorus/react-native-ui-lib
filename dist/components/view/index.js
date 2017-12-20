@@ -14,7 +14,6 @@ View=function(_BaseComponent){_inherits(View,_BaseComponent);function View(){_cl
 
 
 
-
 {
 this.styles=createStyles(this.props);
 }},{key:'setNativeProps',value:function setNativeProps(
@@ -23,7 +22,7 @@ nativeProps){
 this._root.setNativeProps(nativeProps);
 }},{key:'render',value:function render()
 
-{var _state=
+{var _this2=this;var _state=
 this.state,backgroundColor=_state.backgroundColor,borderRadius=_state.borderRadius,paddings=_state.paddings,margins=_state.margins,alignments=_state.alignments,flexStyle=_state.flexStyle;var _props=
 this.props,style=_props.style,left=_props.left,top=_props.top,right=_props.right,bottom=_props.bottom,propsFlex=_props.flex,others=_objectWithoutProperties(_props,['style','left','top','right','bottom','flex']);
 
@@ -38,18 +37,26 @@ flexStyle,
 paddings,
 margins,
 alignments,
-style]}),
+style],
 
+ref:function ref(r){return _this2.view=r;}}),
 
 this.props.children));
 
 
+}},{key:'measure',value:function measure()
+
+{var _view;
+(_view=this.view).measure.apply(_view,arguments);
+}},{key:'measureInWindow',value:function measureInWindow()
+
+{var _view2;
+(_view2=this.view).measureInWindow.apply(_view2,arguments);
 }}]);return View;}(_commons.BaseComponent);View.displayName='View';View.propTypes=_extends({},_reactNative.ViewPropTypes,_commons.BaseComponent.propTypes);exports.default=View;
 
 
 function createStyles(){
 return _reactNative.StyleSheet.create({
 container:{}});
-
 
 }

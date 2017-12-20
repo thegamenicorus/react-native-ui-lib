@@ -120,10 +120,12 @@ expect(onChangeTagsCallback).not.toHaveBeenCalled();
 
 it('should remove tag according to the tagIndexToRemove in state and invoke ',function(){
 var tags=[{},{},{}];
-_lodash2.default.set(uut,'state',{tagIndexToRemove:2,tags:tags});
+var tagIndexToRemove=2;
+var removedTag=tags[tagIndexToRemove];
+_lodash2.default.set(uut,'state',{tagIndexToRemove:tagIndexToRemove,tags:tags});
 uut.removeMarkedTag();
 expect(uut.state.tags).toEqual([tags[0],tags[1]]);
-expect(onChangeTagsCallback).toHaveBeenCalledWith([tags[0],tags[1]]);
+expect(onChangeTagsCallback).toHaveBeenCalledWith([tags[0],tags[1]],'removed',removedTag);
 expect(uut.state.tagIndexToRemove).toBeUndefined();
 });
 });

@@ -49,18 +49,18 @@ this.styles=createStyles(this.props);
 }},{key:'render',value:function render()
 
 {var _props=
-this.props,imageSource=_props.imageSource,style=_props.style,position=_props.position,borderRadius=_props.borderRadius;
+this.props,imageSource=_props.imageSource,style=_props.style,position=_props.position,borderRadius=_props.borderRadius,testID=_props.testID;
 var borderStyle=CardPresenter.generateBorderRadiusStyle({position:position,borderRadius:borderRadius});
 if(imageSource){
 return(
 _react2.default.createElement(_reactNative.View,{style:[this.styles.container,borderStyle,style]},
-_react2.default.createElement(_image2.default,{source:imageSource,style:[this.styles.image,borderStyle]})));
+_react2.default.createElement(_image2.default,{testID:testID,source:imageSource,style:[this.styles.image,borderStyle]})));
 
 
 }
 
 return null;
-}}]);return CardImage;}(_commons.BaseComponent);CardImage.displayName='CardImage';CardImage.propTypes={imageSource:_propTypes2.default.oneOfType([_propTypes2.default.object,_propTypes2.default.number]),width:_propTypes2.default.oneOfType([_propTypes2.default.number,_propTypes2.default.string]),height:_propTypes2.default.oneOfType([_propTypes2.default.number,_propTypes2.default.string]),position:_propTypes2.default.oneOfType([_propTypes2.default.string,_propTypes2.default.arrayOf(_propTypes2.default.string)]),borderRadius:_propTypes2.default.number,testID:_propTypes2.default.string};CardImage.defaultProps={borderRadius:_style.BorderRadiuses.br40};exports.default=CardImage;
+}}]);return CardImage;}(_commons.BaseComponent);CardImage.displayName='Card.Image';CardImage.propTypes={imageSource:_propTypes2.default.oneOfType([_propTypes2.default.object,_propTypes2.default.number]),width:_propTypes2.default.oneOfType([_propTypes2.default.number,_propTypes2.default.string]),height:_propTypes2.default.oneOfType([_propTypes2.default.number,_propTypes2.default.string]),position:_propTypes2.default.oneOfType([_propTypes2.default.string,_propTypes2.default.arrayOf(_propTypes2.default.string)]),borderRadius:_propTypes2.default.number,testID:_propTypes2.default.string};CardImage.defaultProps={borderRadius:_style.BorderRadiuses.br40};exports.default=CardImage;
 
 
 function createStyles(_ref){var width=_ref.width,height=_ref.height,position=_ref.position;var _CardPresenter$extrac=

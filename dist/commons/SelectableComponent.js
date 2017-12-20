@@ -76,7 +76,7 @@ container:{
 width:selectableIndicatorSize,
 height:selectableIndicatorSize,
 borderRadius:_style.BorderRadiuses.br100,
-borderWidth:_reactNative.StyleSheet.hairlineWidth,
+borderWidth:1,
 borderColor:_style.Colors.blue30,
 justifyContent:'center'},
 

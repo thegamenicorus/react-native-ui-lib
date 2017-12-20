@@ -72,7 +72,7 @@ this.props.children)));
 
 
 
-}}]);return TabBarItem;}(_commons.BaseComponent);TabBarItem.displayName='TabBarItem';TabBarItem.propTypes={label:_propTypes2.default.string,labelStyle:_text2.default.propTypes.style,selectedLabelStyle:_text2.default.propTypes.style,selected:_propTypes2.default.bool,onPress:_propTypes2.default.func};exports.default=TabBarItem;
+}}]);return TabBarItem;}(_commons.BaseComponent);TabBarItem.displayName='TabBar.Item';TabBarItem.propTypes={label:_propTypes2.default.string,labelStyle:_text2.default.propTypes.style,selectedLabelStyle:_text2.default.propTypes.style,selected:_propTypes2.default.bool,onPress:_propTypes2.default.func};exports.default=TabBarItem;
 
 
 function createStyles(){

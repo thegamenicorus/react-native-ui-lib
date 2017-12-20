@@ -1,6 +1,7 @@
 Object.defineProperty(exports,"__esModule",{value:true});var _extends=Object.assign||function(target){for(var i=1;i<arguments.length;i++){var source=arguments[i];for(var key in source){if(Object.prototype.hasOwnProperty.call(source,key)){target[key]=source[key];}}}return target;};var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _react=require('react');var _react2=_interopRequireDefault(_react);
 var _propTypes=require('prop-types');var _propTypes2=_interopRequireDefault(_propTypes);
 var _reactNative=require('react-native');
+var _lodash=require('lodash');var _lodash2=_interopRequireDefault(_lodash);
 var _commons=require('../../commons');
 var _helpers=require('../../helpers');
 var _style=require('../../style');
@@ -91,9 +92,13 @@ ribbonLabel)));
 this.props,label=_props2.label,color=_props2.labelColor,imageSource=_props2.imageSource,isOnline=_props2.isOnline,backgroundColor=_props2.backgroundColor,testID=_props2.testID,onPress=_props2.onPress;
 var containerStyle=this.extractContainerStyle(this.props);
 var Container=onPress?_reactNative.TouchableOpacity:_view2.default;
+
+var hasImage=!_lodash2.default.isUndefined(imageSource);
 return(
-_react2.default.createElement(Container,{style:[this.styles.container,containerStyle,{backgroundColor:backgroundColor}],testID:testID,onPress:onPress},
-_react2.default.createElement(_view2.default,{style:this.styles.initialsContainer},
+_react2.default.createElement(Container,{style:[this.styles.container,containerStyle],testID:testID,onPress:onPress},
+_react2.default.createElement(_view2.default,{
+style:[this.styles.initialsContainer,{backgroundColor:backgroundColor},hasImage&&this.styles.initialsContainerWithInset]},
+
 _react2.default.createElement(_text2.default,{numberOfLines:1,style:[this.styles.initials,{color:color}]},
 label)),
 
@@ -105,13 +110,14 @@ _react2.default.createElement(_view2.default,{style:this.styles.onlineBadge,test
 _react2.default.createElement(_view2.default,{style:this.styles.onlineBadgeInner})),
 
 
+
 this.renderRibbon()));
 
 
 }}]);return Avatar;}(_commons.BaseComponent);Avatar.displayName='Avatar';Avatar.propTypes={backgroundColor:_propTypes2.default.string,containerStyle:_reactNative.ViewPropTypes.style,imageSource:_propTypes2.default.oneOfType([_propTypes2.default.object,_propTypes2.default.number]),label:_propTypes2.default.string,labelColor:_propTypes2.default.string,ribbonLabel:_propTypes2.default.string,ribbonStyle:_reactNative.ViewPropTypes.style,ribbonLabelStyle:_text2.default.propTypes.style,isOnline:_propTypes2.default.bool,size:_propTypes2.default.number,testID:_propTypes2.default.string,onPress:_propTypes2.default.func};Avatar.defaultProps={backgroundColor:_style.Colors.dark80,size:50,labelColor:_style.Colors.dark10};exports.default=Avatar;
 
 
-function createStyles(_ref){var size=_ref.size,backgroundColor=_ref.backgroundColor,labelColor=_ref.labelColor,imageSource=_ref.imageSource;
+function createStyles(_ref){var size=_ref.size,labelColor=_ref.labelColor,imageSource=_ref.imageSource;
 var borderRadius=size/2;
 var fontSizeToImageSizeRatio=0.32;
 var styles=_reactNative.StyleSheet.create({
@@ -120,12 +126,19 @@ alignItems:'center',
 justifyContent:'center',
 width:size,
 height:size,
-backgroundColor:backgroundColor,
 borderRadius:borderRadius},
 
-initialsContainer:{
+initialsContainer:_extends({},
+_reactNative.StyleSheet.absoluteFillObject,{
 alignItems:'center',
-justifyContent:'center'},
+justifyContent:'center',
+borderRadius:borderRadius}),
+
+initialsContainerWithInset:{
+top:1,
+right:1,
+bottom:1,
+left:1},
 
 initials:{
 fontSize:size*fontSizeToImageSizeRatio,

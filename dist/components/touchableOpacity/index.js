@@ -66,8 +66,8 @@ _lodash2.default.invoke.apply(_lodash2.default,[this.props,'onPressOut'].concat(
 
 
 
-{var _props=
-this.props,throttle=_props.throttle,others=_objectWithoutProperties(_props,['throttle']);
+{var _getThemeProps=
+this.getThemeProps(),throttle=_getThemeProps.throttle,others=_objectWithoutProperties(_getThemeProps,['throttle']);
 
 return(
 _react2.default.createElement(_reactNative.TouchableOpacity,_extends({},
