@@ -257,7 +257,7 @@ typography,
 {minHeight:minHeight},
 shouldShowPlaceholder&&this.styles.placeholder],
 
-numberOfLines:3,
+
 onPress:function onPress(){return _this4.toggleExpandableModal(true);}},
 
 shouldShowPlaceholder?placeholder:value));

@@ -257,7 +257,7 @@ export default class TextInput extends BaseInput {
           {minHeight},
           shouldShowPlaceholder && this.styles.placeholder,
         ]}
-        numberOfLines={3}
+        //numberOfLines={3}
         onPress={() => this.toggleExpandableModal(true)}
       >
         {shouldShowPlaceholder ? placeholder : value}
