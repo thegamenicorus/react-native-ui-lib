@@ -4,6 +4,8 @@ import {
   Text,
 } from 'react-native';
 import PropTypes from 'prop-types';
+
+
 const StepperButton = ({label, testId, styles, disabled, onPress}) =>
   <TouchableOpacity disabled={disabled} testID={testId} onPress={onPress} style={styles.button}>
     <Text style={[styles.buttonText, disabled && styles.disableText]} allowFontScaling={false}>
@@ -34,6 +36,6 @@ StepperButton.propTypes = {
   onPress: PropTypes.func,
 };
 
-StepperButton.displayName = 'StepperButton';
+StepperButton.displayName = 'IGNORE';
 
 export default StepperButton;
