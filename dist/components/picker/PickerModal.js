@@ -34,7 +34,7 @@ children))));
 
 
 
-}}]);return PickerModal;}(_commons.BaseComponent);PickerModal.propTypes=_extends({},_screensComponents.Modal.propTypes,{topBarProps:_propTypes2.default.shape(_screensComponents.Modal.TopBar.propTypes)});
+}}]);return PickerModal;}(_commons.BaseComponent);PickerModal.displayName='IGNORE';PickerModal.propTypes=_extends({},_screensComponents.Modal.propTypes,{topBarProps:_propTypes2.default.shape(_screensComponents.Modal.TopBar.propTypes)});
 
 
 function createStyles(){

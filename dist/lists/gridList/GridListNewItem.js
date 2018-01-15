@@ -9,7 +9,6 @@ var _style3=require('../../style');function _interopRequireDefault(obj){return o
 
 
 
-
 GridListNewItem=function(_GridListItem){_inherits(GridListNewItem,_GridListItem);function GridListNewItem(){_classCallCheck(this,GridListNewItem);return _possibleConstructorReturn(this,(GridListNewItem.__proto__||Object.getPrototypeOf(GridListNewItem)).apply(this,arguments));}_createClass(GridListNewItem,[{key:'generateStyles',value:function generateStyles()
 
 
@@ -66,7 +65,7 @@ _react2.default.createElement(_reactNative.Text,{style:[this.styles.titleText,di
 title));
 
 
-}}]);return GridListNewItem;}(_GridListItem3.default);GridListNewItem.displayName='Grid List New Item';GridListNewItem.propTypes={index:_propTypes2.default.number.isRequired,imageSource:_propTypes2.default.oneOfType([_propTypes2.default.object,_propTypes2.default.number]),imageSize:_propTypes2.default.number,title:_propTypes2.default.string,titleStyle:_propTypes2.default.object,onPress:_propTypes2.default.func,height:_propTypes2.default.number};GridListNewItem.defaultProps=_extends({},_GridListItem3.default.defaultProps,{imageSize:46});exports.default=GridListNewItem;
+}}]);return GridListNewItem;}(_GridListItem3.default);GridListNewItem.displayName='IGNORE';GridListNewItem.propTypes={index:_propTypes2.default.number.isRequired,imageSource:_propTypes2.default.oneOfType([_propTypes2.default.object,_propTypes2.default.number]),imageSize:_propTypes2.default.number,title:_propTypes2.default.string,titleStyle:_propTypes2.default.object,onPress:_propTypes2.default.func,height:_propTypes2.default.number};GridListNewItem.defaultProps=_extends({},_GridListItem3.default.defaultProps,{imageSize:46});exports.default=GridListNewItem;
 
 
 var customStyle={

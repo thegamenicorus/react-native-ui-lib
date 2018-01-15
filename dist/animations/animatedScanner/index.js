@@ -9,9 +9,14 @@ var _view=require('../../components/view');var _view2=_interopRequireDefault(_vi
 
 
 
+
+
+
+
+
+
+
 AnimatedScanner=function(_BaseComponent){_inherits(AnimatedScanner,_BaseComponent);
-
-
 
 
 

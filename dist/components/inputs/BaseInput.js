@@ -96,4 +96,4 @@ this.input.clear();
 
 {
 return this.input.isFocused();
-}}]);return BaseInput;}(_commons.BaseComponent);BaseInput.displayName='TextInput';BaseInput.propTypes=_extends({},_reactNative.TextInput.propTypes,_commons.BaseComponent.propTypes,{color:_propTypes2.default.string,containerStyle:_reactNative.ViewPropTypes.style,testId:_propTypes2.default.string});BaseInput.defaultProps={placeholderTextColor:_style.Colors.dark60};exports.default=BaseInput;
+}}]);return BaseInput;}(_commons.BaseComponent);BaseInput.displayName='BaseInput';BaseInput.propTypes=_extends({},_reactNative.TextInput.propTypes,_commons.BaseComponent.propTypes,{color:_propTypes2.default.string,containerStyle:_reactNative.ViewPropTypes.style,testId:_propTypes2.default.string});BaseInput.defaultProps={placeholderTextColor:_style.Colors.dark60};exports.default=BaseInput;

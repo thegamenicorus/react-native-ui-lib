@@ -9,6 +9,10 @@ var _style=require('../../style');function _interopRequireWildcard(obj){if(obj&&
 
 
 
+
+
+
+
 Badge=function(_BaseComponent){_inherits(Badge,_BaseComponent);function Badge(){_classCallCheck(this,Badge);return _possibleConstructorReturn(this,(Badge.__proto__||Object.getPrototypeOf(Badge)).apply(this,arguments));}_createClass(Badge,[{key:'generateStyles',value:function generateStyles()
 
 

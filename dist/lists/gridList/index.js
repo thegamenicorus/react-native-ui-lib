@@ -7,6 +7,10 @@ var _style=require('../../style');function _interopRequireDefault(obj){return ob
 
 var ds=new _reactNative.ListView.DataSource({rowHasChanged:function rowHasChanged(r1,r2){return r1!==r2;}});var
 
+
+
+
+
 GridList=function(_BaseComponent){_inherits(GridList,_BaseComponent);
 
 
@@ -72,7 +76,7 @@ others,{
 contentContainerStyle:[this.styles.container,contentContainerStyle]})));
 
 
-}}]);return GridList;}(_commons.BaseComponent);GridList.propTypes=_extends({},_commons.BaseComponent.propTypes,{backgroundColor:_propTypes2.default.string,items:_propTypes2.default.array,renderItem:_propTypes2.default.func,itemsInRow:_propTypes2.default.number});GridList.defaultProps=_extends({},_commons.BaseComponent.defaultProps,{backgroundColor:_style.Colors.dark80,items:[],itemsInRow:2});
+}}]);return GridList;}(_commons.BaseComponent);GridList.displayName='IGNORE';GridList.propTypes=_extends({},_commons.BaseComponent.propTypes,{backgroundColor:_propTypes2.default.string,items:_propTypes2.default.array,renderItem:_propTypes2.default.func,itemsInRow:_propTypes2.default.number});GridList.defaultProps=_extends({},_commons.BaseComponent.defaultProps,{backgroundColor:_style.Colors.dark80,items:[],itemsInRow:2});
 
 
 function createStyles(_ref){var backgroundColor=_ref.backgroundColor;

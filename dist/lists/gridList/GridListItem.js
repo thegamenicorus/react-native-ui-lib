@@ -11,7 +11,6 @@ var _touchableOpacity=require('../../components/touchableOpacity');var _touchabl
 
 
 
-
 GridListItem=function(_BaseComponent){_inherits(GridListItem,_BaseComponent);function GridListItem(){_classCallCheck(this,GridListItem);return _possibleConstructorReturn(this,(GridListItem.__proto__||Object.getPrototypeOf(GridListItem)).apply(this,arguments));}_createClass(GridListItem,[{key:'generateStyles',value:function generateStyles()
 
 
@@ -115,4 +114,4 @@ this.renderBottom())));
 
 
 
-}}]);return GridListItem;}(_commons.BaseComponent);GridListItem.displayName='Grid List Item';GridListItem.propTypes=_extends({},_commons.BaseComponent.propTypes,{index:_propTypes2.default.number.isRequired,title:_propTypes2.default.string,titleStyle:_propTypes2.default.object,secondaryTitle:_propTypes2.default.string,secondaryTitleStyle:_propTypes2.default.object,subtitle:_propTypes2.default.string,subtitleStyle:_propTypes2.default.object,onPress:_propTypes2.default.func,height:_propTypes2.default.number,imageSource:_propTypes2.default.object,disabled:_propTypes2.default.bool});GridListItem.defaultProps=_extends({},_commons.BaseComponent.defaultProps,{height:210});exports.default=GridListItem;
+}}]);return GridListItem;}(_commons.BaseComponent);GridListItem.displayName='IGNORE';GridListItem.propTypes=_extends({},_commons.BaseComponent.propTypes,{index:_propTypes2.default.number.isRequired,title:_propTypes2.default.string,titleStyle:_propTypes2.default.object,secondaryTitle:_propTypes2.default.string,secondaryTitleStyle:_propTypes2.default.object,subtitle:_propTypes2.default.string,subtitleStyle:_propTypes2.default.object,onPress:_propTypes2.default.func,height:_propTypes2.default.number,imageSource:_propTypes2.default.object,disabled:_propTypes2.default.bool});GridListItem.defaultProps=_extends({},_commons.BaseComponent.defaultProps,{height:210});exports.default=GridListItem;

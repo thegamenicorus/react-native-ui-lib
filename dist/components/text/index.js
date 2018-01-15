@@ -7,6 +7,8 @@ var _commons=require('../../commons');function _interopRequireDefault(obj){retur
 
 
 
+
+
 Text=function(_BaseComponent){_inherits(Text,_BaseComponent);function Text(){_classCallCheck(this,Text);return _possibleConstructorReturn(this,(Text.__proto__||Object.getPrototypeOf(Text)).apply(this,arguments));}_createClass(Text,[{key:'generateStyles',value:function generateStyles()
 
 

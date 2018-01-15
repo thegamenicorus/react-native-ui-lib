@@ -14,9 +14,11 @@ var DEFAULT_BUTTON_PROPS={
 color:_style.Colors.blue30};var
 
 
+
+
+
+
 TopBar=function(_BaseComponent){_inherits(TopBar,_BaseComponent);function TopBar(){_classCallCheck(this,TopBar);return _possibleConstructorReturn(this,(TopBar.__proto__||Object.getPrototypeOf(TopBar)).apply(this,arguments));}_createClass(TopBar,[{key:'generateStyles',value:function generateStyles()
-
-
 
 
 
@@ -130,7 +132,7 @@ this.renderDone()))));
 
 
 
-}}]);return TopBar;}(_commons.BaseComponent);TopBar.displayName='Moda.TopBar';TopBar.propTypes={title:_propTypes2.default.string,titleStyle:_propTypes2.default.object,doneButtonProps:_propTypes2.default.shape(_button2.default.propTypes),doneLabel:_propTypes2.default.string,doneIcon:_propTypes2.default.oneOfType([_propTypes2.default.object,_propTypes2.default.number]),onDone:_propTypes2.default.func,cancelButtonProps:_propTypes2.default.shape(_button2.default.propTypes),cancelLabel:_propTypes2.default.string,cancelIcon:_propTypes2.default.oneOfType([_propTypes2.default.object,_propTypes2.default.number]),onCancel:_propTypes2.default.func,includeStatusBar:_propTypes2.default.bool};TopBar.defaultProps={doneLabel:'Save',cancelIcon:_assets2.default.icons.x,doneButtonProps:{},cancelButtonProps:{},includeStatusBar:_helpers.Constants.isIOS};exports.default=TopBar;
+}}]);return TopBar;}(_commons.BaseComponent);TopBar.displayName='Modal.TopBar';TopBar.propTypes={title:_propTypes2.default.string,titleStyle:_propTypes2.default.object,doneButtonProps:_propTypes2.default.shape(_button2.default.propTypes),doneLabel:_propTypes2.default.string,doneIcon:_propTypes2.default.oneOfType([_propTypes2.default.object,_propTypes2.default.number]),onDone:_propTypes2.default.func,cancelButtonProps:_propTypes2.default.shape(_button2.default.propTypes),cancelLabel:_propTypes2.default.string,cancelIcon:_propTypes2.default.oneOfType([_propTypes2.default.object,_propTypes2.default.number]),onCancel:_propTypes2.default.func,includeStatusBar:_propTypes2.default.bool};TopBar.defaultProps={doneLabel:'Save',cancelIcon:_assets2.default.icons.x,doneButtonProps:{},cancelButtonProps:{},includeStatusBar:_helpers.Constants.isIOS};exports.default=TopBar;
 
 
 function createStyles(){

@@ -6,6 +6,8 @@ var _commons=require('../../commons');function _interopRequireDefault(obj){retur
 
 
 
+
+
 View=function(_BaseComponent){_inherits(View,_BaseComponent);function View(){_classCallCheck(this,View);return _possibleConstructorReturn(this,(View.__proto__||Object.getPrototypeOf(View)).apply(this,arguments));}_createClass(View,[{key:'generateStyles',value:function generateStyles()
 
 

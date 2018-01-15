@@ -8,9 +8,7 @@ var _style=require('../../style');function _interopRequireDefault(obj){return ob
 
 
 
-MultipleShadow=function(_BaseComponent){_inherits(MultipleShadow,_BaseComponent);function MultipleShadow(){var _ref;var _temp,_this,_ret;_classCallCheck(this,MultipleShadow);for(var _len=arguments.length,args=Array(_len),_key=0;_key<_len;_key++){args[_key]=arguments[_key];}return _ret=(_temp=(_this=_possibleConstructorReturn(this,(_ref=MultipleShadow.__proto__||Object.getPrototypeOf(MultipleShadow)).call.apply(_ref,[this].concat(args))),_this),_this.
-
-displayName='MultipleShadow',_temp),_possibleConstructorReturn(_this,_ret);}_createClass(MultipleShadow,[{key:'generateStyles',value:function generateStyles()
+MultipleShadow=function(_BaseComponent){_inherits(MultipleShadow,_BaseComponent);function MultipleShadow(){_classCallCheck(this,MultipleShadow);return _possibleConstructorReturn(this,(MultipleShadow.__proto__||Object.getPrototypeOf(MultipleShadow)).apply(this,arguments));}_createClass(MultipleShadow,[{key:'generateStyles',value:function generateStyles()
 
 
 
@@ -64,7 +62,7 @@ this.props.children)));
 
 
 
-}}]);return MultipleShadow;}(_commons.BaseComponent);MultipleShadow.propTypes={topShadow:_propTypes2.default.object,bottomShadow:_propTypes2.default.object,shadowType:_propTypes2.default.oneOf(Object.keys(_style.Shadows)),shadowColor:_propTypes2.default.string};MultipleShadow.defaultProps={shadowType:'white40'};exports.default=MultipleShadow;
+}}]);return MultipleShadow;}(_commons.BaseComponent);MultipleShadow.displayName='IGNORE';MultipleShadow.propTypes={topShadow:_propTypes2.default.object,bottomShadow:_propTypes2.default.object,shadowType:_propTypes2.default.oneOf(Object.keys(_style.Shadows)),shadowColor:_propTypes2.default.string};MultipleShadow.defaultProps={shadowType:'white40'};exports.default=MultipleShadow;
 
 
 function createStyles(){

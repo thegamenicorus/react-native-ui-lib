@@ -10,7 +10,14 @@ var _text=require('../text');var _text2=_interopRequireDefault(_text);
 var _touchableOpacity=require('../touchableOpacity');var _touchableOpacity2=_interopRequireDefault(_touchableOpacity);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self,call){if(!self){throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call&&(typeof call==="object"||typeof call==="function")?call:self;}function _inherits(subClass,superClass){if(typeof superClass!=="function"&&superClass!==null){throw new TypeError("Super expression must either be null or a function, not "+typeof superClass);}subClass.prototype=Object.create(superClass&&superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__=superClass;}var
 
 
+
+
+
+
+
+
 PickerItem=function(_BaseComponent){_inherits(PickerItem,_BaseComponent);
+
 
 
 
@@ -109,7 +116,7 @@ testID:testID},
 renderItem?renderItem(value,this.props):this.renderItem()));
 
 
-}}]);return PickerItem;}(_commons.BaseComponent);PickerItem.propTypes={label:_propTypes2.default.string,value:_propTypes2.default.object,getItemLabel:_propTypes2.default.func,getItemValue:_propTypes2.default.func,isSelected:_propTypes2.default.bool,disabled:_propTypes2.default.bool,renderItem:_propTypes2.default.func,onPress:_propTypes2.default.func};
+}}]);return PickerItem;}(_commons.BaseComponent);PickerItem.displayName='Picker.Item';PickerItem.propTypes={label:_propTypes2.default.string,value:_propTypes2.default.object,getItemLabel:_propTypes2.default.func,getItemValue:_propTypes2.default.func,isSelected:_propTypes2.default.bool,disabled:_propTypes2.default.bool,renderItem:_propTypes2.default.func,onPress:_propTypes2.default.func};
 
 
 function createStyles(){

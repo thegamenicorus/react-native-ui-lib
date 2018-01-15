@@ -6,6 +6,7 @@ var _commons=require('../../commons');function _interopRequireDefault(obj){retur
 
 
 
+
 CardItem=function(_BaseComponent){_inherits(CardItem,_BaseComponent);function CardItem(){_classCallCheck(this,CardItem);return _possibleConstructorReturn(this,(CardItem.__proto__||Object.getPrototypeOf(CardItem)).apply(this,arguments));}_createClass(CardItem,[{key:'generateStyles',value:function generateStyles()
 
 

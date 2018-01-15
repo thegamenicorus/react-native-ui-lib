@@ -10,6 +10,8 @@ var _touchableOpacity=require('../touchableOpacity');var _touchableOpacity2=_int
 
 
 
+
+
 ConnectionStatusBar=function(_BaseComponent){_inherits(ConnectionStatusBar,_BaseComponent);_createClass(ConnectionStatusBar,null,[{key:'registerGlobalOnConnectionLost',value:function registerGlobalOnConnectionLost(
 
 

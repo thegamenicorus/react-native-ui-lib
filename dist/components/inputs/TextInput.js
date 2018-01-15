@@ -16,6 +16,14 @@ focus:_style.Colors.blue30,
 error:_style.Colors.red30};var
 
 
+
+
+
+
+
+
+
+
 TextInput=function(_BaseInput){_inherits(TextInput,_BaseInput);
 
 

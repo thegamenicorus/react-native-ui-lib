@@ -10,6 +10,8 @@ var _touchableOpacity=require('../../components/touchableOpacity');var _touchabl
 
 
 
+
+
 StateScreen=function(_BaseComponent){_inherits(StateScreen,_BaseComponent);function StateScreen(){_classCallCheck(this,StateScreen);return _possibleConstructorReturn(this,(StateScreen.__proto__||Object.getPrototypeOf(StateScreen)).apply(this,arguments));}_createClass(StateScreen,[{key:'generateStyles',value:function generateStyles()
 
 

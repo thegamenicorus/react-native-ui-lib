@@ -24,6 +24,10 @@ var _assets=require('../../assets');var _assets2=_interopRequireDefault(_assets)
 
 
 
+
+
+
+
 TagsInput=function(_BaseComponent){_inherits(TagsInput,_BaseComponent);
 
 

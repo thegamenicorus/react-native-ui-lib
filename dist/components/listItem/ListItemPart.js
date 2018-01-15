@@ -3,9 +3,11 @@ var _propTypes=require('prop-types');var _propTypes2=_interopRequireDefault(_pro
 var _reactNative=require('react-native');
 var _commons=require('../../commons');function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self,call){if(!self){throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call&&(typeof call==="object"||typeof call==="function")?call:self;}function _inherits(subClass,superClass){if(typeof superClass!=="function"&&superClass!==null){throw new TypeError("Super expression must either be null or a function, not "+typeof superClass);}subClass.prototype=Object.create(superClass&&superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__=superClass;}var
 
+
+
+
+
 ListItemPart=function(_BaseComponent){_inherits(ListItemPart,_BaseComponent);function ListItemPart(){_classCallCheck(this,ListItemPart);return _possibleConstructorReturn(this,(ListItemPart.__proto__||Object.getPrototypeOf(ListItemPart)).apply(this,arguments));}_createClass(ListItemPart,[{key:'generateStyles',value:function generateStyles()
-
-
 
 
 
@@ -46,7 +48,7 @@ _react2.default.createElement(_reactNative.View,{style:[this.styles.container,co
 this.props.children));
 
 
-}}]);return ListItemPart;}(_commons.BaseComponent);ListItemPart.displayName='ListItemPart';ListItemPart.propTypes={left:_propTypes2.default.bool,middle:_propTypes2.default.bool,right:_propTypes2.default.bool,row:_propTypes2.default.bool,column:_propTypes2.default.bool,containerStyle:_propTypes2.default.oneOfType([_propTypes2.default.object,_propTypes2.default.number,_propTypes2.default.array]),testId:_propTypes2.default.string};exports.default=ListItemPart;
+}}]);return ListItemPart;}(_commons.BaseComponent);ListItemPart.displayName='ListItem.Part';ListItemPart.propTypes={left:_propTypes2.default.bool,middle:_propTypes2.default.bool,right:_propTypes2.default.bool,row:_propTypes2.default.bool,column:_propTypes2.default.bool,containerStyle:_propTypes2.default.oneOfType([_propTypes2.default.object,_propTypes2.default.number,_propTypes2.default.array]),testId:_propTypes2.default.string};exports.default=ListItemPart;
 
 
 function createStyles(_ref){var left=_ref.left,right=_ref.right,middle=_ref.middle,column=_ref.column;

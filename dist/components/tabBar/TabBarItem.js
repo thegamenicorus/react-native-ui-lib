@@ -12,6 +12,7 @@ var _touchableOpacity=require('../touchableOpacity');var _touchableOpacity2=_int
 
 
 
+
 TabBarItem=function(_BaseComponent){_inherits(TabBarItem,_BaseComponent);function TabBarItem(){_classCallCheck(this,TabBarItem);return _possibleConstructorReturn(this,(TabBarItem.__proto__||Object.getPrototypeOf(TabBarItem)).apply(this,arguments));}_createClass(TabBarItem,[{key:'generateStyles',value:function generateStyles()
 
 

@@ -10,6 +10,8 @@ var _touchableOpacity=require('../components/touchableOpacity');var _touchableOp
 
 
 
+
+
 BaseListItem=function(_BaseComponent){_inherits(BaseListItem,_BaseComponent);function BaseListItem(){_classCallCheck(this,BaseListItem);return _possibleConstructorReturn(this,(BaseListItem.__proto__||Object.getPrototypeOf(BaseListItem)).apply(this,arguments));}_createClass(BaseListItem,[{key:'renderLeft',value:function renderLeft()
 
 
@@ -65,7 +67,7 @@ this.renderRight()))));
 
 
 
-}}]);return BaseListItem;}(_commons.BaseComponent);BaseListItem.displayName='BaseList';BaseListItem.propTypes={onPress:_propTypes2.default.func};exports.default=BaseListItem;
+}}]);return BaseListItem;}(_commons.BaseComponent);BaseListItem.displayName='IGNORE';BaseListItem.propTypes={onPress:_propTypes2.default.func};exports.default=BaseListItem;
 
 
 function createStyles(overrides){

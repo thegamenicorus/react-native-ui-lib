@@ -113,9 +113,11 @@ var uut=new _index2.default({link:true,linkColor:_style.Colors.orange50});
 expect(uut.getLabelColor()).toEqual(_style.Colors.orange50);
 });
 
-it('should return dark10 color for outline',function(){
+it('should return blue30 color for outline by default or the outlineColor passed',function(){
 var uut=new _index2.default({outline:true});
-expect(uut.getLabelColor()).toEqual(_style.Colors.dark10);
+expect(uut.getLabelColor()).toEqual(_style.Colors.blue30);
+uut=new _index2.default({outline:true,outlineColor:'red'});
+expect(uut.getLabelColor()).toEqual('red');
 });
 
 it('should return color according to color modifier',function(){
@@ -305,34 +307,39 @@ expect(uut.getContainerSizeStyle()).toEqual({paddingVertical:11});
 describe('getIconStyle',function(){
 it('should return the right spacing according to button size when label exists',function(){
 var uut=new _index2.default({size:_index2.default.sizes.large});
-expect(uut.getIconStyle()).toEqual({tintColor:_style.Colors.white,marginRight:8});
+expect(uut.getIconStyle()).toEqual([{tintColor:_style.Colors.white,marginRight:8},undefined]);
 uut=new _index2.default({size:_index2.default.sizes.medium});
-expect(uut.getIconStyle()).toEqual({tintColor:_style.Colors.white,marginRight:8});
+expect(uut.getIconStyle()).toEqual([{tintColor:_style.Colors.white,marginRight:8},undefined]);
 uut=new _index2.default({size:_index2.default.sizes.small});
-expect(uut.getIconStyle()).toEqual({tintColor:_style.Colors.white,marginRight:4});
+expect(uut.getIconStyle()).toEqual([{tintColor:_style.Colors.white,marginRight:4},undefined]);
 uut=new _index2.default({size:_index2.default.sizes.xSmall});
-expect(uut.getIconStyle()).toEqual({tintColor:_style.Colors.white,marginRight:4});
+expect(uut.getIconStyle()).toEqual([{tintColor:_style.Colors.white,marginRight:4},undefined]);
 });
 
 it('should return icon style according to button size when label exists',function(){
 var uut=new _index2.default({size:_index2.default.sizes.large,disabled:true,outline:true});
-expect(uut.getIconStyle()).toEqual({marginRight:8,tintColor:_style.Colors.dark60});
+expect(uut.getIconStyle()).toEqual([{marginRight:8,tintColor:_style.Colors.dark60},undefined]);
 uut=new _index2.default({size:_index2.default.sizes.large,disabled:true,link:true});
-expect(uut.getIconStyle()).toEqual({marginRight:8,tintColor:_style.Colors.dark60});
+expect(uut.getIconStyle()).toEqual([{marginRight:8,tintColor:_style.Colors.dark60},undefined]);
 uut=new _index2.default({size:_index2.default.sizes.large,disabled:true});
-expect(uut.getIconStyle()).toEqual({tintColor:_style.Colors.white,marginRight:8});
+expect(uut.getIconStyle()).toEqual([{tintColor:_style.Colors.white,marginRight:8},undefined]);
 });
 
 it('should set tintColor according to getLabelColor logic',function(){
 var uut=new _index2.default({size:_index2.default.sizes.large});
 jest.spyOn(uut,'getLabelColor');
 uut.getLabelColor.mockReturnValue('red');
-expect(uut.getIconStyle()).toEqual({marginRight:8,tintColor:'red'});
+expect(uut.getIconStyle()).toEqual([{marginRight:8,tintColor:'red'},undefined]);
 });
 
 it('should include custom iconStyle provided as a prop',function(){
 var uut=new _index2.default({size:_index2.default.sizes.large,iconStyle:{marginRight:9,tintColor:'red'}});
-expect(uut.getIconStyle()).toEqual({marginRight:9,tintColor:'red'});
+expect(uut.getIconStyle()).toEqual([
+{marginRight:8,tintColor:_style.Colors.white},
+{marginRight:9,tintColor:'red'}]);
+
+uut=new _index2.default({size:_index2.default.sizes.large,iconStyle:123});
+expect(uut.getIconStyle()).toEqual([{marginRight:8,tintColor:_style.Colors.white},123]);
 });
 });
 });

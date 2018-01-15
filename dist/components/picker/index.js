@@ -21,9 +21,11 @@ var ItemType=_propTypes2.default.shape({value:_propTypes2.default.any,label:_pro
 
 
 
+
+
+
+
 Picker=function(_TextInput){_inherits(Picker,_TextInput);
-
-
 
 
 

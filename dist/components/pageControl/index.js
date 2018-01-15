@@ -15,6 +15,8 @@ return{borderColor:compColor,backgroundColor:index===currentPage?compColor:'tran
 
 
 
+
+
 PageControl=function(_BaseComponent){_inherits(PageControl,_BaseComponent);function PageControl(){_classCallCheck(this,PageControl);return _possibleConstructorReturn(this,(PageControl.__proto__||Object.getPrototypeOf(PageControl)).apply(this,arguments));}_createClass(PageControl,[{key:'generateStyles',value:function generateStyles()
 
 

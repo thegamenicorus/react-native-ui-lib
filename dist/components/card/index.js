@@ -16,6 +16,11 @@ var _CardImage=require('./CardImage');var _CardImage2=_interopRequireDefault(_Ca
 
 
 
+
+
+
+
+
 Card=function(_BaseComponent){_inherits(Card,_BaseComponent);function Card(){_classCallCheck(this,Card);return _possibleConstructorReturn(this,(Card.__proto__||Object.getPrototypeOf(Card)).apply(this,arguments));}_createClass(Card,[{key:'generateStyles',value:function generateStyles()
 
 

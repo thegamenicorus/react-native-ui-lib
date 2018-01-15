@@ -10,6 +10,8 @@ var _assets=require('../../assets');var _assets2=_interopRequireDefault(_assets)
 
 
 
+
+
 Image=function(_BaseComponent){_inherits(Image,_BaseComponent);
 
 

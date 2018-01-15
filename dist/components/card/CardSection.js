@@ -9,6 +9,10 @@ var _view=require('../view');var _view2=_interopRequireDefault(_view);function _
 
 
 
+
+
+
+
 CardSection=function(_BaseComponent){_inherits(CardSection,_BaseComponent);function CardSection(){_classCallCheck(this,CardSection);return _possibleConstructorReturn(this,(CardSection.__proto__||Object.getPrototypeOf(CardSection)).apply(this,arguments));}_createClass(CardSection,[{key:'generateStyles',value:function generateStyles()
 
 

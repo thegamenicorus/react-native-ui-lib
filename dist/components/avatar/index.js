@@ -1,4 +1,4 @@
-Object.defineProperty(exports,"__esModule",{value:true});var _extends=Object.assign||function(target){for(var i=1;i<arguments.length;i++){var source=arguments[i];for(var key in source){if(Object.prototype.hasOwnProperty.call(source,key)){target[key]=source[key];}}}return target;};var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _react=require('react');var _react2=_interopRequireDefault(_react);
+Object.defineProperty(exports,"__esModule",{value:true});exports.STATUS_MODES=undefined;var _extends=Object.assign||function(target){for(var i=1;i<arguments.length;i++){var source=arguments[i];for(var key in source){if(Object.prototype.hasOwnProperty.call(source,key)){target[key]=source[key];}}}return target;};var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _react=require('react');var _react2=_interopRequireDefault(_react);
 var _propTypes=require('prop-types');var _propTypes2=_interopRequireDefault(_propTypes);
 var _reactNative=require('react-native');
 var _lodash=require('lodash');var _lodash2=_interopRequireDefault(_lodash);
@@ -7,7 +7,19 @@ var _helpers=require('../../helpers');
 var _style=require('../../style');
 var _view=require('../view');var _view2=_interopRequireDefault(_view);
 var _text=require('../text');var _text2=_interopRequireDefault(_text);
-var _image=require('../image');var _image2=_interopRequireDefault(_image);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self,call){if(!self){throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call&&(typeof call==="object"||typeof call==="function")?call:self;}function _inherits(subClass,superClass){if(typeof superClass!=="function"&&superClass!==null){throw new TypeError("Super expression must either be null or a function, not "+typeof superClass);}subClass.prototype=Object.create(superClass&&superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__=superClass;}var
+var _image=require('../image');var _image2=_interopRequireDefault(_image);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self,call){if(!self){throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call&&(typeof call==="object"||typeof call==="function")?call:self;}function _inherits(subClass,superClass){if(typeof superClass!=="function"&&superClass!==null){throw new TypeError("Super expression must either be null or a function, not "+typeof superClass);}subClass.prototype=Object.create(superClass&&superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__=superClass;}
+
+var STATUS_MODES=exports.STATUS_MODES={
+ONLINE:'ONLINE',
+OFFLINE:'OFFLINE',
+AWAY:'AWAY',
+NONE:'NONE'};var
+
+
+
+
+
+
 
 
 
@@ -71,12 +83,52 @@ Avatar=function(_BaseComponent){_inherits(Avatar,_BaseComponent);function Avatar
 
 
 
+
+
+
+
+
+
 {
 this.styles=createStyles(this.props);
-}},{key:'renderRibbon',value:function renderRibbon()
+}},{key:'getStatusBadgeColor',value:function getStatusBadgeColor(
+
+status){
+switch(status){
+case Avatar.modes.NONE:
+return null;
+case Avatar.modes.AWAY:
+return _style.Colors.yellow30;
+case Avatar.modes.ONLINE:
+return _style.Colors.green30;
+case Avatar.modes.OFFLINE:
+return _style.Colors.dark60;
+default:
+return null;}
+
+}},{key:'getBadgeColor',value:function getBadgeColor(
+
+isOnline,status){
+var onlineOverride=status===STATUS_MODES.NONE?isOnline:false;
+var badgeColor=onlineOverride?_style.Colors.green30:this.getStatusBadgeColor(status);
+return badgeColor;
+}},{key:'renderBadge',value:function renderBadge()
 
 {var _props=
-this.props,ribbonLabel=_props.ribbonLabel,ribbonStyle=_props.ribbonStyle,ribbonLabelStyle=_props.ribbonLabelStyle;
+this.props,testID=_props.testID,isOnline=_props.isOnline,status=_props.status;
+var badgeColor=this.getBadgeColor(isOnline,status);
+if(badgeColor===null){
+return false;
+}
+return(
+_react2.default.createElement(_view2.default,{style:this.styles.onlineBadge,testID:testID+'.onlineBadge'},
+_react2.default.createElement(_view2.default,{style:[this.styles.onlineBadgeInner,{backgroundColor:badgeColor}]})));
+
+
+}},{key:'renderRibbon',value:function renderRibbon()
+
+{var _props2=
+this.props,ribbonLabel=_props2.ribbonLabel,ribbonStyle=_props2.ribbonStyle,ribbonLabelStyle=_props2.ribbonLabelStyle;
 if(ribbonLabel){
 return(
 _react2.default.createElement(_view2.default,{style:[this.styles.ribbon,ribbonStyle]},
@@ -88,12 +140,12 @@ ribbonLabel)));
 }
 }},{key:'render',value:function render()
 
-{var _props2=
-this.props,label=_props2.label,color=_props2.labelColor,imageSource=_props2.imageSource,isOnline=_props2.isOnline,backgroundColor=_props2.backgroundColor,testID=_props2.testID,onPress=_props2.onPress;
+{var _props3=
+this.props,label=_props3.label,color=_props3.labelColor,imageSource=_props3.imageSource,backgroundColor=_props3.backgroundColor,testID=_props3.testID,onPress=_props3.onPress;
 var containerStyle=this.extractContainerStyle(this.props);
 var Container=onPress?_reactNative.TouchableOpacity:_view2.default;
-
 var hasImage=!_lodash2.default.isUndefined(imageSource);
+
 return(
 _react2.default.createElement(Container,{style:[this.styles.container,containerStyle],testID:testID,onPress:onPress},
 _react2.default.createElement(_view2.default,{
@@ -103,18 +155,12 @@ _react2.default.createElement(_text2.default,{numberOfLines:1,style:[this.styles
 label)),
 
 
-
 imageSource&&_react2.default.createElement(_image2.default,{style:this.styles.image,source:imageSource,testID:testID+'.image'}),
-isOnline&&
-_react2.default.createElement(_view2.default,{style:this.styles.onlineBadge,testID:testID+'.onlineBadge'},
-_react2.default.createElement(_view2.default,{style:this.styles.onlineBadgeInner})),
-
-
-
+this.renderBadge(),
 this.renderRibbon()));
 
 
-}}]);return Avatar;}(_commons.BaseComponent);Avatar.displayName='Avatar';Avatar.propTypes={backgroundColor:_propTypes2.default.string,containerStyle:_reactNative.ViewPropTypes.style,imageSource:_propTypes2.default.oneOfType([_propTypes2.default.object,_propTypes2.default.number]),label:_propTypes2.default.string,labelColor:_propTypes2.default.string,ribbonLabel:_propTypes2.default.string,ribbonStyle:_reactNative.ViewPropTypes.style,ribbonLabelStyle:_text2.default.propTypes.style,isOnline:_propTypes2.default.bool,size:_propTypes2.default.number,testID:_propTypes2.default.string,onPress:_propTypes2.default.func};Avatar.defaultProps={backgroundColor:_style.Colors.dark80,size:50,labelColor:_style.Colors.dark10};exports.default=Avatar;
+}}]);return Avatar;}(_commons.BaseComponent);Avatar.displayName='Avatar';Avatar.modes=STATUS_MODES;Avatar.propTypes={backgroundColor:_propTypes2.default.string,containerStyle:_reactNative.ViewPropTypes.style,imageSource:_propTypes2.default.oneOfType([_propTypes2.default.object,_propTypes2.default.number]),label:_propTypes2.default.string,labelColor:_propTypes2.default.string,ribbonLabel:_propTypes2.default.string,ribbonStyle:_reactNative.ViewPropTypes.style,ribbonLabelStyle:_text2.default.propTypes.style,isOnline:_propTypes2.default.bool,status:_propTypes2.default.oneOf(Object.keys(STATUS_MODES)),size:_propTypes2.default.number,testID:_propTypes2.default.string,onPress:_propTypes2.default.func};Avatar.defaultProps={backgroundColor:_style.Colors.dark80,size:50,labelColor:_style.Colors.dark10,status:STATUS_MODES.NONE};exports.default=Avatar;
 
 
 function createStyles(_ref){var size=_ref.size,labelColor=_ref.labelColor,imageSource=_ref.imageSource;
@@ -169,8 +215,8 @@ top:4.5},
 
 onlineBadgeInner:{
 flex:1,
-borderRadius:999,
-backgroundColor:_style.Colors.green30},
+borderRadius:999},
+
 
 fixAbsolutePosition:{
 position:undefined,

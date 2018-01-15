@@ -6,6 +6,10 @@ var _commons=require('../../commons');function _interopRequireDefault(obj){retur
 
 
 
+
+
+
+
 AnimatedImage=function(_BaseComponent){_inherits(AnimatedImage,_BaseComponent);
 
 

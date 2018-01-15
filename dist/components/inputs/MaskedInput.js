@@ -12,7 +12,10 @@ var _touchableOpacity=require('../touchableOpacity');var _touchableOpacity2=_int
 
 
 
-MaskedInput=function(_BaseInput){_inherits(MaskedInput,_BaseInput);function MaskedInput(){_classCallCheck(this,MaskedInput);return _possibleConstructorReturn(this,(MaskedInput.__proto__||Object.getPrototypeOf(MaskedInput)).apply(this,arguments));}_createClass(MaskedInput,[{key:'renderMaskedText',value:function renderMaskedText()
+
+
+
+MaskedInput=function(_BaseInput){_inherits(MaskedInput,_BaseInput);function MaskedInput(){_classCallCheck(this,MaskedInput);return _possibleConstructorReturn(this,(MaskedInput.__proto__||Object.getPrototypeOf(MaskedInput)).apply(this,arguments));}_createClass(MaskedInput,[{key:'componentDidMount',value:function componentDidMount()
 
 
 
@@ -25,6 +28,18 @@ MaskedInput=function(_BaseInput){_inherits(MaskedInput,_BaseInput);function Mask
 
 
 
+
+{var _this2=this;
+this.keyboardDidHideListener=_reactNative.Keyboard.addListener('keyboardDidHide',function(){
+if(_lodash2.default.invoke(_this2,'isFocused')){
+_lodash2.default.invoke(_this2,'blur');
+}
+});
+}},{key:'componentWillUnmount',value:function componentWillUnmount()
+
+{
+this.keyboardDidHideListener.remove();
+}},{key:'renderMaskedText',value:function renderMaskedText()
 
 {var
 renderMaskedText=this.props.renderMaskedText;var
@@ -37,14 +52,14 @@ return renderMaskedText(value);
 return _react2.default.createElement(_text2.default,null,value);
 }},{key:'render',value:function render()
 
-{var _this2=this;var
+{var _this3=this;var
 containerStyle=this.props.containerStyle;
 return(
 _react2.default.createElement(_view2.default,{style:[containerStyle]},
 _react2.default.createElement(_TextInput2.default,_extends({},
 this.props,{
 ref:function ref(input){
-_this2.input=input;
+_this3.input=input;
 },
 containerStyle:styles.hiddenInputContainer,
 style:styles.hiddenInput,

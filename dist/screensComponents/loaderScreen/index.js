@@ -11,9 +11,10 @@ var _view=require('../../components/view');var _view2=_interopRequireDefault(_vi
 
 
 
+
+
+
 LoaderScreen=function(_BaseComponent){_inherits(LoaderScreen,_BaseComponent);function LoaderScreen(){_classCallCheck(this,LoaderScreen);return _possibleConstructorReturn(this,(LoaderScreen.__proto__||Object.getPrototypeOf(LoaderScreen)).apply(this,arguments));}_createClass(LoaderScreen,[{key:'render',value:function render()
-
-
 
 
 

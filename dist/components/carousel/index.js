@@ -13,7 +13,13 @@ var OFFSET_PIXEL_CORRECTION=5;var
 
 
 
+
+
 Carousel=function(_BaseComponent){_inherits(Carousel,_BaseComponent);
+
+
+
+
 
 
 
@@ -147,7 +153,7 @@ currentPage:pageIndex},
 
 function(){return _this4.updateOffset(animated);});
 
-}},{key:'pageWidth',get:function get(){return Math.floor(this.props.pageWidth);}}]);return Carousel;}(_commons.BaseComponent);Carousel.displayName='Carousel';Carousel.propTypes={initialPage:_propTypes2.default.number,pageWidth:_propTypes2.default.number,onChangePage:_propTypes2.default.func,onScroll:_propTypes2.default.func,containerStyle:_propTypes2.default.oneOfType([_propTypes2.default.object,_propTypes2.default.number,_propTypes2.default.array])};Carousel.defaultProps={initialPage:0,pageWidth:_helpers.Constants.screenWidth};exports.default=Carousel;
+}},{key:'pageWidth',get:function get(){return Math.floor(this.props.pageWidth);}}]);return Carousel;}(_commons.BaseComponent);Carousel.displayName='Carousel';Carousel.propTypes={initialPage:_propTypes2.default.number,pageWidth:_propTypes2.default.number,loop:_propTypes2.default.bool,onChangePage:_propTypes2.default.func,onScroll:_propTypes2.default.func,containerStyle:_propTypes2.default.oneOfType([_propTypes2.default.object,_propTypes2.default.number,_propTypes2.default.array])};Carousel.defaultProps={initialPage:0,pageWidth:_helpers.Constants.screenWidth};exports.default=Carousel;
 
 
 function createStyles(){
