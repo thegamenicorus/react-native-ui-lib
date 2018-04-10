@@ -6,9 +6,13 @@ import BaseComponent from './BaseComponent';
 import {Colors, BorderRadiuses} from '../style';
 import Assets from '../assets';
 
+const INDICATOR_TYPES = {
+  CIRCLE: 'circle',
+  CLEAN: 'clean',
+};
+
 // todo: add nice animation
 export default class SelectableComponent extends BaseComponent {
-
   static propTypes = {
     /**
      * should this component treat as selectable
@@ -22,11 +26,23 @@ export default class SelectableComponent extends BaseComponent {
      * selectable indicator size
      */
     selectableIndicatorSize: PropTypes.number,
-  }
+    /**
+     * selectable indicator look (circle, clean)
+     */
+    selectableIndicatorType: PropTypes.oneOf([INDICATOR_TYPES.CIRCLE, INDICATOR_TYPES.CLEAN]),
+    /**
+     * color of selectable indicator
+     */
+    selectableIndicatorColor: PropTypes.string,
+  };
 
   static defaultProps = {
     selectableIndicatorSize: 36,
-  }
+    selectableIndicatorType: INDICATOR_TYPES.CIRCLE,
+    selectableIndicatorColor: Colors.blue30,
+  };
+
+  static indicatorTypes = INDICATOR_TYPES;
 
   constructor(props) {
     super(props);
@@ -50,13 +66,37 @@ export default class SelectableComponent extends BaseComponent {
     this.styles = createStyles(this.props);
   }
 
+  getIndicatorContainerStyle() {
+    const {selectableIndicatorType, selectableIndicatorColor} = this.props;
+    const {selected} = this.state;
+    const style = [this.styles.container];
+    if (selectableIndicatorType === INDICATOR_TYPES.CIRCLE) {
+      style.push(this.styles.circleContainer);
+      style.push(selected && {backgroundColor: selectableIndicatorColor});
+    }
+
+    return style;
+  }
+
+  getIndicatorIconStyle() {
+    const {selectableIndicatorType, selectableIndicatorColor} = this.props;
+    const style = [this.styles.checkIcon];
+    if (selectableIndicatorType === INDICATOR_TYPES.CIRCLE) {
+      style.push(this.styles.checkIconInCircle);
+    } else {
+      style.push({tintColor: selectableIndicatorColor});
+    }
+
+    return style;
+  }
+
   renderSelectableIndicator() {
     const {selectable} = this.props;
     const {selected} = this.state;
     if (selectable) {
       return (
-        <View style={[this.styles.container, selected && this.styles.selected]}>
-          {selected && <Image style={this.styles.checkIcon} source={Assets.icons.check}/>}
+        <View style={this.getIndicatorContainerStyle()}>
+          {selected && <Image style={this.getIndicatorIconStyle()} source={Assets.icons.check} />}
         </View>
       );
     }
@@ -75,19 +115,20 @@ function createStyles({selectableIndicatorSize}) {
     container: {
       width: selectableIndicatorSize,
       height: selectableIndicatorSize,
+      justifyContent: 'center',
       borderRadius: BorderRadiuses.br100,
+    },
+    circleContainer: {
       borderWidth: 1,
       borderColor: Colors.blue30,
-      justifyContent: 'center',
-    },
-    selected: {
-      backgroundColor: Colors.blue30,
     },
     checkIcon: {
       alignSelf: 'center',
-      tintColor: Colors.white,
-      width: selectableIndicatorSize / 2,
       resizeMode: 'contain',
+    },
+    checkIconInCircle: {
+      width: selectableIndicatorSize / 2,
+      tintColor: Colors.white,
     },
   });
 }

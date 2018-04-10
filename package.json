@@ -1,6 +1,6 @@
 {
   "name": "react-native-ui-lib",
-  "version": "2.0.156",
+  "version": "3.3.48",
   "main": "index.js",
   "author": "Ethan Sharabi <ethan.shar@gmail.com>",
   "publishConfig": {
@@ -17,19 +17,22 @@
     "pretest": "npm run lint",
     "test": "jest",
     "test:watch": "jest --watch",
-    "lint": "eslint src -c .eslintrc",
+    "lint": "eslint src -c .eslintrc.js",
+    "lint:test": "mocha eslint-rules/tests/lib/rules",
     "xcode": "open ./ios/uilib.xcodeproj",
     "build": "mkdir -p dist && cp -r src/assets dist/ && babel src --out-dir dist",
     "log": "react-native log-ios | grep 'ethan -'",
-    "docs:install": "(cd ./uilib-docs && npm install)",
+    "docs:install": "(cd ./uilib-docs && rm -rf node_modules && rm -rf package-lock.json && npm install)",
     "docs:deploy": "(cd ./uilib-docs && gatsby build --prefix-paths && gh-pages -d public --branch gh-pages)",
-    "docs:develop": "(cd ./uilib-docs && gatsby develop)"
+    "docs:develop": "(cd ./uilib-docs && gatsby develop)",
+    "bump:patch": "npm version patch"
   },
   "dependencies": {
     "babel-plugin-transform-inline-environment-variables": "^0.0.2",
     "hoist-non-react-statics": "^2.3.0",
     "lodash": "^4.0.0",
     "prop-types": "^15.5.10",
+    "url-parse": "^1.2.0",
     "react-native-animatable": "^1.1.0",
     "react-native-blur": "^3.1.1",
     "react-native-interactable": "latest"
@@ -48,39 +51,36 @@
     "eslint-plugin-jsx-a11y": "4.0.0",
     "eslint-plugin-react": "^6.9.0",
     "eslint-plugin-react-native": "^2.0.0",
+    "eslint-plugin-uilib": "file:./eslint-rules",
     "gatsby": "^1.9.128",
     "gh-pages": "^1.1.0",
     "jest": "^20.0.4",
-    "react": "16.0.0-alpha.6",
+    "mocha": "^5.0.0",
+    "react": "16.0.0",
     "react-addons-test-utils": "^15.4.2",
     "react-autobind": "^1.0.6",
     "react-dom": "^15.4.2",
-    "react-native": "0.44.2",
-    "react-native-keyboard-aware-scrollview": "^1.1.6",
+    "react-native": "0.51.0",
+    "react-native-keyboard-aware-scrollview": "^2.0.0",
+    "react-native-keyboard-tracking-view": "^5.3.2",
     "react-native-navigation": "^1.1.19"
   },
   "peerDependencies": {
-    "react": "15.4.2",
-    "react-native": "0.38.0"
+    "react": "16.0.0",
+    "react-native": "0.51.0"
   },
   "jest": {
     "preset": "react-native",
-    "testPathIgnorePatterns": [
-      "/e2e/",
-      "/node_modules/"
-    ]
+    "testPathIgnorePatterns": ["/e2e/", "/node_modules/"],
+    "setupFiles": ["./jest-setup.js"]
   },
   "babel": {
     "env": {
       "test": {
-        "presets": [
-          "react-native"
-        ],
+        "presets": ["react-native"],
         "retainLines": true
       }
     },
-    "plugins": [
-      "transform-inline-environment-variables"
-    ]
+    "plugins": ["transform-inline-environment-variables"]
   }
 }

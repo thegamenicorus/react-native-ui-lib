@@ -86,13 +86,33 @@ export default class ComponentTemplate extends Component {
     }
   }
 
+  renderImportant(componentInfo) {
+    return (
+      <div alt={''} style={{marginBottom: 10}}>
+        <span style={{fontWeight: '700'}}>IMPORTANT: </span> {componentInfo.important} &nbsp;
+        {componentInfo.importantLink &&
+          <a target="_blank" rel="noopener noreferrer" href={componentInfo.importantLink}>here</a>
+        }
+      </div>
+    );
+  }
+
+  renderNote(note, index) {
+    return <div key={index} alt={''} style={{marginBottom: 10}}>{note}</div>;
+  }
+
+  renderNotes(notes) {
+    return notes.map(this.renderNote);
+  }
+
   render() {
     const {pathContext} = this.props;
-    const selectedComponent = pathContext.component;
+    const selectedComponent = pathContext.componentNode;
     const componentInfo = this.extractComponentsInfo(selectedComponent);
     const componentProps = _.get(selectedComponent, 'props');
     const gifs = componentInfo.gif ? componentInfo.gif.split(',') : undefined;
     const imgs = componentInfo.image ? componentInfo.image.split(',') : undefined;
+    const notes = componentInfo.notes ? componentInfo.notes.split(',') : undefined;
 
     return (
       <div className="docs-page">
@@ -111,6 +131,17 @@ export default class ComponentTemplate extends Component {
                 Supported modifiers: <b>{componentInfo.modifiers}</b>. <br />
                 Read more about modifiers <Link to="/modifiers/">here</Link>.
               </p>
+            </div>
+          )}
+          {componentInfo.notes && (
+            <div>
+              <h4 style={{marginBottom: 10}}>NOTES</h4>
+              {this.renderNotes(notes)}
+            </div>
+          )}
+          {componentInfo.important && (
+            <div>
+              {this.renderImportant(componentInfo)}
             </div>
           )}
           {componentProps.length > 0 && (

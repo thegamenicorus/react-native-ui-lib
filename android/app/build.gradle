@@ -20,6 +20,8 @@ android {
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
+        renderscriptTargetApi 21
+        renderscriptSupportModeEnabled true
     }
     splits {
         abi {
@@ -33,6 +35,9 @@ android {
         release {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+        }
+        debug {
+            debuggable true
         }
     }
     // applicationVariants are e.g. debug, release

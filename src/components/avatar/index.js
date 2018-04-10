@@ -41,6 +41,21 @@ export default class Avatar extends BaseComponent {
      */
     imageSource: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
     /**
+     * Listener-callback for when an image's (uri) loading
+     * starts (equiv. to Image.onLoadStart()).
+     */
+    onImageLoadStart: PropTypes.func,
+    /**
+     * Listener-callback for when an image's (uri) loading
+     * either succeeds or fails (equiv. to Image.onLoadEnd()).
+     */
+    onImageLoadEnd: PropTypes.func,
+    /**
+     * Listener-callback for when an image's (uri) loading
+     * fails (equiv. to Image.onError()).
+     */
+    onImageLoadError: PropTypes.func,
+    /**
      * Label that can represent initials
      */
     label: PropTypes.string,
@@ -140,9 +155,26 @@ export default class Avatar extends BaseComponent {
     }
   }
 
+  renderImage() {
+    const {imageSource, onImageLoadStart, onImageLoadEnd, onImageLoadError, testID} = this.props;
+    const hasImage = !_.isUndefined(imageSource);
+    if (hasImage) {
+      return (
+        <Image
+          style={this.styles.image}
+          source={imageSource}
+          onLoadStart={onImageLoadStart}
+          onLoadEnd={onImageLoadEnd}
+          onError={onImageLoadError}
+          testID={`${testID}.image`}
+        />
+      );
+    }
+    return undefined;
+  }
+
   render() {
-    const {label, labelColor: color, imageSource, backgroundColor, testID, onPress} = this.props;
-    const containerStyle = this.extractContainerStyle(this.props);
+    const {label, labelColor: color, imageSource, backgroundColor, onPress, containerStyle, testID} = this.props;
     const Container = onPress ? TouchableOpacity : View;
     const hasImage = !_.isUndefined(imageSource);
 
@@ -155,7 +187,7 @@ export default class Avatar extends BaseComponent {
             {label}
           </Text>
         </View>
-        {imageSource && <Image style={this.styles.image} source={imageSource} testID={`${testID}.image`} />}
+        {this.renderImage()}
         {this.renderBadge()}
         {this.renderRibbon()}
       </Container>
@@ -186,11 +218,13 @@ function createStyles({size, labelColor, imageSource}) {
       bottom: 1,
       left: 1,
     },
+    /*eslint-disable*/
     initials: {
       fontSize: size * fontSizeToImageSizeRatio,
       color: labelColor,
       backgroundColor: 'rgba(0,0,0,0)',
     },
+    /*eslint-enable*/
     defaultImage: {
       width: size,
       height: size,
@@ -208,7 +242,7 @@ function createStyles({size, labelColor, imageSource}) {
       width: 13.5,
       padding: 1.5,
       borderRadius: 999,
-      backgroundColor: imageSource ? Colors.white : 'transparent',
+      backgroundColor: Colors.white,
       position: 'absolute',
       right: imageSource ? -1.5 : 0,
       top: 4.5,

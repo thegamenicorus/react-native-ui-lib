@@ -1,5 +1,5 @@
 import {Navigation} from 'react-native-navigation';
-import {Typography, Colors, Assets, Button, Badge, ThemeManager} from 'react-native-ui-lib'; //eslint-disable-line
+import {Typography, Colors, Assets, Button, Badge, ThemeManager, Text} from 'react-native-ui-lib'; //eslint-disable-line
 import * as Animatable from 'react-native-animatable';
 import './screens';
 
@@ -23,26 +23,31 @@ import './screens';
 //   subtitleColor: Colors.blue40,
 // });
 
+// ThemeManager.setComponentTheme('Text', {
+//   dark10: true,
+// });
+
 Assets.loadAssetsGroup('icons.general', {
   camera: require('./assets/icons/cameraSelected.png'),
 });
 
 Animatable.initializeRegistryWithDefinitions({
   gridListEntrance: {
-    from: {opacity: 0, ['translateY']: 15},
-    to: {opacity: 1, ['translateY']: 0},
+    from: {opacity: 0, translateY: 15},
+    to: {opacity: 1, translateY: 0},
   },
 });
 
 Animatable.initializeRegistryWithDefinitions({
   basicListEntrance: {
-    from: {opacity: 0, ['translateY']: 20},
-    to: {opacity: 1, ['translateY']: 0},
+    from: {opacity: 0, translateY: 20},
+    to: {opacity: 1, translateY: 0},
   },
 });
 
 export function startApp() {
   Navigation.startSingleScreenApp({
+    appStyle: {autoAdjustScrollViewInsets: true},
     screen: {
       screen: 'unicorn.MainScreen',
       title: 'Wix UI Lib',
@@ -50,4 +55,3 @@ export function startApp() {
     },
   });
 }
-

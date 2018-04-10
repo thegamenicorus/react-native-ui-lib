@@ -414,10 +414,11 @@ function createStyles() {
       backgroundColor: undefined,
     },
     shadowStyle: {
-      shadowColor: '#3082C8',
+      shadowColor: Colors.blue10,
       shadowOffset: {height: 5, width: 0},
       shadowOpacity: 0.35,
       shadowRadius: 9.5,
+      elevation: 2,
     },
     text: {
       backgroundColor: 'transparent',

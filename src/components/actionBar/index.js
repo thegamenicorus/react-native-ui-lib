@@ -33,6 +33,14 @@ export default class ActionBar extends BaseComponent {
      */
     centered: PropTypes.bool,
     /**
+     * use safe area, in case action bar attached to the bottom (default: true)
+     */
+    useSafeArea: PropTypes.bool,
+    /**
+     * keep the action bar postion relative instead of it absolute position
+     */
+    keepRelative: PropTypes.bool,
+    /**
      * style the action bar
      */
     style: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
@@ -41,6 +49,7 @@ export default class ActionBar extends BaseComponent {
   static defaultProps = {
     height: 48,
     backgroundColor: Colors.white,
+    useSafeArea: true,
   };
 
   generateStyles() {
@@ -59,19 +68,27 @@ export default class ActionBar extends BaseComponent {
   }
 
   render() {
-    const {actions, centered, style, ...others} = this.props;
+    const {actions, centered, style, useSafeArea, keepRelative, ...others} = this.props;
 
     return (
-      <View row centerV paddingH-20={!centered} style={[this.styles.container, style]} {...others}>
-        {_.map(actions, (action, i) => (
-          <View
-            key={i}
-            flex
-            {...this.getAlignment(i)}
-          >
-            <Button link size="medium" blue30 {...action}/>
-          </View>
-        ))}
+      <View useSafeArea={useSafeArea} style={[!keepRelative && this.styles.absoluteContainer]}>
+        <View
+          row
+          centerV
+          paddingH-20={!centered}
+          style={[this.styles.container, style]}
+          {...others}
+        >
+          {_.map(actions, (action, i) => (
+            <View
+              key={i}
+              flex
+              {...this.getAlignment(i)}
+            >
+              <Button link size="medium" blue30 {...action}/>
+            </View>
+          ))}
+        </View>
       </View>
     );
   }
@@ -81,11 +98,11 @@ function createStyles({height, backgroundColor}) {
   return StyleSheet.create({
     container: {
       height,
+    },
+    absoluteContainer: {
+      ...StyleSheet.absoluteFillObject,
+      top: undefined,
       backgroundColor,
-      position: 'absolute',
-      bottom: 0,
-      left: 0,
-      right: 0,
       ...Shadows.white40.top,
     },
   });

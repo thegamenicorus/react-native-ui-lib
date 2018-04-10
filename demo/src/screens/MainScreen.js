@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {TouchableOpacity, View, Text, ListView, StyleSheet} from 'react-native';
+import {TouchableOpacity, Text, ListView, StyleSheet} from 'react-native';
 import _ from 'lodash';
 import autobind from 'react-autobind';
-import {Colors, Typography, TextInput} from 'react-native-ui-lib';//eslint-disable-line
+import {Colors, Typography, View, TextInput} from 'react-native-ui-lib';//eslint-disable-line
 import {navigationData} from '../menuStructure';
 
 const ds = new ListView.DataSource({
@@ -23,6 +23,13 @@ export default class UiLibExplorerMenu extends Component {
     this.state = {
       dataSource: ds.cloneWithRowsAndSections(navigationData),
     };
+  }
+
+  componentDidMount() {
+    // this.openScreen({
+    //   screen: 'unicorn.PlaygroundScreen',
+    //   title: 'Playground',
+    // });
   }
 
   openScreen(row) {
@@ -90,7 +97,7 @@ export default class UiLibExplorerMenu extends Component {
   render() {
     return (
       <View flex>
-        <View style={{marginLeft: 20, marginTop: 20}} >
+        <View style={{marginLeft: 20, marginTop: 20}}>
           <TextInput
             style={styles.textInput}
             value={this.state.filterText}
@@ -98,6 +105,7 @@ export default class UiLibExplorerMenu extends Component {
             text80
             placeholder="Search your component.."
             onChangeText={this.filterExplorerScreens}
+            autoCorrect={false}
           />
         </View>
         <ListView
