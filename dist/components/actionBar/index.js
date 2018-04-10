@@ -43,6 +43,15 @@ ActionBar=function(_BaseComponent){_inherits(ActionBar,_BaseComponent);function 
 
 
 
+
+
+
+
+
+
+
+
+
 {
 this.styles=createStyles(this.props);
 }},{key:'getAlignment',value:function getAlignment(
@@ -59,33 +68,41 @@ right:centered?false:last};
 }},{key:'render',value:function render()
 
 {var _this2=this;var _props2=
-this.props,actions=_props2.actions,centered=_props2.centered,style=_props2.style,others=_objectWithoutProperties(_props2,['actions','centered','style']);
+this.props,actions=_props2.actions,centered=_props2.centered,style=_props2.style,useSafeArea=_props2.useSafeArea,keepRelative=_props2.keepRelative,others=_objectWithoutProperties(_props2,['actions','centered','style','useSafeArea','keepRelative']);
 
 return(
-_react2.default.createElement(_view2.default,_extends({row:true,centerV:true,'paddingH-20':!centered,style:[this.styles.container,style]},others),
+_react2.default.createElement(_view2.default,{useSafeArea:useSafeArea,style:[!keepRelative&&this.styles.absoluteContainer]},
+_react2.default.createElement(_view2.default,_extends({
+row:true,
+centerV:true,
+'paddingH-20':!centered,
+style:[this.styles.container,style]},
+others),
+
 _lodash2.default.map(actions,function(action,i){return(
 _react2.default.createElement(_view2.default,_extends({
 key:i,
 flex:true},
 _this2.getAlignment(i)),
 
-_react2.default.createElement(_button2.default,_extends({link:true,size:'medium',blue30:true},action))));})));
+_react2.default.createElement(_button2.default,_extends({link:true,size:'medium',blue30:true},action))));}))));
 
 
 
 
-}}]);return ActionBar;}(_commons.BaseComponent);ActionBar.displayName='ActionBar';ActionBar.propTypes={height:_propTypes2.default.number,backgroundColor:_propTypes2.default.string,actions:_propTypes2.default.arrayOf(_propTypes2.default.shape(_button2.default.propTypes)),centered:_propTypes2.default.bool,style:_propTypes2.default.oneOfType([_propTypes2.default.object,_propTypes2.default.number,_propTypes2.default.array])};ActionBar.defaultProps={height:48,backgroundColor:_style.Colors.white};exports.default=ActionBar;
+
+}}]);return ActionBar;}(_commons.BaseComponent);ActionBar.displayName='ActionBar';ActionBar.propTypes={height:_propTypes2.default.number,backgroundColor:_propTypes2.default.string,actions:_propTypes2.default.arrayOf(_propTypes2.default.shape(_button2.default.propTypes)),centered:_propTypes2.default.bool,useSafeArea:_propTypes2.default.bool,keepRelative:_propTypes2.default.bool,style:_propTypes2.default.oneOfType([_propTypes2.default.object,_propTypes2.default.number,_propTypes2.default.array])};ActionBar.defaultProps={height:48,backgroundColor:_style.Colors.white,useSafeArea:true};exports.default=ActionBar;
 
 
 function createStyles(_ref){var height=_ref.height,backgroundColor=_ref.backgroundColor;
 return _reactNative.StyleSheet.create({
-container:_extends({
-height:height,
-backgroundColor:backgroundColor,
-position:'absolute',
-bottom:0,
-left:0,
-right:0},
+container:{
+height:height},
+
+absoluteContainer:_extends({},
+_reactNative.StyleSheet.absoluteFillObject,{
+top:undefined,
+backgroundColor:backgroundColor},
 _style.Shadows.white40.top)});
 
 

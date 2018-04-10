@@ -41,12 +41,12 @@ borderWidth:Constants.isIOS?1/_reactNative.PixelRatio.get():undefined,
 borderLeftWidth:Constants.isIOS?undefined:1,
 borderColor:separatorColor},
 
-buttonText:{
-fontSize:30,
+buttonText:_extends({},
+_style.Typography.text40,{
 fontWeight:'200',
 color:_style.ThemeManager.primaryColor,
 backgroundColor:'transparent',
-marginBottom:bottomTextMargin},
+marginBottom:bottomTextMargin}),
 
 disableText:{
 color:_style.Colors.dark70,

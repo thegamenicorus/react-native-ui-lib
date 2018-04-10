@@ -287,7 +287,8 @@ enableErrors:false,
 hideUnderline:true,
 selectionColor:isLastTagMarked?'transparent':undefined,
 style:inputStyle,
-containerStyle:{flexGrow:0}}))));
+containerStyle:{flexGrow:0},
+collapsable:false}))));
 
 
 

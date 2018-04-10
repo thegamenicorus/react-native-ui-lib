@@ -52,7 +52,7 @@ toEqual(_style.Typography.text40);
 });
 
 it('should return value of the custom made typography',function(){
-var customTypography={fontSize:34,fontWeight:'400'};
+var customTypography={fontSize:_style.Typography.text30.fontSize,fontWeight:'400'};
 _style.Typography.loadTypographies({customTypography:customTypography});
 expect(new _BaseComponent2.default({customTypography:true}).extractTypographyValue()).toEqual(customTypography);
 expect(

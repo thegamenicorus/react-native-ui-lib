@@ -42,23 +42,48 @@ Badge=function(_BaseComponent){_inherits(Badge,_BaseComponent);function Badge(){
 
 
 
+
+
+
+
+
+
+
+
 {
 this.styles=createStyles(this.props);
+}},{key:'getBadgeSizeStyle',value:function getBadgeSizeStyle()
+
+{var _props=
+this.props,label=_props.label,size=_props.size,borderWidth=_props.borderWidth;
+var isOneLetter=label.length<2;
+var isSmallBadge=size==='small';
+var width=isSmallBadge?isOneLetter?18:25:isOneLetter?21:30;
+var height=isSmallBadge?18:21;
+if(borderWidth){
+width+=borderWidth*2;
+height+=borderWidth*2;
+}
+
+return{width:width,height:height};
 }},{key:'render',value:function render()
 
-{var
-size=this.props.size;
+{var _props2=
+this.props,size=_props2.size,borderWidth=_props2.borderWidth,borderColor=_props2.borderColor;
 var containerStyle=this.extractContainerStyle(this.props);
 var backgroundStyle=this.props.backgroundColor&&{backgroundColor:this.props.backgroundColor};
 var animationProps=this.extractAnimationProps();
 var isSmallBadge=size==='small';
+var sizeStyle=this.getBadgeSizeStyle();
 
 return(
 _react2.default.createElement(Animatable.View,_extends({
 testID:this.props.testId,
 style:[
+sizeStyle,
 this.styles.badge,
-isSmallBadge&&this.styles.badgeSmall,
+borderWidth&&{borderWidth:borderWidth},
+borderColor&&{borderColor:borderColor},
 containerStyle,
 backgroundStyle]},
 
@@ -74,22 +99,18 @@ this.props.label)));
 
 
 
-}}]);return Badge;}(_commons.BaseComponent);Badge.displayName='Badge';Badge.propTypes={label:_propTypes2.default.string,backgroundColor:_propTypes2.default.string,size:_propTypes2.default.oneOf(['default','small']),containerStyle:_propTypes2.default.object,testId:_propTypes2.default.string};Badge.defaultProps={size:'default'};exports.default=Badge;
+}}]);return Badge;}(_commons.BaseComponent);Badge.displayName='Badge';Badge.propTypes={label:_propTypes2.default.string,backgroundColor:_propTypes2.default.string,size:_propTypes2.default.oneOf(['default','small']),borderWidth:_propTypes2.default.number,borderColor:_propTypes2.default.string,containerStyle:_propTypes2.default.object,testId:_propTypes2.default.string};Badge.defaultProps={size:'default'};exports.default=Badge;
 
 
-function createStyles(_ref){var label=_ref.label;
-var isOneLetter=label.length<2;
+function createStyles(){
 return _reactNative.StyleSheet.create({
 badge:{
-width:isOneLetter?21:30,
-height:21,
 borderRadius:_style.BorderRadiuses.br100,
 backgroundColor:_style.ThemeManager.primaryColor,
 alignItems:'center',
 justifyContent:'center'},
 
 badgeSmall:{
-width:isOneLetter?18:25,
 height:18},
 
 label:_extends({},

@@ -51,7 +51,7 @@ return this.sourceTransformer(this.props);
 }var
 
 source=this.props.source;
-if(_lodash2.default.get(source,'uri')===null){
+if(_lodash2.default.get(source,'uri')===null||_lodash2.default.get(source,'uri')===''){
 return _extends({},source,{uri:undefined});
 }
 

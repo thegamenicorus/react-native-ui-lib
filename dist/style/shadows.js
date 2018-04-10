@@ -1,4 +1,5 @@
-Object.defineProperty(exports,"__esModule",{value:true});var _colors=require('./colors');var _colors2=_interopRequireDefault(_colors);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}
+Object.defineProperty(exports,"__esModule",{value:true});var _lodash=require('lodash');var _lodash2=_interopRequireDefault(_lodash);
+var _colors=require('./colors');var _colors2=_interopRequireDefault(_colors);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}
 
 var Shadows={
 white10:{
@@ -31,8 +32,25 @@ bottom:{shadowColor:_colors2.default.dark20,shadowOpacity:0.04,shadowRadius:8,sh
 
 dark40:{
 top:{shadowColor:_colors2.default.dark10,shadowOpacity:0.04,shadowRadius:4.5,shadowOffset:{height:5,width:0}},
-bottom:{shadowColor:_colors2.default.dark20,shadowOpacity:0.04,shadowRadius:9,shadowOffset:{height:10,width:0}}}};exports.default=
+bottom:{shadowColor:_colors2.default.dark20,shadowOpacity:0.04,shadowRadius:9,shadowOffset:{height:10,width:0}}},
 
+
+
+
+
+
+
+
+
+
+
+
+
+loadShadows:function loadShadows(shadows){var _this=this;
+_lodash2.default.forEach(shadows,function(value,key){
+_this[key]=value;
+});
+}};exports.default=
 
 
 Shadows;

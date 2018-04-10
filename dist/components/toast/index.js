@@ -100,6 +100,10 @@ Toast=function(_BaseComponent){_inherits(Toast,_BaseComponent);
 
 
 
+
+
+
+
 function Toast(props){_classCallCheck(this,Toast);var _this=_possibleConstructorReturn(this,(Toast.__proto__||Object.getPrototypeOf(Toast)).call(this,
 props));_this.state={isVisible:false,animationConfig:_this.getAnimation(true),contentAnimation:_this.getContentAnimation(true),duration:DURATION,delay:DELAY};var _this$props=
 
@@ -118,9 +122,11 @@ if(animated&&position==='relative'){
 setupRelativeAnimation(getHeight(nextProps));
 }
 
-var newState=animated?{
+var newState=animated?
+{
 animationConfig:this.getAnimation(visible),
 contentAnimation:this.getContentAnimation(visible)}:
+
 {
 animationConfig:{},
 contentAnimation:{}};
@@ -168,6 +174,29 @@ return _extends({
 blurType:'light',
 amount:5},
 blurOptions);
+
+}},{key:'renderContent',value:function renderContent()
+
+{var _getThemeProps2=
+this.getThemeProps(),actions=_getThemeProps2.actions,allowDismiss=_getThemeProps2.allowDismiss,renderContent=_getThemeProps2.renderContent;
+
+if(_lodash2.default.isFunction(renderContent)){
+return renderContent(this.props);
+}
+
+var hasOneAction=_lodash2.default.size(actions)===1;
+var height=getHeight(this.props);
+
+return(
+_react2.default.createElement(_view2.default,{row:true,height:height,centerV:true,spread:true},
+this.renderMessage(),
+(hasOneAction||allowDismiss)&&
+_react2.default.createElement(_view2.default,{row:true,height:'100%'},
+hasOneAction&&this.renderOneAction(),
+this.renderDismissButton())));
+
+
+
 
 }},{key:'renderMessage',value:function renderMessage()
 
@@ -225,8 +254,9 @@ onPress:onDismiss})));
 }
 }},{key:'render',value:function render()
 
-{var _getThemeProps2=
-this.getThemeProps(),backgroundColor=_getThemeProps2.backgroundColor,actions=_getThemeProps2.actions,allowDismiss=_getThemeProps2.allowDismiss,enableBlur=_getThemeProps2.enableBlur,zIndex=_getThemeProps2.zIndex;var
+
+{var _getThemeProps3=
+this.getThemeProps(),backgroundColor=_getThemeProps3.backgroundColor,actions=_getThemeProps3.actions,enableBlur=_getThemeProps3.enableBlur,zIndex=_getThemeProps3.zIndex;var
 animationConfig=this.state.animationConfig;
 var hasOneAction=_lodash2.default.size(actions)===1;
 var hasTwoActions=_lodash2.default.size(actions)===2;
@@ -240,28 +270,24 @@ return null;
 }
 
 return(
+_react2.default.createElement(_view2.default,{style:[positionStyle],useSafeArea:true},
+_react2.default.createElement(_view2.default,{height:height}),
+
 _react2.default.createElement(Animatable.View,_extends({
 style:[
 this.styles.container,
-hasOneAction&&this.styles.containerWithOneAction,
-positionStyle,
 backgroundColor&&{backgroundColor:backgroundColor},
-{height:height},
+hasOneAction&&this.styles.containerWithOneAction,
 {zIndex:zIndex}]},
 
 animationConfig),
 
 enableBlur&&_react2.default.createElement(_reactNativeBlur.BlurView,_extends({style:this.styles.blurView},blurOptions)),
-_react2.default.createElement(_view2.default,{row:true,flex:true,centerV:true,spread:true},
-this.renderMessage(),
-(hasOneAction||allowDismiss)&&
-_react2.default.createElement(_view2.default,{row:true,height:'100%'},
-hasOneAction&&this.renderOneAction(),
-this.renderDismissButton())),
 
+this.renderContent(),
 
+hasTwoActions&&_react2.default.createElement(_view2.default,null,this.renderTwoActions()))));
 
-hasTwoActions&&_react2.default.createElement(_view2.default,null,this.renderTwoActions())));
 
 
 }},{key:'shouldShowToast',value:function shouldShowToast()
@@ -277,14 +303,15 @@ visible=this.props.visible;
 this.setState({
 isVisible:visible});
 
-}}]);return Toast;}(_commons.BaseComponent);Toast.displayName='Toast';Toast.propTypes={visible:_propTypes2.default.bool,position:_propTypes2.default.oneOf(['relative','top','bottom']),height:_propTypes2.default.number,backgroundColor:_propTypes2.default.string,color:_propTypes2.default.string,message:_propTypes2.default.string,messageStyle:_propTypes2.default.oneOfType([_propTypes2.default.object,_propTypes2.default.number,_propTypes2.default.array]),actions:_propTypes2.default.arrayOf(_propTypes2.default.shape(_button2.default.propTypes)),onDismiss:_propTypes2.default.func,allowDismiss:_propTypes2.default.bool,centerMessage:_propTypes2.default.bool,animated:_propTypes2.default.bool,enableBlur:_propTypes2.default.bool,blurOptions:_propTypes2.default.object,zIndex:_propTypes2.default.number};Toast.defaultProps={position:'top',color:_style.Colors.white,animated:true,zIndex:100};exports.default=Toast;
+}}]);return Toast;}(_commons.BaseComponent);Toast.displayName='Toast';Toast.propTypes={visible:_propTypes2.default.bool,position:_propTypes2.default.oneOf(['relative','top','bottom']),height:_propTypes2.default.number,backgroundColor:_propTypes2.default.string,color:_propTypes2.default.string,message:_propTypes2.default.string,messageStyle:_propTypes2.default.oneOfType([_propTypes2.default.object,_propTypes2.default.number,_propTypes2.default.array]),actions:_propTypes2.default.arrayOf(_propTypes2.default.shape(_button2.default.propTypes)),onDismiss:_propTypes2.default.func,allowDismiss:_propTypes2.default.bool,renderContent:_propTypes2.default.func,centerMessage:_propTypes2.default.bool,animated:_propTypes2.default.bool,enableBlur:_propTypes2.default.bool,blurOptions:_propTypes2.default.object,zIndex:_propTypes2.default.number};Toast.defaultProps={position:'top',color:_style.Colors.white,animated:true,zIndex:100};exports.default=Toast;
 
 
 function createStyles(){
 return _reactNative.StyleSheet.create({
-container:{
+container:_extends({},
+_reactNative.StyleSheet.absoluteFillObject,{
 backgroundColor:_style.Colors.rgba(_style.ThemeManager.primaryColor,0.8),
-paddingHorizontal:15},
+paddingHorizontal:15}),
 
 containerWithOneAction:{
 paddingRight:0},

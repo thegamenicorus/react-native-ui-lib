@@ -5,6 +5,7 @@ describe('ConnectionStatusBar',function(){
 var uut=void 0;
 beforeEach(function(){
 uut=new _index2.default({});
+_index2.default.unregisterGlobalOnConnectionLost();
 });
 
 describe('registerGlobalOnConnectionLost',function(){
@@ -22,7 +23,7 @@ var callback=jest.fn();
 _index2.default.registerGlobalOnConnectionLost(callback);
 _lodash2.default.set(uut,'state.isConnected',true);
 
-uut.onConnectionChange('none');
+uut.onConnectionChange({type:'none'});
 
 expect(callback).toHaveBeenCalled();
 });
@@ -32,7 +33,7 @@ var callback=jest.fn();
 _index2.default.registerGlobalOnConnectionLost(callback);
 _lodash2.default.set(uut,'state.isConnected',false);
 
-uut.onConnectionChange('wifi');
+uut.onConnectionChange({type:'wifi'});
 
 expect(callback).not.toHaveBeenCalled();
 });

@@ -73,55 +73,64 @@ Picker=function(_TextInput){_inherits(Picker,_TextInput);
 
 
 
+
+
+
+
 function Picker(props){_classCallCheck(this,Picker);var _this=_possibleConstructorReturn(this,(Picker.__proto__||Object.getPrototypeOf(Picker)).call(this,
-props));
-
-_this.onDoneSelecting=_this.onDoneSelecting.bind(_this);
-_this.toggleItemSelection=_this.toggleItemSelection.bind(_this);
-_this.appendPropsToChildren=_this.appendPropsToChildren.bind(_this);
-_this.cancelSelect=_this.cancelSelect.bind(_this);
-_this.handlePickerOnPress=_this.handlePickerOnPress.bind(_this);
-
-_this.state=_extends({},
-_this.state,{
-showModal:false});
+props));_this.
 
 
-if(props.mode===Picker.modes.SINGLE&&Array.isArray(props.value)){
-console.warn('Picker in SINGLE mode cannot accpet an array for value');
-}
 
-if(props.mode===Picker.modes.MULTI&&!Array.isArray(props.value)){
-console.warn('Picker in MULTI mode must accpet an array for value');
-}return _this;
-}_createClass(Picker,[{key:'componentWillReceiveProps',value:function componentWillReceiveProps(
 
-nexProps){
-this.setState({
-value:nexProps.value});
 
-}},{key:'toggleItemSelection',value:function toggleItemSelection(
 
-item){var
-value=this.state.value;
-var newValue=_lodash2.default.xorBy(value,[item],'value');
-this.setState({
-value:newValue});
 
-}},{key:'onDoneSelecting',value:function onDoneSelecting(
 
-item){
-this.onChangeText(item);
-this.toggleExpandableModal(false);
-_lodash2.default.invoke(this.props,'onChange',item);
-}},{key:'cancelSelect',value:function cancelSelect()
 
-{
-this.setState({
-value:this.props.value});
 
-this.toggleExpandableModal(false);
-}},{key:'appendPropsToChildren',value:function appendPropsToChildren()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+onSelectedItemLayout=function(_ref){var y=_ref.nativeEvent.layout.y;
+_this.setState({selectedItemPosition:y});
+};_this.onDoneSelecting=_this.onDoneSelecting.bind(_this);_this.toggleItemSelection=_this.toggleItemSelection.bind(_this);_this.appendPropsToChildren=_this.appendPropsToChildren.bind(_this);_this.cancelSelect=_this.cancelSelect.bind(_this);_this.handlePickerOnPress=_this.handlePickerOnPress.bind(_this);_this.state=_extends({},_this.state,{showModal:false,selectedItemPosition:0});if(props.mode===Picker.modes.SINGLE&&Array.isArray(props.value)){console.warn('Picker in SINGLE mode cannot accept an array for value');}if(props.mode===Picker.modes.MULTI&&!Array.isArray(props.value)){console.warn('Picker in MULTI mode must accept an array for value');}return _this;}_createClass(Picker,[{key:'componentWillReceiveProps',value:function componentWillReceiveProps(nexProps){this.setState({value:nexProps.value});}},{key:'toggleItemSelection',value:function toggleItemSelection(item){var value=this.state.value;var newValue=_lodash2.default.xorBy(value,[item],'value');this.setState({value:newValue});}},{key:'onDoneSelecting',value:function onDoneSelecting(item){this.onChangeText(item);this.toggleExpandableModal(false);_lodash2.default.invoke(this.props,'onChange',item);}},{key:'cancelSelect',value:function cancelSelect(){this.setState({value:this.props.value});this.toggleExpandableModal(false);}},{key:'appendPropsToChildren',value:function appendPropsToChildren()
 
 {var _this2=this;var _props=
 this.props,children=_props.children,mode=_props.mode,getItemValue=_props.getItemValue;var
@@ -132,7 +141,8 @@ var selectedValue=PickerPresenter.getItemValue({value:value,getItemValue:getItem
 return _react2.default.cloneElement(child,{
 isSelected:PickerPresenter.isItemSelected(childValue,selectedValue),
 onPress:mode===Picker.modes.MULTI?_this2.toggleItemSelection:_this2.onDoneSelecting,
-getItemValue:child.props.getItemValue||getItemValue});
+getItemValue:child.props.getItemValue||getItemValue,
+onSelectedLayout:_this2.onSelectedItemLayout});
 
 });
 
@@ -140,11 +150,15 @@ return childrenWithProps;
 }},{key:'getLabel',value:function getLabel()
 
 {var
+getLabel=this.props.getLabel;var
 value=this.state.value;
 if(_lodash2.default.isArray(value)){
-return _lodash2.default.chain(value).map('label').join(', ').value();
+return _lodash2.default.chain(value).
+map('label').
+join(', ').
+value();
 }
-return _lodash2.default.get(value,'label');
+return _lodash2.default.isFunction(getLabel)?getLabel(value):_lodash2.default.get(value,'label');
 }},{key:'handlePickerOnPress',value:function handlePickerOnPress()
 
 {
@@ -158,23 +172,19 @@ var color=this.extractColorValue()||_style.Colors.dark10;
 var label=this.getLabel();
 
 return(
-_react2.default.createElement(_reactNative.Text,{
-style:[this.styles.input,typography,{color:color}],
-numberOfLines:3,
-onPress:this.handlePickerOnPress},
-
+_react2.default.createElement(_reactNative.Text,{style:[this.styles.input,typography,{color:color}],numberOfLines:3,onPress:this.handlePickerOnPress},
 label));
 
 
 }},{key:'renderExpandableModal',value:function renderExpandableModal()
 
 {var _this3=this;var _props2=
-this.props,mode=_props2.mode,enableModalBlur=_props2.enableModalBlur,topBarProps=_props2.topBarProps;var
-showExpandableModal=this.state.showExpandableModal;
+this.props,mode=_props2.mode,enableModalBlur=_props2.enableModalBlur,topBarProps=_props2.topBarProps;var _state=
+this.state,showExpandableModal=_state.showExpandableModal,selectedItemPosition=_state.selectedItemPosition;
 return(
 _react2.default.createElement(_PickerModal2.default,{
 visible:showExpandableModal,
-
+scrollPosition:selectedItemPosition,
 enableModalBlur:enableModalBlur,
 topBarProps:_extends({},
 topBarProps,{
@@ -183,6 +193,7 @@ onDone:mode===Picker.modes.MULTI?function(){return _this3.onDoneSelecting(_this3
 
 
 this.appendPropsToChildren(this.props.children)));
+
 
 }},{key:'render',value:function render()
 
@@ -201,7 +212,7 @@ this.renderExpandableModal()));
 }
 
 return _get(Picker.prototype.__proto__||Object.getPrototypeOf(Picker.prototype),'render',this).call(this);
-}}]);return Picker;}(_inputs.TextInput);Picker.displayName='Picker';Picker.modes=PICKER_MODES;Picker.propTypes=_extends({},_inputs.TextInput.propTypes,{value:_propTypes2.default.oneOfType([ItemType,_propTypes2.default.arrayOf(ItemType),_propTypes2.default.object]),onChange:_propTypes2.default.func,mode:_propTypes2.default.oneOf(Object.keys(PICKER_MODES)),enableModalBlur:_propTypes2.default.bool,renderPicker:_propTypes2.default.func,onPress:_propTypes2.default.func,getItemValue:_propTypes2.default.func,topBarProps:_propTypes2.default.shape(_modal2.default.TopBar.propTypes)});Picker.defaultProps=_extends({},_inputs.TextInput.defaultProps,{mode:PICKER_MODES.SINGLE,enableModalBlur:true,expandable:true,text70:true,floatingPlaceholder:true});
+}}]);return Picker;}(_inputs.TextInput);Picker.displayName='Picker';Picker.modes=PICKER_MODES;Picker.propTypes=_extends({},_inputs.TextInput.propTypes,{value:_propTypes2.default.oneOfType([ItemType,_propTypes2.default.arrayOf(ItemType),_propTypes2.default.object]),onChange:_propTypes2.default.func,mode:_propTypes2.default.oneOf(Object.keys(PICKER_MODES)),enableModalBlur:_propTypes2.default.bool,renderPicker:_propTypes2.default.func,onPress:_propTypes2.default.func,getItemValue:_propTypes2.default.func,getLabel:_propTypes2.default.func,topBarProps:_propTypes2.default.shape(_modal2.default.TopBar.propTypes)});Picker.defaultProps=_extends({},_inputs.TextInput.defaultProps,{mode:PICKER_MODES.SINGLE,enableModalBlur:true,expandable:true,text70:true,floatingPlaceholder:true});
 
 
 Picker.Item=_PickerItem2.default;exports.default=

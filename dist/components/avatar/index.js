@@ -89,6 +89,21 @@ Avatar=function(_BaseComponent){_inherits(Avatar,_BaseComponent);function Avatar
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 {
 this.styles=createStyles(this.props);
 }},{key:'getStatusBadgeColor',value:function getStatusBadgeColor(
@@ -138,11 +153,28 @@ ribbonLabel)));
 
 
 }
-}},{key:'render',value:function render()
+}},{key:'renderImage',value:function renderImage()
 
 {var _props3=
-this.props,label=_props3.label,color=_props3.labelColor,imageSource=_props3.imageSource,backgroundColor=_props3.backgroundColor,testID=_props3.testID,onPress=_props3.onPress;
-var containerStyle=this.extractContainerStyle(this.props);
+this.props,imageSource=_props3.imageSource,onImageLoadStart=_props3.onImageLoadStart,onImageLoadEnd=_props3.onImageLoadEnd,onImageLoadError=_props3.onImageLoadError,testID=_props3.testID;
+var hasImage=!_lodash2.default.isUndefined(imageSource);
+if(hasImage){
+return(
+_react2.default.createElement(_image2.default,{
+style:this.styles.image,
+source:imageSource,
+onLoadStart:onImageLoadStart,
+onLoadEnd:onImageLoadEnd,
+onError:onImageLoadError,
+testID:testID+'.image'}));
+
+
+}
+return undefined;
+}},{key:'render',value:function render()
+
+{var _props4=
+this.props,label=_props4.label,color=_props4.labelColor,imageSource=_props4.imageSource,backgroundColor=_props4.backgroundColor,onPress=_props4.onPress,containerStyle=_props4.containerStyle,testID=_props4.testID;
 var Container=onPress?_reactNative.TouchableOpacity:_view2.default;
 var hasImage=!_lodash2.default.isUndefined(imageSource);
 
@@ -155,12 +187,12 @@ _react2.default.createElement(_text2.default,{numberOfLines:1,style:[this.styles
 label)),
 
 
-imageSource&&_react2.default.createElement(_image2.default,{style:this.styles.image,source:imageSource,testID:testID+'.image'}),
+this.renderImage(),
 this.renderBadge(),
 this.renderRibbon()));
 
 
-}}]);return Avatar;}(_commons.BaseComponent);Avatar.displayName='Avatar';Avatar.modes=STATUS_MODES;Avatar.propTypes={backgroundColor:_propTypes2.default.string,containerStyle:_reactNative.ViewPropTypes.style,imageSource:_propTypes2.default.oneOfType([_propTypes2.default.object,_propTypes2.default.number]),label:_propTypes2.default.string,labelColor:_propTypes2.default.string,ribbonLabel:_propTypes2.default.string,ribbonStyle:_reactNative.ViewPropTypes.style,ribbonLabelStyle:_text2.default.propTypes.style,isOnline:_propTypes2.default.bool,status:_propTypes2.default.oneOf(Object.keys(STATUS_MODES)),size:_propTypes2.default.number,testID:_propTypes2.default.string,onPress:_propTypes2.default.func};Avatar.defaultProps={backgroundColor:_style.Colors.dark80,size:50,labelColor:_style.Colors.dark10,status:STATUS_MODES.NONE};exports.default=Avatar;
+}}]);return Avatar;}(_commons.BaseComponent);Avatar.displayName='Avatar';Avatar.modes=STATUS_MODES;Avatar.propTypes={backgroundColor:_propTypes2.default.string,containerStyle:_reactNative.ViewPropTypes.style,imageSource:_propTypes2.default.oneOfType([_propTypes2.default.object,_propTypes2.default.number]),onImageLoadStart:_propTypes2.default.func,onImageLoadEnd:_propTypes2.default.func,onImageLoadError:_propTypes2.default.func,label:_propTypes2.default.string,labelColor:_propTypes2.default.string,ribbonLabel:_propTypes2.default.string,ribbonStyle:_reactNative.ViewPropTypes.style,ribbonLabelStyle:_text2.default.propTypes.style,isOnline:_propTypes2.default.bool,status:_propTypes2.default.oneOf(Object.keys(STATUS_MODES)),size:_propTypes2.default.number,testID:_propTypes2.default.string,onPress:_propTypes2.default.func};Avatar.defaultProps={backgroundColor:_style.Colors.dark80,size:50,labelColor:_style.Colors.dark10,status:STATUS_MODES.NONE};exports.default=Avatar;
 
 
 function createStyles(_ref){var size=_ref.size,labelColor=_ref.labelColor,imageSource=_ref.imageSource;
@@ -186,10 +218,12 @@ right:1,
 bottom:1,
 left:1},
 
+
 initials:{
 fontSize:size*fontSizeToImageSizeRatio,
 color:labelColor,
 backgroundColor:'rgba(0,0,0,0)'},
+
 
 defaultImage:{
 width:size,
@@ -208,7 +242,7 @@ height:13.5,
 width:13.5,
 padding:1.5,
 borderRadius:999,
-backgroundColor:imageSource?_style.Colors.white:'transparent',
+backgroundColor:_style.Colors.white,
 position:'absolute',
 right:imageSource?-1.5:0,
 top:4.5},

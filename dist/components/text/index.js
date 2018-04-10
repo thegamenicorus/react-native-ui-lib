@@ -29,7 +29,6 @@ Text=function(_BaseComponent){_inherits(Text,_BaseComponent);function Text(){_cl
 
 
 
-
 {
 this.styles=createStyles(this.props);
 }},{key:'setNativeProps',value:function setNativeProps(
@@ -38,10 +37,10 @@ nativeProps){
 this._root.setNativeProps(nativeProps);
 }},{key:'render',value:function render()
 
-{
+{var _this2=this;
 var color=this.props.color||this.extractColorValue();
-var typography=this.extractTypographyValue();var _props=
-this.props,style=_props.style,center=_props.center,others=_objectWithoutProperties(_props,['style','center']);var
+var typography=this.extractTypographyValue();var _getThemeProps=
+this.getThemeProps(),style=_getThemeProps.style,center=_getThemeProps.center,others=_objectWithoutProperties(_getThemeProps,['style','center']);var
 margins=this.state.margins;
 var textStyle=[
 this.styles.container,
@@ -50,11 +49,20 @@ color&&{color:color},
 margins,
 center&&{textAlign:'center'},
 style];
+
 return(
-_react2.default.createElement(_reactNative.Text,_extends({},others,{style:textStyle}),
+_react2.default.createElement(_reactNative.Text,_extends({},others,{style:textStyle,ref:function ref(r){return _this2.text=r;}}),
 this.props.children));
 
 
+}},{key:'measure',value:function measure()
+
+{var _text;
+(_text=this.text).measure.apply(_text,arguments);
+}},{key:'measureInWindow',value:function measureInWindow()
+
+{var _text2;
+(_text2=this.text).measureInWindow.apply(_text2,arguments);
 }}]);return Text;}(_commons.BaseComponent);Text.displayName='Text';Text.propTypes=_extends({},_reactNative.Text.propTypes,_commons.BaseComponent.propTypes,{color:_propTypes2.default.string,center:_propTypes2.default.bool,testID:_propTypes2.default.string});exports.default=Text;
 
 

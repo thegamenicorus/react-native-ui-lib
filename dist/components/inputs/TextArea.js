@@ -19,6 +19,9 @@ TextArea=function(_BaseInput){_inherits(TextArea,_BaseInput);function TextArea()
 
 
 
+
+
+
 {
 this.styles=createStyles(this.props);
 }},{key:'render',value:function render()
@@ -34,6 +37,7 @@ this.props,{
 value:value,
 multiline:true,
 style:inputStyle,
+underlineColorAndroid:'transparent',
 onChangeText:this.onChangeText,
 ref:function ref(input){_this2.input=input;}}))));
 

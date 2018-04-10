@@ -59,5 +59,10 @@ it('should handle when source sent with uri=null',function(){
 var uut=new _index2.default({source:{uri:null}});
 expect(uut.getImageSource()).toEqual({uri:undefined});
 });
+
+it('should handle when source sent with uri is empty string',function(){
+var uut=new _index2.default({source:{uri:''}});
+expect(uut.getImageSource()).toEqual({uri:undefined});
+});
 });
 });

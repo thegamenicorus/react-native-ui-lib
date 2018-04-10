@@ -28,6 +28,7 @@ var ownProps=_lodash2.default.chain(props).
 pickBy(function(value,key){return _lodash2.default.includes(Object.keys(ownPropTypes),key);}).
 omit(ignoreProps).
 value();
+
 return ownProps;
 }}]);
 
@@ -93,41 +94,46 @@ if(_this2.props[key]===true){
 typography=_style.Typography[key];
 }
 });
+
 return typography;
 }},{key:'extractColorValue',value:function extractColorValue()
 
-{var _this3=this;
+{
 var color=void 0;
+var props=this.getThemeProps();
 _lodash2.default.forEach(_style.Colors,function(value,key){
-if(_this3.props[key]===true){
+if(props[key]===true){
 color=value;
 }
 });
+
 return color;
 }},{key:'extractBackgroundColorValue',value:function extractBackgroundColorValue()
 
 
-{var _this4=this;
+{var _this3=this;
 var backgroundColor=void 0;
 _lodash2.default.forEach(_style.Colors,function(value,key){
-if(_this4.props['background-'+key]===true||_this4.props['bg-'+key]===true){
+if(_this3.props['background-'+key]===true||_this3.props['bg-'+key]===true){
 backgroundColor=value;
 }
 });
+
 return backgroundColor;
 }},{key:'extractBorderRadiusValue',value:function extractBorderRadiusValue()
 
-{var _this5=this;
+{var _this4=this;
 var borderRadius=void 0;
 _lodash2.default.forEach(_style.BorderRadiuses,function(value,key){
-if(_this5.props[key]===true){
+if(_this4.props[key]===true){
 borderRadius=value;
 }
 });
+
 return borderRadius;
 }},{key:'extractPaddingValues',value:function extractPaddingValues()
 
-{var _this6=this;
+{var _this5=this;
 var PADDING_VARIATIONS={
 padding:'padding',
 paddingL:'paddingLeft',
@@ -144,7 +150,7 @@ filter(function(key){return PADDING_KEY_PATTERN.test(key);}).
 value();
 
 _lodash2.default.forEach(paddingPropsKeys,function(key){
-if(_this6.props[key]===true){var _key$split=
+if(_this5.props[key]===true){var _key$split=
 key.split('-'),_key$split2=_slicedToArray(_key$split,2),paddingKey=_key$split2[0],paddingValue=_key$split2[1];
 var paddingVariation=PADDING_VARIATIONS[paddingKey];
 if(!isNaN(paddingValue)){
@@ -156,7 +162,7 @@ paddings[paddingVariation]=Number(paddingValue);
 return paddings;
 }},{key:'extractMarginValues',value:function extractMarginValues()
 
-{var _this7=this;
+{var _this6=this;
 var MARGIN_VARIATIONS={
 margin:'margin',
 marginL:'marginLeft',
@@ -174,7 +180,7 @@ filter(function(key){return MARGIN_KEY_PATTERN.test(key);}).
 value();
 
 _lodash2.default.forEach(marginPropsKeys,function(key){
-if(_this7.props[key]===true){var _key$split3=
+if(_this6.props[key]===true){var _key$split3=
 key.split('-'),_key$split4=_slicedToArray(_key$split3,2),marginKey=_key$split4[0],marginValue=_key$split4[1];
 var paddingVariation=MARGIN_VARIATIONS[marginKey];
 if(!isNaN(marginValue)){
@@ -186,7 +192,7 @@ margins[paddingVariation]=Number(marginValue);
 return margins;
 }},{key:'extractAlignmentsValues',value:function extractAlignmentsValues()
 
-{var _this8=this;var _props=
+{var _this7=this;var _props=
 this.props,row=_props.row,center=_props.center;
 var alignments={};
 
@@ -202,7 +208,7 @@ alignmentRules.alignItems=['left','right','centerH'];
 
 _lodash2.default.forEach(alignmentRules,function(positions,attribute){
 _lodash2.default.forEach(positions,function(position){
-if(_this8.props[position]){
+if(_this7.props[position]){
 if(_lodash2.default.includes(['top','left'],position)){
 alignments[attribute]='flex-start';
 }else if(_lodash2.default.includes(['bottom','right'],position)){
@@ -296,5 +302,6 @@ var modifierProps=_lodash2.default.pickBy(this.props,function(value,key){
 var isModifier=_lodash2.default.find(patterns,function(pattern){return pattern.test(key);});
 return!!isModifier;
 });
+
 return modifierProps;
 }}]);return BaseComponent;}(_react.Component);BaseComponent.displayName='BaseComponent';BaseComponent.propTypes=_extends({},_lodash2.default.mapValues(_style.Typography,function(){return _propTypes2.default.bool;}),_lodash2.default.mapValues(_style.Colors,function(){return _propTypes2.default.bool;}),{useNativeDriver:_propTypes2.default.bool});BaseComponent.defaultProps={useNativeDriver:true};exports.default=BaseComponent;

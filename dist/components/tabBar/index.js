@@ -117,14 +117,16 @@ inputRange:[0,100],
 outputRange:['0%','100%']});
 
 return(
-_react2.default.createElement(_reactNative.Animated.View,{style:[this.styles.selectedIndicator,{left:left,width:width},indicatorStyle]}));
+_react2.default.createElement(_reactNative.Animated.View,{
+style:[this.styles.selectedIndicator,this.styles.absoluteContainer,{left:left,width:width},indicatorStyle]}));
+
 
 }},{key:'render',value:function render()
 
 {var _props=
 this.props,height=_props.height,style=_props.style;
 return(
-_react2.default.createElement(_view2.default,{style:[this.styles.container,style],'bg-white':true,row:true,height:height},
+_react2.default.createElement(_view2.default,{style:[this.styles.container,style],'bg-white':true,row:true,height:height,useSafeArea:true},
 this.renderChildren(),
 this.renderSelectedIndicator()));
 
@@ -139,11 +141,13 @@ borderBottomWidth:_reactNative.StyleSheet.hairlineWidth,
 borderColor:_style.Colors.dark70},
 
 selectedIndicator:{
+borderBottomWidth:1.5,
+borderColor:_style.Colors.blue30},
+
+absoluteContainer:{
 position:'absolute',
 bottom:0,
-left:0,
-borderBottomWidth:1.5,
-borderColor:_style.Colors.blue30}});
+left:0}});
 
 
 }

@@ -1,7 +1,7 @@
-Object.defineProperty(exports,"__esModule",{value:true});var _extends=Object.assign||function(target){for(var i=1;i<arguments.length;i++){var source=arguments[i];for(var key in source){if(Object.prototype.hasOwnProperty.call(source,key)){target[key]=source[key];}}}return target;};var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();require('react');
+Object.defineProperty(exports,"__esModule",{value:true});var _extends=Object.assign||function(target){for(var i=1;i<arguments.length;i++){var source=arguments[i];for(var key in source){if(Object.prototype.hasOwnProperty.call(source,key)){target[key]=source[key];}}}return target;};var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _lodash=require('lodash');var _lodash2=_interopRequireDefault(_lodash);
 var _propTypes=require('prop-types');var _propTypes2=_interopRequireDefault(_propTypes);
+require('react');
 var _reactNative=require('react-native');
-var _lodash=require('lodash');var _lodash2=_interopRequireDefault(_lodash);
 var _commons=require('../../commons');
 var _style=require('../../style');function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self,call){if(!self){throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call&&(typeof call==="object"||typeof call==="function")?call:self;}function _inherits(subClass,superClass){if(typeof superClass!=="function"&&superClass!==null){throw new TypeError("Super expression must either be null or a function, not "+typeof superClass);}subClass.prototype=Object.create(superClass&&superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__=superClass;}var
 
@@ -25,10 +25,14 @@ BaseInput=function(_BaseComponent){_inherits(BaseInput,_BaseComponent);
 
 
 
+
+
+
 function BaseInput(props){_classCallCheck(this,BaseInput);var _this=_possibleConstructorReturn(this,(BaseInput.__proto__||Object.getPrototypeOf(BaseInput)).call(this,
 props));
 
 _this.onChangeText=_this.onChangeText.bind(_this);
+_this.onChange=_this.onChange.bind(_this);
 _this.onFocus=_this.onFocus.bind(_this);
 _this.onBlur=_this.onBlur.bind(_this);
 _this.focus=_this.focus.bind(_this);
@@ -36,7 +40,6 @@ _this.focus=_this.focus.bind(_this);
 var typography=_this.getTypography();
 _this.state={
 inputWidth:typography.fontSize*2,
-widthExtendBreaks:[],
 value:props.value,
 floatingPlaceholderState:new _reactNative.Animated.Value(props.value?1:0),
 showExpandableModal:!false};return _this;
@@ -72,6 +75,10 @@ this.setState({focused:true});
 {for(var _len2=arguments.length,args=Array(_len2),_key2=0;_key2<_len2;_key2++){args[_key2]=arguments[_key2];}
 _lodash2.default.invoke.apply(_lodash2.default,[this.props,'onBlur'].concat(args));
 this.setState({focused:false});
+}},{key:'onChange',value:function onChange(
+
+event){
+_lodash2.default.invoke(this.props,'onChange',event);
 }},{key:'onChangeText',value:function onChangeText(
 
 text){

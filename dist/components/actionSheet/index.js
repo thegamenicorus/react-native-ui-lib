@@ -53,12 +53,24 @@ ActionSheet=function(_BaseComponent){_inherits(ActionSheet,_BaseComponent);
 
 
 
+
+
+
+
+
+
 function ActionSheet(props){_classCallCheck(this,ActionSheet);var _this=_possibleConstructorReturn(this,(ActionSheet.__proto__||Object.getPrototypeOf(ActionSheet)).call(this,
 props));
 
 _this.onOptionPress=_this.onOptionPress.bind(_this);
 _this.renderAction=_this.renderAction.bind(_this);return _this;
 }_createClass(ActionSheet,[{key:'renderSheet',value:function renderSheet()
+
+
+
+
+
+
 
 {
 return(
@@ -103,7 +115,7 @@ key:index,
 onPress:function onPress(){return _this2.onOptionPress(index);},
 activeBackgroundColor:_style.Colors.dark80},
 
-_react2.default.createElement(_view2.default,{'paddingH-20':true,flex:true,centerV:true},
+_react2.default.createElement(_view2.default,{'paddingL-16':true,flex:true,centerV:true},
 _react2.default.createElement(_text2.default,{text70:true,dark10:true,numberOfLines:1},
 option.label))));
 
@@ -118,14 +130,21 @@ var wasVisible=this.props.visible;
 var willBeVisible=nextProps.visible;
 
 if(!wasVisible&&willBeVisible&&useNativeIOS&&_helpers.Constants.isIOS){var
-title=nextProps.title,message=nextProps.message,cancelButtonIndex=nextProps.cancelButtonIndex,destructiveButtonIndex=nextProps.destructiveButtonIndex,options=nextProps.options;
+title=nextProps.title,message=nextProps.message,cancelButtonIndex=nextProps.cancelButtonIndex,destructiveButtonIndex=nextProps.destructiveButtonIndex,options=nextProps.options,showCancelButton=nextProps.showCancelButton;
+
+var optionsArray=options!==undefined?options:[];
+var cancelBtnIndex=cancelButtonIndex;
+if(showCancelButton){
+optionsArray.push({label:'Cancel'});
+cancelBtnIndex=optionsArray.length-1;
+}
 
 _reactNative.ActionSheetIOS.showActionSheetWithOptions(
 {
 title:title,
 message:message,
-options:_lodash2.default.map(options,'label'),
-cancelButtonIndex:cancelButtonIndex,
+options:_lodash2.default.map(optionsArray,'label'),
+cancelButtonIndex:cancelBtnIndex,
 destructiveButtonIndex:destructiveButtonIndex},
 
 this.onOptionPress);
@@ -162,7 +181,7 @@ this.renderSheet()))))));
 
 
 
-}}]);return ActionSheet;}(_commons.BaseComponent);ActionSheet.displayName='ActionSheet';ActionSheet.propTypes={visible:_propTypes2.default.bool,title:_propTypes2.default.string,message:_propTypes2.default.string,cancelButtonIndex:_propTypes2.default.number,destructiveButtonIndex:_propTypes2.default.number,options:_propTypes2.default.arrayOf(_propTypes2.default.shape(_button2.default.propTypes)),onDismiss:_propTypes2.default.func,useNativeIOS:_propTypes2.default.bool};exports.default=ActionSheet;
+}}]);return ActionSheet;}(_commons.BaseComponent);ActionSheet.displayName='ActionSheet';ActionSheet.propTypes={visible:_propTypes2.default.bool,title:_propTypes2.default.string,message:_propTypes2.default.string,cancelButtonIndex:_propTypes2.default.number,destructiveButtonIndex:_propTypes2.default.number,options:_propTypes2.default.arrayOf(_propTypes2.default.shape(_button2.default.propTypes)),onDismiss:_propTypes2.default.func,useNativeIOS:_propTypes2.default.bool,showCancelButton:_propTypes2.default.bool};ActionSheet.defaultProps={title:undefined,message:undefined,showCancelButton:false};exports.default=ActionSheet;
 
 
 var styles=_reactNative.StyleSheet.create({
