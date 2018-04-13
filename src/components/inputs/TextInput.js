@@ -266,13 +266,13 @@ export default class TextInput extends BaseInput {
   }
 
   renderTitle() {
-    const {floatingPlaceholder, title, titleColor} = this.props;
+    const {floatingPlaceholder, title, titleColor, titleStyle} = this.props;
     const color = this.getStateColor(titleColor);
 
     if (!floatingPlaceholder && title) {
       return (
         <Text
-          style={[{color}, this.styles.title]}
+          style={[{color}, this.styles.title, titleStyle]}
         >
           {title}
         </Text>
@@ -297,10 +297,10 @@ export default class TextInput extends BaseInput {
   }
 
   renderError() {
-    const {enableErrors, error} = this.props;
+    const {enableErrors, error, errorStyle} = this.props;
     if (enableErrors) {
       return (
-        <Text style={this.styles.errorMessage}>
+        <Text style={[this.styles.errorMessage, errorStyle]}>
           {error}
         </Text>
       );
