@@ -266,13 +266,13 @@ placeholder));
 }},{key:'renderTitle',value:function renderTitle()
 
 {var _props4=
-this.props,floatingPlaceholder=_props4.floatingPlaceholder,title=_props4.title,titleColor=_props4.titleColor;
+this.props,floatingPlaceholder=_props4.floatingPlaceholder,title=_props4.title,titleColor=_props4.titleColor,titleStyle=_props4.titleStyle;
 var color=this.getStateColor(titleColor);
 
 if(!floatingPlaceholder&&title){
 return(
 _react2.default.createElement(_text2.default,{
-style:[{color:color},this.styles.title]},
+style:[{color:color},this.styles.title,titleStyle]},
 
 title));
 
@@ -297,10 +297,10 @@ counter,' / ',maxLength));
 }},{key:'renderError',value:function renderError()
 
 {var _props6=
-this.props,enableErrors=_props6.enableErrors,error=_props6.error;
+this.props,enableErrors=_props6.enableErrors,error=_props6.error,errorStyle=_props6.errorStyle;
 if(enableErrors){
 return(
-_react2.default.createElement(_text2.default,{style:this.styles.errorMessage},
+_react2.default.createElement(_text2.default,{style:[this.styles.errorMessage,errorStyle]},
 error));
 
 
