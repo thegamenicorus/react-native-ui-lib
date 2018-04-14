@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {StyleSheet, ActivityIndicator} from 'react-native';
+import { StyleSheet, ActivityIndicator } from 'react-native';
 import * as Animatable from 'react-native-animatable';
-import {Colors, Typography, ThemeManager} from '../../style';
+import { Colors, Typography, ThemeManager } from '../../style';
 import * as Constants from '../../helpers/Constants';
-import {BaseComponent} from '../../commons';
+import { BaseComponent } from '../../commons';
 import Text from '../../components/text';
 import View from '../../components/view';
 
@@ -31,20 +31,18 @@ export default class LoaderScreen extends BaseComponent {
      */
     messageStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
     /**
-    * Show the screen as an absolute overlay
-    */
+     * Show the screen as an absolute overlay
+     */
     overlay: PropTypes.bool,
   };
 
   render() {
-    const {message, messageStyle, loaderColor, overlay, ...others} = this.props;
+    const { message, messageStyle, loaderColor, overlay, renderIndicator, ...others } = this.props;
     const animationProps = this.extractAnimationProps();
     return (
-      <Animatable.View
-        style={[overlay ? styles.overlayContainer : styles.container]}
-        {...animationProps}
-      >
+      <Animatable.View style={[overlay ? styles.overlayContainer : styles.container]} {...animationProps}>
         <View flex center>
+          {renderIndicator && renderIndicator()}
           <ActivityIndicator
             size={'large'}
             animating
