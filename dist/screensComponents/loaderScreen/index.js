@@ -37,19 +37,19 @@ LoaderScreen=function(_BaseComponent){_inherits(LoaderScreen,_BaseComponent);fun
 
 
 {var _props=
-this.props,message=_props.message,messageStyle=_props.messageStyle,loaderColor=_props.loaderColor,overlay=_props.overlay,others=_objectWithoutProperties(_props,['message','messageStyle','loaderColor','overlay']);
+this.props,message=_props.message,messageStyle=_props.messageStyle,loaderColor=_props.loaderColor,overlay=_props.overlay,renderIndicator=_props.renderIndicator,others=_objectWithoutProperties(_props,['message','messageStyle','loaderColor','overlay','renderIndicator']);
 var animationProps=this.extractAnimationProps();
 return(
-_react2.default.createElement(Animatable.View,_extends({
-style:[overlay?styles.overlayContainer:styles.container]},
-animationProps),
-
+_react2.default.createElement(Animatable.View,_extends({style:[overlay?styles.overlayContainer:styles.container]},animationProps),
 _react2.default.createElement(_view2.default,{flex:true,center:true},
+renderIndicator&&renderIndicator(),
+!renderIndicator&&
 _react2.default.createElement(_reactNative.ActivityIndicator,_extends({
 size:'large',
 animating:true,
 color:loaderColor||(Constants.isIOS?_style.Colors.dark60:_style.ThemeManager.primaryColor)},
 others)),
+
 
 message&&_react2.default.createElement(_text2.default,{style:[styles.message,messageStyle]},message))));
 
