@@ -43,12 +43,14 @@ export default class LoaderScreen extends BaseComponent {
       <Animatable.View style={[overlay ? styles.overlayContainer : styles.container]} {...animationProps}>
         <View flex center>
           {renderIndicator && renderIndicator()}
-          <ActivityIndicator
-            size={'large'}
-            animating
-            color={loaderColor || (Constants.isIOS ? Colors.dark60 : ThemeManager.primaryColor)}
-            {...others}
-          />
+          {!renderIndicator && (
+            <ActivityIndicator
+              size={'large'}
+              animating
+              color={loaderColor || (Constants.isIOS ? Colors.dark60 : ThemeManager.primaryColor)}
+              {...others}
+            />
+          )}
           {message && <Text style={[styles.message, messageStyle]}>{message}</Text>}
         </View>
       </Animatable.View>
