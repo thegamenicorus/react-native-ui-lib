@@ -1,5 +1,5 @@
 var _typography=require('./typography');var _typography2=_interopRequireDefault(_typography);
-var _BorderRadiuses=require('./BorderRadiuses');var _BorderRadiuses2=_interopRequireDefault(_BorderRadiuses);
+var _borderRadiuses=require('./borderRadiuses');var _borderRadiuses2=_interopRequireDefault(_borderRadiuses);
 var _colors=require('./colors');var _colors2=_interopRequireDefault(_colors);
 var _shadows=require('./shadows');var _shadows2=_interopRequireDefault(_shadows);
 var _spacings=require('./spacings');var _spacings2=_interopRequireDefault(_spacings);
@@ -9,7 +9,7 @@ var _themeManager=require('./themeManager');var _themeManager2=_interopRequireDe
 
 module.exports={
 Colors:_colors2.default,
-BorderRadiuses:_BorderRadiuses2.default,
+BorderRadiuses:_borderRadiuses2.default,
 Shadows:_shadows2.default,
 Spacings:_spacings2.default,
 Components:_components2.default,

@@ -123,10 +123,14 @@ return backgroundColor;
 }},{key:'extractBorderRadiusValue',value:function extractBorderRadiusValue()
 
 {var _this4=this;
+var borderRadiusPropsKeys=_lodash2.default.chain(this.props).
+keys(this.props).
+filter(function(key){return _style.BorderRadiuses.getKeysPattern().test(key);}).
+value();
 var borderRadius=void 0;
-_lodash2.default.forEach(_style.BorderRadiuses,function(value,key){
+_lodash2.default.forEach(borderRadiusPropsKeys,function(key){
 if(_this4.props[key]===true){
-borderRadius=value;
+borderRadius=_style.BorderRadiuses[key];
 }
 });
 

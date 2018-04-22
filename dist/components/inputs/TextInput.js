@@ -100,6 +100,12 @@ TextInput=function(_BaseInput){_inherits(TextInput,_BaseInput);
 
 
 
+
+
+
+
+
+
 function TextInput(props){_classCallCheck(this,TextInput);var _this=_possibleConstructorReturn(this,(TextInput.__proto__||Object.getPrototypeOf(TextInput)).call(this,
 props));
 
@@ -236,6 +242,7 @@ if(this.shouldFakePlaceholder()){
 return(
 _react2.default.createElement(_reactNative.Animated.Text,{
 style:[
+this.styles.floatingPlaceholder,
 this.styles.placeholder,
 typography,
 centered&&this.styles.placeholderCentered,
@@ -308,7 +315,13 @@ error));
 }},{key:'renderExpandableModal',value:function renderExpandableModal()
 
 {var _this3=this;var
+renderExpandable=this.props.renderExpandable;var
 showExpandableModal=this.state.showExpandableModal;
+
+if(_lodash2.default.isFunction(renderExpandable)&&showExpandableModal){
+return renderExpandable(this.props,this.state);
+}
+
 return(
 _react2.default.createElement(_screensComponents.Modal,{
 animationType:'slide',
@@ -472,7 +485,7 @@ this.setState({focused:true},this.updateFloatingPlaceholderState);
 {for(var _len2=arguments.length,args=Array(_len2),_key2=0;_key2<_len2;_key2++){args[_key2]=arguments[_key2];}
 _lodash2.default.invoke.apply(_lodash2.default,[this.props,'onBlur'].concat(args));
 this.setState({focused:false},this.updateFloatingPlaceholderState);
-}}]);return TextInput;}(_BaseInput3.default);TextInput.displayName='TextInput';TextInput.propTypes=_extends({},_reactNative.TextInput.propTypes,_BaseInput3.default.propTypes,{floatingPlaceholder:_propTypes2.default.bool,floatingPlaceholderColor:_propTypes2.default.oneOfType([_propTypes2.default.string,_propTypes2.default.object]),helperText:_propTypes2.default.string,hideUnderline:_propTypes2.default.bool,underlineColor:_propTypes2.default.oneOfType([_propTypes2.default.string,_propTypes2.default.object]),centered:_propTypes2.default.bool,error:_propTypes2.default.string,enableErrors:_propTypes2.default.bool,expandable:_propTypes2.default.bool,transformer:_propTypes2.default.func,title:_propTypes2.default.string,titleColor:_propTypes2.default.oneOfType([_propTypes2.default.string,_propTypes2.default.object]),showCharacterCounter:_propTypes2.default.bool,testId:_propTypes2.default.string});TextInput.defaultProps={placeholderTextColor:DEFAULT_COLOR_BY_STATE.default,enableErrors:true};exports.default=TextInput;
+}}]);return TextInput;}(_BaseInput3.default);TextInput.displayName='TextInput';TextInput.propTypes=_extends({},_reactNative.TextInput.propTypes,_BaseInput3.default.propTypes,{floatingPlaceholder:_propTypes2.default.bool,floatingPlaceholderColor:_propTypes2.default.oneOfType([_propTypes2.default.string,_propTypes2.default.object]),helperText:_propTypes2.default.string,hideUnderline:_propTypes2.default.bool,underlineColor:_propTypes2.default.oneOfType([_propTypes2.default.string,_propTypes2.default.object]),centered:_propTypes2.default.bool,error:_propTypes2.default.string,enableErrors:_propTypes2.default.bool,expandable:_propTypes2.default.bool,renderExpandable:_propTypes2.default.func,transformer:_propTypes2.default.func,title:_propTypes2.default.string,titleColor:_propTypes2.default.oneOfType([_propTypes2.default.string,_propTypes2.default.object]),showCharacterCounter:_propTypes2.default.bool,testId:_propTypes2.default.string});TextInput.defaultProps={placeholderTextColor:DEFAULT_COLOR_BY_STATE.default,enableErrors:true};exports.default=TextInput;
 
 
 function createStyles(_ref)
@@ -505,8 +518,10 @@ padding:0,
 textAlign:centered?'center':undefined,
 backgroundColor:'transparent'},
 
+floatingPlaceholder:{
+position:'absolute'},
+
 placeholder:{
-position:'absolute',
 color:placeholderTextColor},
 
 placeholderCentered:{

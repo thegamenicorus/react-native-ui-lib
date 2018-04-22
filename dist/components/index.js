@@ -7,6 +7,7 @@ var _card=require('./card');var _card2=_interopRequireDefault(_card);
 
 var _carousel=require('./carousel');var _carousel2=_interopRequireDefault(_carousel);
 var _connectionStatusBar=require('./connectionStatusBar');var _connectionStatusBar2=_interopRequireDefault(_connectionStatusBar);
+var _dialog=require('./dialog');var _dialog2=_interopRequireDefault(_dialog);
 var _featureHighlight=require('./featureHighlight');var _featureHighlight2=_interopRequireDefault(_featureHighlight);
 var _image=require('./image');var _image2=_interopRequireDefault(_image);
 var _inputs=require('./inputs');var _inputs2=_interopRequireDefault(_inputs);
@@ -33,6 +34,7 @@ Button:_button2.default,
 Card:_card2.default,
 Carousel:_carousel2.default,
 ConnectionStatusBar:_connectionStatusBar2.default,
+Dialog:_dialog2.default,
 FeatureHighlight:_featureHighlight2.default,
 Image:_image2.default},_inputs2.default,{
 

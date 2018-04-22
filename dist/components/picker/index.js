@@ -166,13 +166,18 @@ this.toggleExpandableModal(true);
 _lodash2.default.invoke(this.props,'onPress');
 }},{key:'renderExpandableInput',value:function renderExpandableInput()
 
-{
+{var
+style=this.props.style;
 var typography=this.getTypography();
 var color=this.extractColorValue()||_style.Colors.dark10;
 var label=this.getLabel();
 
 return(
-_react2.default.createElement(_reactNative.Text,{style:[this.styles.input,typography,{color:color}],numberOfLines:3,onPress:this.handlePickerOnPress},
+_react2.default.createElement(_reactNative.Text,{
+style:[this.styles.input,typography,{color:color},style],
+numberOfLines:3,
+onPress:this.handlePickerOnPress},
+
 label));
 
 
