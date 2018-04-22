@@ -72,7 +72,7 @@ class Dialog extends BaseComponent {
   }
 
   render() {
-    const {visible, overlayBackgroundColor, onDismiss} = this.getThemeProps();
+    const {visible, overlayBackgroundColor, onDismiss, backgroundPressDisabled} = this.getThemeProps();
     const {alignments} = this.state;
     const centerByDefault = _.isEmpty(alignments);
 
@@ -81,7 +81,7 @@ class Dialog extends BaseComponent {
         transparent
         visible={visible}
         animationType={'fade'}
-        onBackgroundPress={onDismiss}
+        onBackgroundPress={backgroundPressDisabled?null:onDismiss}
         onRequestClose={onDismiss}
         overlayBackgroundColor={overlayBackgroundColor}
       >
