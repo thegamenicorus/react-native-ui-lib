@@ -105,20 +105,20 @@ Toast=function(_BaseComponent){_inherits(Toast,_BaseComponent);
 
 
 function Toast(props){_classCallCheck(this,Toast);var _this=_possibleConstructorReturn(this,(Toast.__proto__||Object.getPrototypeOf(Toast)).call(this,
-props));_this.state={isVisible:false,animationConfig:_this.getAnimation(true),contentAnimation:_this.getContentAnimation(true),duration:DURATION,delay:DELAY};var _this$props=
+props));_this.state={isVisible:false,animationConfig:_this.getAnimation(true),contentAnimation:_this.getContentAnimation(true),duration:DURATION,delay:DELAY};var
 
-_this.props,animated=_this$props.animated,position=_this$props.position;
+animated=_this.props.animated;
 
-if(animated&&position==='relative'){
+if(animated){
 setupRelativeAnimation(getHeight(_this.props));
 }return _this;
 }_createClass(Toast,[{key:'componentWillReceiveProps',value:function componentWillReceiveProps(
 
 nextProps){var
-visible=nextProps.visible,animated=nextProps.animated,position=nextProps.position;var
+visible=nextProps.visible,animated=nextProps.animated;var
 isVisible=this.state.isVisible;
 if(visible!==isVisible){
-if(animated&&position==='relative'){
+if(animated){
 setupRelativeAnimation(getHeight(nextProps));
 }
 
@@ -146,12 +146,12 @@ position=this.props.position;
 return position==='relative'?{position:position}:getAbsolutePositionStyle(position);
 }},{key:'getAnimation',value:function getAnimation(
 
-shouldShow){var _this2=this;var
-position=this.props.position;
+shouldShow){var _this2=this;var _props=
+this.props,position=_props.position,useNativeDriver=_props.useNativeDriver;
 var animationDescriptor=getAnimationDescriptor(position,this.state);var _ref=
 shouldShow?animationDescriptor.enter:animationDescriptor.exit,animation=_ref.animation,duration=_ref.duration,delay=_ref.delay;
 
-return{animation:animation,duration:duration,delay:delay,onAnimationEnd:function onAnimationEnd(){return _this2.onAnimationEnd();}};
+return{animation:animation,duration:duration,delay:delay,useNativeDriver:useNativeDriver,onAnimationEnd:function onAnimationEnd(){return _this2.onAnimationEnd();}};
 }},{key:'getContentAnimation',value:function getContentAnimation(
 
 shouldShow){var _this3=this;var
@@ -200,8 +200,8 @@ this.renderDismissButton())));
 
 }},{key:'renderMessage',value:function renderMessage()
 
-{var _props=
-this.props,message=_props.message,messageStyle=_props.messageStyle,centerMessage=_props.centerMessage,color=_props.color;var
+{var _props2=
+this.props,message=_props2.message,messageStyle=_props2.messageStyle,centerMessage=_props2.centerMessage,color=_props2.color;var
 contentAnimation=this.state.contentAnimation;
 return(
 _react2.default.createElement(_view2.default,{flex:true,centerH:centerMessage},
@@ -237,8 +237,8 @@ _react2.default.createElement(_button2.default,_extends({'marginL-12':true,size:
 
 }},{key:'renderDismissButton',value:function renderDismissButton()
 
-{var _props2=
-this.props,allowDismiss=_props2.allowDismiss,onDismiss=_props2.onDismiss,color=_props2.color;var
+{var _props3=
+this.props,allowDismiss=_props3.allowDismiss,onDismiss=_props3.onDismiss,color=_props3.color;var
 contentAnimation=this.state.contentAnimation;
 if(allowDismiss){
 return(
@@ -256,7 +256,7 @@ onPress:onDismiss})));
 
 
 {var _getThemeProps3=
-this.getThemeProps(),backgroundColor=_getThemeProps3.backgroundColor,actions=_getThemeProps3.actions,enableBlur=_getThemeProps3.enableBlur,zIndex=_getThemeProps3.zIndex;var
+this.getThemeProps(),backgroundColor=_getThemeProps3.backgroundColor,actions=_getThemeProps3.actions,enableBlur=_getThemeProps3.enableBlur,testID=_getThemeProps3.testID,zIndex=_getThemeProps3.zIndex;var
 animationConfig=this.state.animationConfig;
 var hasOneAction=_lodash2.default.size(actions)===1;
 var hasTwoActions=_lodash2.default.size(actions)===2;
@@ -270,7 +270,7 @@ return null;
 }
 
 return(
-_react2.default.createElement(_view2.default,{style:[positionStyle],useSafeArea:true},
+_react2.default.createElement(_view2.default,{style:[positionStyle],useSafeArea:true,testID:testID},
 _react2.default.createElement(_view2.default,{height:height}),
 
 _react2.default.createElement(Animatable.View,_extends({
@@ -347,16 +347,16 @@ function getAnimationDescriptor(name,_ref2){var _ref2$duration=_ref2.duration,du
 var defaultProps={duration:duration,delay:0};
 var animationDescriptorMap={
 top:{
-enter:_extends({},defaultProps,{animation:'slideInDown'}),
-exit:_extends({},defaultProps,{animation:'slideOutUp'})},
+enter:_extends({},defaultProps,{animation:'slideInDown_toast'}),
+exit:_extends({},defaultProps,{animation:'slideOutUp_toast'})},
 
 bottom:{
-enter:_extends({},defaultProps,{animation:'slideInUp'}),
-exit:_extends({},defaultProps,{animation:'slideOutDown'})},
+enter:_extends({},defaultProps,{animation:'slideInUp_toast'}),
+exit:_extends({},defaultProps,{animation:'slideOutDown_toast'})},
 
 relative:{
-enter:_extends({},defaultProps,{animation:'growUp'}),
-exit:_extends({},defaultProps,{animation:'growDown',delay:delay})}};
+enter:_extends({},defaultProps,{animation:'growUp_toast'}),
+exit:_extends({},defaultProps,{animation:'growDown_toast',delay:delay})}};
 
 
 
@@ -374,11 +374,30 @@ location,0);
 
 function setupRelativeAnimation(height){
 Animatable.initializeRegistryWithDefinitions({
-growUp:{
+
+slideInUp_toast:{
+from:{translateY:height},
+to:{translateY:0}},
+
+slideOutDown_toast:{
+from:{translateY:0},
+to:{translateY:height}},
+
+
+slideInDown_toast:{
+from:{translateY:-height},
+to:{translateY:0}},
+
+slideOutUp_toast:{
+from:{translateY:0},
+to:{translateY:-height}},
+
+
+growUp_toast:{
 from:{height:0},
 to:{height:height}},
 
-growDown:{
+growDown_toast:{
 from:{height:height},
 to:{height:0}}});
 

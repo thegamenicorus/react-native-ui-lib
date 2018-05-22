@@ -116,7 +116,7 @@ height:18},
 label:_extends({},
 _style.Typography.text90,{
 color:_colors2.default.white,
-backgroundColor:'rgba(0,0,0,0)'}),
+backgroundColor:'transparent'}),
 
 labelSmall:_extends({},
 _style.Typography.text100,{

@@ -6,8 +6,8 @@ var _style=require('../style');
 var _helpers=require('../helpers');function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _toConsumableArray(arr){if(Array.isArray(arr)){for(var i=0,arr2=Array(arr.length);i<arr.length;i++){arr2[i]=arr[i];}return arr2;}else{return Array.from(arr);}}function _defineProperty(obj,key,value){if(key in obj){Object.defineProperty(obj,key,{value:value,enumerable:true,configurable:true,writable:true});}else{obj[key]=value;}return obj;}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self,call){if(!self){throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call&&(typeof call==="object"||typeof call==="function")?call:self;}function _inherits(subClass,superClass){if(typeof superClass!=="function"&&superClass!==null){throw new TypeError("Super expression must either be null or a function, not "+typeof superClass);}subClass.prototype=Object.create(superClass&&superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__=superClass;}
 
 var FLEX_KEY_PATTERN=/^flex(G|S)?(-\d*)?$/;
-var PADDING_KEY_PATTERN=/padding[LTRBHV]?-[0-9]*/;
-var MARGIN_KEY_PATTERN=/margin[LTRBHV]?-[0-9]*/;
+var PADDING_KEY_PATTERN=new RegExp('padding[LTRBHV]?-([0-9]*|'+_style.Spacings.getKeysPattern()+')');
+var MARGIN_KEY_PATTERN=new RegExp('margin[LTRBHV]?-([0-9]*|'+_style.Spacings.getKeysPattern()+')');
 var ALIGNMENT_KEY_PATTERN=/(left|top|right|bottom|center|centerV|centerH|spread)/;var
 
 BaseComponent=function(_Component){_inherits(BaseComponent,_Component);_createClass(BaseComponent,null,[{key:'extractOwnProps',value:function extractOwnProps(
@@ -44,9 +44,14 @@ _this.extractStyleProps());return _this;
 }_createClass(BaseComponent,[{key:'getThemeProps',value:function getThemeProps()
 
 {
-var componentName=this.constructor.displayName;
-var componentThemeProps=_style.ThemeManager.components[componentName];
-return _extends({},componentThemeProps,this.props);
+var componentName=this.constructor.displayName||this.constructor.name;
+var themeProps=void 0;
+if(_lodash2.default.isFunction(_style.ThemeManager.components[componentName])){
+themeProps=_style.ThemeManager.components[componentName](this.props);
+}else{
+themeProps=_style.ThemeManager.components[componentName];
+}
+return _extends({},themeProps,this.props);
 }},{key:'getSnippet',value:function getSnippet()
 
 {
@@ -159,6 +164,8 @@ key.split('-'),_key$split2=_slicedToArray(_key$split,2),paddingKey=_key$split2[0
 var paddingVariation=PADDING_VARIATIONS[paddingKey];
 if(!isNaN(paddingValue)){
 paddings[paddingVariation]=Number(paddingValue);
+}else if(_style.Spacings.getKeysPattern().test(paddingValue)){
+paddings[paddingVariation]=_style.Spacings[paddingValue];
 }
 }
 });
@@ -189,6 +196,8 @@ key.split('-'),_key$split4=_slicedToArray(_key$split3,2),marginKey=_key$split4[0
 var paddingVariation=MARGIN_VARIATIONS[marginKey];
 if(!isNaN(marginValue)){
 margins[paddingVariation]=Number(marginValue);
+}else if(_style.Spacings.getKeysPattern().test(marginValue)){
+margins[paddingVariation]=_style.Spacings[marginValue];
 }
 }
 });
@@ -308,4 +317,4 @@ return!!isModifier;
 });
 
 return modifierProps;
-}}]);return BaseComponent;}(_react.Component);BaseComponent.displayName='BaseComponent';BaseComponent.propTypes=_extends({},_lodash2.default.mapValues(_style.Typography,function(){return _propTypes2.default.bool;}),_lodash2.default.mapValues(_style.Colors,function(){return _propTypes2.default.bool;}),{useNativeDriver:_propTypes2.default.bool});BaseComponent.defaultProps={useNativeDriver:true};exports.default=BaseComponent;
+}}]);return BaseComponent;}(_react.Component);BaseComponent.propTypes=_extends({},_lodash2.default.mapValues(_style.Typography,function(){return _propTypes2.default.bool;}),_lodash2.default.mapValues(_style.Colors,function(){return _propTypes2.default.bool;}),{useNativeDriver:_propTypes2.default.bool});BaseComponent.defaultProps={useNativeDriver:true};exports.default=BaseComponent;

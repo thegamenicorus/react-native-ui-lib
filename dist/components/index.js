@@ -22,7 +22,8 @@ var _text=require('./text');var _text2=_interopRequireDefault(_text);
 var _toast=require('./toast');var _toast2=_interopRequireDefault(_toast);
 var _touchableOpacity=require('./touchableOpacity');var _touchableOpacity2=_interopRequireDefault(_touchableOpacity);
 var _tour=require('./tour');var _tour2=_interopRequireDefault(_tour);
-var _view=require('./view');var _view2=_interopRequireDefault(_view);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}
+var _view=require('./view');var _view2=_interopRequireDefault(_view);
+var _wheelPickerDialog=require('./wheelPickerDialog');var _wheelPickerDialog2=_interopRequireDefault(_wheelPickerDialog);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}
 
 
 module.exports=_extends({
@@ -36,8 +37,8 @@ Carousel:_carousel2.default,
 ConnectionStatusBar:_connectionStatusBar2.default,
 Dialog:_dialog2.default,
 FeatureHighlight:_featureHighlight2.default,
-Image:_image2.default},_inputs2.default,{
-
+Image:_image2.default},
+_inputs2.default,{
 ListItem:_listItem2.default,
 Notification:_notification2.default,
 PageControl:_pageControl2.default,
@@ -49,4 +50,5 @@ Text:_text2.default,
 Toast:_toast2.default,
 TouchableOpacity:_touchableOpacity2.default,
 Tour:_tour2.default,
-View:_view2.default});
+View:_view2.default,
+WheelPickerDialog:_wheelPickerDialog2.default});

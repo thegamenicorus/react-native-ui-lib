@@ -85,4 +85,14 @@ white:'#ffffff',
 black:'#000000'};
 
 
-module.exports=colorsPalette;
+
+var extraFixColorsMap={
+black:'black',
+white:'white',
+'#000':'black',
+'#fff':'white'};
+
+
+module.exports={
+colorsPalette:colorsPalette,
+extraFixColorsMap:extraFixColorsMap};

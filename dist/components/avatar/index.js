@@ -222,7 +222,7 @@ left:1},
 initials:{
 fontSize:size*fontSizeToImageSizeRatio,
 color:labelColor,
-backgroundColor:'rgba(0,0,0,0)'},
+backgroundColor:'transparent'},
 
 
 defaultImage:{

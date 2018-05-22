@@ -26,7 +26,11 @@ this.theme=_lodash2.default.merge(this.theme,overrides);
 }},{key:'setComponentTheme',value:function setComponentTheme(
 
 componentName,overrides){
+if(_lodash2.default.isFunction(overrides)){
+this.theme.components[componentName]=overrides;
+}else{
 this.theme.components[componentName]=_lodash2.default.cloneDeep(overrides);
+}
 }},{key:'components',get:function get()
 
 {

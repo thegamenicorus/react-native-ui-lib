@@ -1,5 +1,5 @@
 Object.defineProperty(exports,"__esModule",{value:true});var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _lodash=require('lodash');var _lodash2=_interopRequireDefault(_lodash);
-var _colorsPalette=require('./colorsPalette');var _colorsPalette2=_interopRequireDefault(_colorsPalette);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}var
+var _colorsPalette=require('./colorsPalette');function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}var
 
 Colors=function(){function Colors(){_classCallCheck(this,Colors);}_createClass(Colors,[{key:'loadColors',value:function loadColors(
 
@@ -74,6 +74,8 @@ throw new Error(value+' is invalid hex color');
 }
 return value.replace('#','');
 }
+
 var colorObject=new Colors();
-colorObject.loadColors(_colorsPalette2.default);exports.default=
+colorObject.loadColors(_colorsPalette.colorsPalette);exports.default=
+
 colorObject;

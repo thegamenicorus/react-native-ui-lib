@@ -157,7 +157,7 @@ alignSelf:'center'},
 
 x:{
 fontSize:_style.Typography.text80.fontSize,
-color:'black'}});
+color:_style.Colors.black}});
 
 
 }

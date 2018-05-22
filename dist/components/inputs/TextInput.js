@@ -249,7 +249,7 @@ centered&&this.styles.placeholderCentered,
 !centered&&{
 top:floatingPlaceholderState.interpolate({
 inputRange:[0,1],
-outputRange:[multiline?30:23,multiline?7:0]}),
+outputRange:[multiline?30:28,multiline?7:0]}),
 
 fontSize:floatingPlaceholderState.interpolate({
 inputRange:[0,1],
@@ -346,18 +346,24 @@ value:this.state.value})))));
 }},{key:'renderExpandableInput',value:function renderExpandableInput()
 
 {var _this4=this;var _props7=
-this.props,floatingPlaceholder=_props7.floatingPlaceholder,placeholder=_props7.placeholder;var
+this.props,style=_props7.style,floatingPlaceholder=_props7.floatingPlaceholder,placeholder=_props7.placeholder;var
 value=this.state.value;
 var typography=this.getTypography();
+var color=this.props.color||this.extractColorValue();
 var minHeight=typography.lineHeight;
 var shouldShowPlaceholder=_lodash2.default.isEmpty(value)&&!floatingPlaceholder;
+var inputStyle=[
+this.styles.input,
+typography,
+color&&{color:color},
+style];
+
 
 return(
 _react2.default.createElement(_text2.default,{
 style:[
-this.styles.input,
-typography,
 {minHeight:minHeight},
+inputStyle,
 shouldShowPlaceholder&&this.styles.placeholder],
 
 
@@ -386,7 +392,8 @@ var inputStyle=[
 this.styles.input,
 typography,
 color&&{color:color},
-{height:this.getHeight()},
+
+
 style];
 
 var placeholderText=this.shouldFakePlaceholder()?
@@ -512,11 +519,13 @@ errorUnderline:{
 borderColor:_style.Colors.red30},
 
 input:{
-flex:1,
-marginBottom:hideUnderline?undefined:10,
+flexGrow:1,
+marginBottom:hideUnderline?undefined:_helpers.Constants.isIOS?10:5,
 padding:0,
 textAlign:centered?'center':undefined,
 backgroundColor:'transparent'},
+
+
 
 floatingPlaceholder:{
 position:'absolute'},
@@ -533,7 +542,7 @@ errorMessage:_extends({
 color:_style.Colors.red30,
 textAlign:centered?'center':undefined},
 _style.Typography.text90,{
-height:_style.Typography.text90.lineHeight,
+
 marginTop:1}),
 
 expandableModalContent:{

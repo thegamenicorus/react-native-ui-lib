@@ -101,6 +101,11 @@ it('should ignore non numeric padding values',function(){
 var uut=new _BaseComponent2.default({'padding-2a5':true});
 expect(uut.extractPaddingValues()).toEqual({});
 });
+
+it('should support Spacing preset for padding',function(){
+var uut=new _BaseComponent2.default({'padding-s3':true});
+expect(uut.extractPaddingValues()).toEqual({padding:9});
+});
 });
 
 describe('margins modifiers',function(){
@@ -133,6 +138,11 @@ expect(uut.extractMarginValues()).toEqual({});
 it('should ignore non numeric margin values',function(){
 var uut=new _BaseComponent2.default({'margin-2a5':true});
 expect(uut.extractMarginValues()).toEqual({});
+});
+
+it('should support Spacing preset for margin',function(){
+var uut=new _BaseComponent2.default({'marginL-s4':true});
+expect(uut.extractMarginValues()).toEqual({marginLeft:12});
 });
 });
 
@@ -348,11 +358,19 @@ var uut=new _BaseComponent2.default({someProp:'someValue'});
 expect(uut.getThemeProps()).toEqual({someProp:'someValue'});
 });
 
-
 it('should return props values from the Theme Manager merged with values from passed props',function(){
 _style.ThemeManager.setComponentTheme('BaseComponent',{someProp:'themeValue'});
 var uut=new _BaseComponent2.default({anotherProps:'anotherValue'});
 expect(uut.getThemeProps()).toEqual({someProp:'themeValue',anotherProps:'anotherValue'});
+});
+
+it('should support getThemeProps callback that accepts current props and can condition returned props',function(){
+_style.ThemeManager.setComponentTheme('BaseComponent',function(props){return{someProp:props.test?'yes':'no'};});
+var uut=new _BaseComponent2.default({test:true});
+expect(uut.getThemeProps()).toEqual({someProp:'yes',test:true});
+
+uut=new _BaseComponent2.default({test:false});
+expect(uut.getThemeProps()).toEqual({someProp:'no',test:false});
 });
 });
 });

@@ -119,6 +119,11 @@ Button=function(_BaseComponent){_inherits(Button,_BaseComponent);
 
 
 
+
+
+
+
+
 function Button(props){_classCallCheck(this,Button);var _this=_possibleConstructorReturn(this,(Button.__proto__||Object.getPrototypeOf(Button)).call(this,
 props));
 
@@ -295,15 +300,17 @@ return[this.styles.shadowStyle,backgroundColor&&{shadowColor:backgroundColor}];
 }},{key:'getIconStyle',value:function getIconStyle()
 
 {var _props5=
-this.props,size=_props5.size,disabled=_props5.disabled,propsIconStyle=_props5.iconStyle;
+this.props,size=_props5.size,disabled=_props5.disabled,propsIconStyle=_props5.iconStyle,iconOnRight=_props5.iconOnRight;
 var iconStyle={
 tintColor:this.getLabelColor()};
 
 
-if([Button.sizes.large,Button.sizes.medium].includes(size)){
-iconStyle.marginRight=8;
+var marginSide=
+[Button.sizes.large,Button.sizes.medium].includes(size)?8:4;
+if(iconOnRight){
+iconStyle.marginLeft=marginSide;
 }else{
-iconStyle.marginRight=4;
+iconStyle.marginRight=marginSide;
 }
 
 if(disabled&&!this.isFilled){
@@ -376,8 +383,8 @@ others),
 
 _react2.default.createElement(_view2.default,{row:true,centerV:true,style:contentSizeStyle},
 this.props.children,
-this.renderIcon(),
-this.renderLabel())));
+this.props.iconOnRight?this.renderLabel():this.renderIcon(),
+this.props.iconOnRight?this.renderIcon():this.renderLabel())));
 
 
 
@@ -390,7 +397,7 @@ this.renderLabel())));
 
 
 
-}},{key:'isOutline',get:function get(){var _getThemeProps5=this.getThemeProps(),outline=_getThemeProps5.outline,outlineColor=_getThemeProps5.outlineColor;return Boolean(outline||outlineColor);}},{key:'isFilled',get:function get(){var _getThemeProps6=this.getThemeProps(),link=_getThemeProps6.link;return!this.isOutline&&!link;}}]);return Button;}(_commons.BaseComponent);Button.displayName='Button';Button.propTypes=_extends({},_text2.default.propTypes,{label:_propTypes2.default.string,iconSource:_propTypes2.default.oneOfType([_propTypes2.default.object,_propTypes2.default.number]),iconStyle:_propTypes2.default.oneOfType([_propTypes2.default.object,_propTypes2.default.number,_propTypes2.default.array]),backgroundColor:_propTypes2.default.string,size:_propTypes2.default.oneOf(['xSmall','small','medium','large']),borderRadius:_propTypes2.default.number,onPress:_propTypes2.default.func,disabled:_propTypes2.default.bool,outline:_propTypes2.default.bool,outlineColor:_propTypes2.default.string,link:_propTypes2.default.bool,linkColor:_propTypes2.default.string,labelStyle:_propTypes2.default.oneOfType([_propTypes2.default.object,_propTypes2.default.number,_propTypes2.default.array]),fullWidth:_propTypes2.default.bool,enableShadow:_propTypes2.default.bool,labelProps:_propTypes2.default.object,avoidInnerPadding:_propTypes2.default.bool,avoidMinWidth:_propTypes2.default.bool,getActiveBackgroundColor:_propTypes2.default.func,testID:_propTypes2.default.string});Button.defaultProps={labelStyle:{},size:'large',outline:false};Button.sizes={xSmall:'xSmall',small:'small',medium:'medium',large:'large'};exports.default=Button;
+}},{key:'isOutline',get:function get(){var _getThemeProps5=this.getThemeProps(),outline=_getThemeProps5.outline,outlineColor=_getThemeProps5.outlineColor;return Boolean(outline||outlineColor);}},{key:'isFilled',get:function get(){var _getThemeProps6=this.getThemeProps(),link=_getThemeProps6.link;return!this.isOutline&&!link;}}]);return Button;}(_commons.BaseComponent);Button.displayName='Button';Button.propTypes=_extends({},_text2.default.propTypes,{label:_propTypes2.default.string,iconSource:_propTypes2.default.oneOfType([_propTypes2.default.object,_propTypes2.default.number]),iconStyle:_propTypes2.default.oneOfType([_propTypes2.default.object,_propTypes2.default.number,_propTypes2.default.array]),iconOnRight:_propTypes2.default.bool,backgroundColor:_propTypes2.default.string,size:_propTypes2.default.oneOf(['xSmall','small','medium','large']),borderRadius:_propTypes2.default.number,onPress:_propTypes2.default.func,disabled:_propTypes2.default.bool,outline:_propTypes2.default.bool,outlineColor:_propTypes2.default.string,link:_propTypes2.default.bool,linkColor:_propTypes2.default.string,labelStyle:_propTypes2.default.oneOfType([_propTypes2.default.object,_propTypes2.default.number,_propTypes2.default.array]),fullWidth:_propTypes2.default.bool,enableShadow:_propTypes2.default.bool,labelProps:_propTypes2.default.object,avoidInnerPadding:_propTypes2.default.bool,avoidMinWidth:_propTypes2.default.bool,getActiveBackgroundColor:_propTypes2.default.func,testID:_propTypes2.default.string});Button.defaultProps={labelStyle:{},size:'large',outline:false,iconOnRight:false};Button.sizes={xSmall:'xSmall',small:'small',medium:'medium',large:'large'};exports.default=Button;
 
 
 function createStyles(){

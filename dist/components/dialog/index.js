@@ -57,6 +57,10 @@ Dialog=function(_BaseComponent){_inherits(Dialog,_BaseComponent);function Dialog
 
 
 
+
+
+
+
 {
 this.styles=createStyles(this.props);
 }},{key:'getAnimationConfig',value:function getAnimationConfig()
@@ -72,7 +76,13 @@ animationConfig);
 }},{key:'render',value:function render()
 
 {var _getThemeProps=
-this.getThemeProps(),visible=_getThemeProps.visible,overlayBackgroundColor=_getThemeProps.overlayBackgroundColor,onDismiss=_getThemeProps.onDismiss,backgroundPressDisabled=_getThemeProps.backgroundPressDisabled;var
+
+
+
+
+
+
+this.getThemeProps(),visible=_getThemeProps.visible,overlayBackgroundColor=_getThemeProps.overlayBackgroundColor,style=_getThemeProps.style,onDismiss=_getThemeProps.onDismiss,backgroundPressDisabled=_getThemeProps.backgroundPressDisabled;var
 alignments=this.state.alignments;
 var centerByDefault=_lodash2.default.isEmpty(alignments);
 
@@ -85,8 +95,15 @@ onBackgroundPress:backgroundPressDisabled?null:onDismiss,
 onRequestClose:onDismiss,
 overlayBackgroundColor:overlayBackgroundColor},
 
-_react2.default.createElement(_view2.default,{center:centerByDefault,style:[this.styles.overlay,alignments],pointerEvents:'box-none'},
-_react2.default.createElement(Animatable.View,_extends({style:this.styles.dialogContainer},this.getAnimationConfig()),
+_react2.default.createElement(_view2.default,{
+center:centerByDefault,
+style:[this.styles.overlay,alignments],
+pointerEvents:'box-none'},
+
+_react2.default.createElement(Animatable.View,_extends({
+style:[this.styles.dialogContainer,style]},
+this.getAnimationConfig()),
+
 this.props.children))));
 
 

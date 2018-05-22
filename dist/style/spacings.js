@@ -17,6 +17,15 @@ spacings){var _this=this;
 _lodash2.default.forEach(spacings,function(value,key){
 _this[key]=value;
 });
+}},{key:'getKeysPattern',value:function getKeysPattern()
+
+{
+return new RegExp(
+_lodash2.default.chain(this).
+keys().
+join('|').
+value());
+
 }}]);return Spacings;}();exports.default=
 
 

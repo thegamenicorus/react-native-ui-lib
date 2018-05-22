@@ -1,6 +1,7 @@
 var icons={
 check:require('./check.png'),
-x:require('./x.png')};
+x:require('./x.png'),
+search:require('./search.png')};
 
 
 

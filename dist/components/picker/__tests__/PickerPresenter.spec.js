@@ -38,4 +38,17 @@ var itemProps={value:'item-value'};
 expect(uut.getItemValue(itemProps)).toEqual('item-value');
 });
 });
+
+describe('getItemLabel',function(){
+it('should return item label when value is an object',function(){
+var itemProps={value:{value:'value',label:'label'}};
+expect(uut.getItemLabel(itemProps)).toEqual('label');
+});
+
+it('should return item label according to getLabel function ',function(){
+var getLabel=function getLabel(itemValue){return itemValue.value+' - '+itemValue.label;};
+var itemProps={value:{value:'value',label:'label'},getLabel:getLabel};
+expect(uut.getItemLabel(itemProps)).toEqual('value - label');
+});
+});
 });

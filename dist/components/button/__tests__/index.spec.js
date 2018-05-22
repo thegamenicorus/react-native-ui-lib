@@ -316,6 +316,17 @@ uut=new _index2.default({size:_index2.default.sizes.xSmall});
 expect(uut.getIconStyle()).toEqual([{tintColor:_style.Colors.white,marginRight:4},undefined]);
 });
 
+it('should return the right spacing according to button size when label exists and icon on the right',function(){
+var uut=new _index2.default({size:_index2.default.sizes.large,iconOnRight:true});
+expect(uut.getIconStyle()).toEqual([{tintColor:_style.Colors.white,marginLeft:8},undefined]);
+uut=new _index2.default({size:_index2.default.sizes.medium,iconOnRight:true});
+expect(uut.getIconStyle()).toEqual([{tintColor:_style.Colors.white,marginLeft:8},undefined]);
+uut=new _index2.default({size:_index2.default.sizes.small,iconOnRight:true});
+expect(uut.getIconStyle()).toEqual([{tintColor:_style.Colors.white,marginLeft:4},undefined]);
+uut=new _index2.default({size:_index2.default.sizes.xSmall,iconOnRight:true});
+expect(uut.getIconStyle()).toEqual([{tintColor:_style.Colors.white,marginLeft:4},undefined]);
+});
+
 it('should return icon style according to button size when label exists',function(){
 var uut=new _index2.default({size:_index2.default.sizes.large,disabled:true,outline:true});
 expect(uut.getIconStyle()).toEqual([{marginRight:8,tintColor:_style.Colors.dark60},undefined]);
