@@ -1,10 +1,10 @@
 import React from 'react';
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import {BaseComponent} from '../../commons';
-import {Colors} from '../../style';
+import { BaseComponent } from '../../commons';
+import { Colors } from '../../style';
 import Modal from '../../screensComponents/modal';
 import View from '../view';
 
@@ -18,7 +18,7 @@ import View from '../view';
  */
 /*eslint-enable*/
 class Dialog extends BaseComponent {
-  static displayName = 'Dialog'
+  static displayName = 'Dialog';
   static propTypes = {
     /**
      * Control visibility of the dialog
@@ -48,13 +48,17 @@ class Dialog extends BaseComponent {
     /**
      * The dialog container style
      */
-    containerStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.number, PropTypes.array]),
+    containerStyle: PropTypes.oneOfType([
+      PropTypes.object,
+      PropTypes.number,
+      PropTypes.array
+    ])
   };
 
   static defaultProps = {
     overlayBackgroundColor: Colors.rgba(Colors.dark10, 0.6),
     width: '90%',
-    height: '70%',
+    height: '70%'
   };
 
   generateStyles() {
@@ -62,18 +66,24 @@ class Dialog extends BaseComponent {
   }
 
   getAnimationConfig() {
-    const {animationConfig} = this.props;
+    const { animationConfig } = this.props;
     return {
       animation: 'slideInUp',
       duration: 400,
       useNativeDriver: true,
-      ...animationConfig,
+      ...animationConfig
     };
   }
 
   render() {
-    const {visible, overlayBackgroundColor, onDismiss, backgroundPressDisabled} = this.getThemeProps();
-    const {alignments} = this.state;
+    const {
+      visible,
+      overlayBackgroundColor,
+      style,
+      onDismiss,
+      backgroundPressDisabled
+    } = this.getThemeProps();
+    const { alignments } = this.state;
     const centerByDefault = _.isEmpty(alignments);
 
     return (
@@ -81,12 +91,19 @@ class Dialog extends BaseComponent {
         transparent
         visible={visible}
         animationType={'fade'}
-        onBackgroundPress={backgroundPressDisabled?null:onDismiss}
+        onBackgroundPress={backgroundPressDisabled ? null : onDismiss}
         onRequestClose={onDismiss}
         overlayBackgroundColor={overlayBackgroundColor}
       >
-        <View center={centerByDefault} style={[this.styles.overlay, alignments]} pointerEvents="box-none">
-          <Animatable.View style={this.styles.dialogContainer} {...this.getAnimationConfig()}>
+        <View
+          center={centerByDefault}
+          style={[this.styles.overlay, alignments]}
+          pointerEvents="box-none"
+        >
+          <Animatable.View
+            style={[this.styles.dialogContainer, style]}
+            {...this.getAnimationConfig()}
+          >
             {this.props.children}
           </Animatable.View>
         </View>
@@ -95,15 +112,15 @@ class Dialog extends BaseComponent {
   }
 }
 
-function createStyles({width, height}) {
+function createStyles({ width, height }) {
   return StyleSheet.create({
     overlay: {
-      flex: 1,
+      flex: 1
     },
     dialogContainer: {
       width,
-      height,
-    },
+      height
+    }
   });
 }
 

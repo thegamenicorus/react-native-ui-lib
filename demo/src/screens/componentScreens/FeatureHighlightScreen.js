@@ -23,7 +23,7 @@ class FeatureHighlightScreen extends Component {
     super(props);
 
     this.state = {
-      showFTE: true,
+      showFTE: false,
       currentTargetIndex: 0,
     };
 
@@ -32,6 +32,14 @@ class FeatureHighlightScreen extends Component {
     this.closeHighlight = this.closeHighlight.bind(this);
     this.showHighlight = this.showHighlight.bind(this);
     this.moveNext = this.moveNext.bind(this);
+
+    props.navigator.setOnNavigatorEvent(this.onNavigatorEvent.bind(this));
+  }
+
+  onNavigatorEvent(event) {
+    if (event.id === 'didAppear') {
+      this.showHighlight();
+    }
   }
 
   componentDidMount() {
@@ -76,7 +84,7 @@ class FeatureHighlightScreen extends Component {
         onBackgroundPress={this.closeHighlight}
         getTarget={() => this.targets[currentTargetIndex]}
         // highlightFrame={{x: 30, y: 70, width: 150, height: 30}}
-        // highlightFrame={{x: 175, y: 334, width: 150, height: 56}}
+        // highlightFrame={{x: 160, y: 336, width: 150, height: 56}}
       />
     );
   }
