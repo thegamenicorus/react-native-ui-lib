@@ -124,6 +124,10 @@ Button=function(_BaseComponent){_inherits(Button,_BaseComponent);
 
 
 
+
+
+
+
 function Button(props){_classCallCheck(this,Button);var _this=_possibleConstructorReturn(this,(Button.__proto__||Object.getPrototypeOf(Button)).call(this,
 props));
 
@@ -264,12 +268,12 @@ containerSizeStyle.minWidth=undefined;
 return containerSizeStyle;
 }},{key:'getOutlineStyle',value:function getOutlineStyle()
 
-{var _props3=
-this.props,outline=_props3.outline,outlineColor=_props3.outlineColor,link=_props3.link,disabled=_props3.disabled;
+{var _getThemeProps4=
+this.getThemeProps(),outline=_getThemeProps4.outline,outlineColor=_getThemeProps4.outlineColor,outlineWidth=_getThemeProps4.outlineWidth,link=_getThemeProps4.link,disabled=_getThemeProps4.disabled;
 var outlineStyle=void 0;
 if((outline||outlineColor)&&!link){
 outlineStyle={
-borderWidth:1,
+borderWidth:outlineWidth||1,
 borderColor:outlineColor||_style.Colors.blue30};
 
 
@@ -280,8 +284,8 @@ outlineStyle.borderColor=_style.Colors.dark70;
 return outlineStyle;
 }},{key:'getBorderRadiusStyle',value:function getBorderRadiusStyle()
 
-{var _props4=
-this.props,link=_props4.link,fullWidth=_props4.fullWidth,borderRadiusFromProps=_props4.borderRadius;
+{var _props3=
+this.props,link=_props3.link,fullWidth=_props3.fullWidth,borderRadiusFromProps=_props3.borderRadius;
 if(link||fullWidth||borderRadiusFromProps===0){
 return{borderRadius:0};
 }var
@@ -299,8 +303,8 @@ return[this.styles.shadowStyle,backgroundColor&&{shadowColor:backgroundColor}];
 }
 }},{key:'getIconStyle',value:function getIconStyle()
 
-{var _props5=
-this.props,size=_props5.size,disabled=_props5.disabled,propsIconStyle=_props5.iconStyle,iconOnRight=_props5.iconOnRight;
+{var _props4=
+this.props,size=_props4.size,disabled=_props4.disabled,propsIconStyle=_props4.iconStyle,iconOnRight=_props4.iconOnRight;
 var iconStyle={
 tintColor:this.getLabelColor()};
 
@@ -329,8 +333,8 @@ return _react2.default.createElement(_reactNative.Image,{source:iconSource,style
 return null;
 }},{key:'renderLabel',value:function renderLabel()
 
-{var _props6=
-this.props,label=_props6.label,labelStyle=_props6.labelStyle,labelProps=_props6.labelProps;
+{var _props5=
+this.props,label=_props5.label,labelStyle=_props5.labelStyle,labelProps=_props5.labelProps;
 var typography=this.extractTypographyValue();
 var color=this.getLabelColor();
 var labelSizeStyle=this.getLabelSizeStyle();
@@ -348,8 +352,8 @@ label));
 return null;
 }},{key:'render',value:function render()
 
-{var _getThemeProps4=
-this.getThemeProps(),onPress=_getThemeProps4.onPress,disabled=_getThemeProps4.disabled,link=_getThemeProps4.link,style=_getThemeProps4.style,containerStyle=_getThemeProps4.containerStyle,testID=_getThemeProps4.testID,others=_objectWithoutProperties(_getThemeProps4,['onPress','disabled','link','style','containerStyle','testID']);
+{var _getThemeProps5=
+this.getThemeProps(),onPress=_getThemeProps5.onPress,disabled=_getThemeProps5.disabled,link=_getThemeProps5.link,style=_getThemeProps5.style,containerStyle=_getThemeProps5.containerStyle,testID=_getThemeProps5.testID,others=_objectWithoutProperties(_getThemeProps5,['onPress','disabled','link','style','containerStyle','testID']);
 var shadowStyle=this.getShadowStyle();var
 margins=this.state.margins;
 var backgroundColor=this.getBackgroundColor();
@@ -397,7 +401,7 @@ this.props.iconOnRight?this.renderIcon():this.renderLabel())));
 
 
 
-}},{key:'isOutline',get:function get(){var _getThemeProps5=this.getThemeProps(),outline=_getThemeProps5.outline,outlineColor=_getThemeProps5.outlineColor;return Boolean(outline||outlineColor);}},{key:'isFilled',get:function get(){var _getThemeProps6=this.getThemeProps(),link=_getThemeProps6.link;return!this.isOutline&&!link;}}]);return Button;}(_commons.BaseComponent);Button.displayName='Button';Button.propTypes=_extends({},_text2.default.propTypes,{label:_propTypes2.default.string,iconSource:_propTypes2.default.oneOfType([_propTypes2.default.object,_propTypes2.default.number]),iconStyle:_propTypes2.default.oneOfType([_propTypes2.default.object,_propTypes2.default.number,_propTypes2.default.array]),iconOnRight:_propTypes2.default.bool,backgroundColor:_propTypes2.default.string,size:_propTypes2.default.oneOf(['xSmall','small','medium','large']),borderRadius:_propTypes2.default.number,onPress:_propTypes2.default.func,disabled:_propTypes2.default.bool,outline:_propTypes2.default.bool,outlineColor:_propTypes2.default.string,link:_propTypes2.default.bool,linkColor:_propTypes2.default.string,labelStyle:_propTypes2.default.oneOfType([_propTypes2.default.object,_propTypes2.default.number,_propTypes2.default.array]),fullWidth:_propTypes2.default.bool,enableShadow:_propTypes2.default.bool,labelProps:_propTypes2.default.object,avoidInnerPadding:_propTypes2.default.bool,avoidMinWidth:_propTypes2.default.bool,getActiveBackgroundColor:_propTypes2.default.func,testID:_propTypes2.default.string});Button.defaultProps={labelStyle:{},size:'large',outline:false,iconOnRight:false};Button.sizes={xSmall:'xSmall',small:'small',medium:'medium',large:'large'};exports.default=Button;
+}},{key:'isOutline',get:function get(){var _getThemeProps6=this.getThemeProps(),outline=_getThemeProps6.outline,outlineColor=_getThemeProps6.outlineColor;return Boolean(outline||outlineColor);}},{key:'isFilled',get:function get(){var _getThemeProps7=this.getThemeProps(),link=_getThemeProps7.link;return!this.isOutline&&!link;}}]);return Button;}(_commons.BaseComponent);Button.displayName='Button';Button.propTypes=_extends({},_text2.default.propTypes,{label:_propTypes2.default.string,iconSource:_propTypes2.default.oneOfType([_propTypes2.default.object,_propTypes2.default.number]),iconStyle:_propTypes2.default.oneOfType([_propTypes2.default.object,_propTypes2.default.number,_propTypes2.default.array]),iconOnRight:_propTypes2.default.bool,backgroundColor:_propTypes2.default.string,size:_propTypes2.default.oneOf(['xSmall','small','medium','large']),borderRadius:_propTypes2.default.number,onPress:_propTypes2.default.func,disabled:_propTypes2.default.bool,outline:_propTypes2.default.bool,outlineColor:_propTypes2.default.string,outlineWidth:_propTypes2.default.number,link:_propTypes2.default.bool,linkColor:_propTypes2.default.string,labelStyle:_propTypes2.default.oneOfType([_propTypes2.default.object,_propTypes2.default.number,_propTypes2.default.array]),fullWidth:_propTypes2.default.bool,enableShadow:_propTypes2.default.bool,labelProps:_propTypes2.default.object,avoidInnerPadding:_propTypes2.default.bool,avoidMinWidth:_propTypes2.default.bool,getActiveBackgroundColor:_propTypes2.default.func,testID:_propTypes2.default.string});Button.defaultProps={labelStyle:{},size:'large',outline:false,iconOnRight:false};Button.sizes={xSmall:'xSmall',small:'small',medium:'medium',large:'large'};exports.default=Button;
 
 
 function createStyles(){

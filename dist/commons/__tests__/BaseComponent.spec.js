@@ -223,34 +223,6 @@ alignItems:'center'});
 });
 });
 
-describe('flex modifiers',function(){
-it('should return flex value according to flex-? prop',function(){
-var uut=new _BaseComponent2.default({'flex-2':true});
-expect(uut.extractFlexValue()).toEqual(2);
-uut=new _BaseComponent2.default({'flex-0':true});
-expect(uut.extractFlexValue()).toEqual(0);
-uut=new _BaseComponent2.default({});
-expect(uut.extractFlexValue()).toEqual(undefined);
-});
-
-it('should return 1 flex value according when only flex sent',function(){
-var uut=new _BaseComponent2.default({flex:true});
-expect(uut.extractFlexValue()).toEqual(1);
-uut=new _BaseComponent2.default({'flex-':true});
-expect(uut.extractFlexValue()).toEqual(1);
-});
-
-it('should return undefined when prop sent with false value',function(){
-var uut=new _BaseComponent2.default({flex:false});
-expect(uut.extractFlexValue()).toEqual(undefined);
-});
-
-it('should ignore non numeric values',function(){
-var uut=new _BaseComponent2.default({'flex-1a2':true});
-expect(uut.extractFlexValue()).toEqual(undefined);
-});
-});
-
 describe('flexStyle modifier',function(){
 it('should return flex style according to flex-? prop',function(){
 var uut=new _BaseComponent2.default({'flex-2':true});
@@ -371,6 +343,35 @@ expect(uut.getThemeProps()).toEqual({someProp:'yes',test:true});
 
 uut=new _BaseComponent2.default({test:false});
 expect(uut.getThemeProps()).toEqual({someProp:'no',test:false});
+});
+});
+
+describe('updateModifiers',function(){
+it('should update state with new modifiers values if modifiers props have changed',function(){
+var uut=new _BaseComponent2.default({});
+jest.spyOn(uut,'setState');
+
+uut.updateModifiers({someProp:true,'bg-dark20':true},{someProp:true,'bg-dark30':true});
+expect(uut.setState).toHaveBeenCalledWith({backgroundColor:_style.Colors.dark30});
+
+uut.updateModifiers({someProp:'text'},{'bg-red50':true,'padding-20':true});
+expect(uut.setState).toHaveBeenCalledWith({backgroundColor:_style.Colors.red50,paddings:{padding:20}});
+});
+
+it('should not update state if modifiers prop have not changed',function(){
+var uut=new _BaseComponent2.default({});
+jest.spyOn(uut,'setState');
+
+uut.updateModifiers({someProp:true,'bg-dark20':true},{someProp:false,'bg-dark20':true});
+expect(uut.setState).not.toHaveBeenCalled();
+});
+
+it('should not update state if any prop value has changed',function(){
+var uut=new _BaseComponent2.default({});
+jest.spyOn(uut,'setState');
+
+uut.updateModifiers({someProp:true,'bg-dark20':true},{someProp:true,'bg-dark20':true});
+expect(uut.setState).not.toHaveBeenCalled();
 });
 });
 });

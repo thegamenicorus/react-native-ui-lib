@@ -54,6 +54,7 @@ return _react2.default.createElement(_text2.default,null,value);
 
 {var _this3=this;var
 containerStyle=this.props.containerStyle;
+var TextInputProps=_TextInput2.default.extractOwnProps(this.props,['containerStyle']);
 return(
 _react2.default.createElement(_view2.default,{style:[containerStyle]},
 _react2.default.createElement(_TextInput2.default,_extends({},
@@ -65,7 +66,8 @@ containerStyle:styles.hiddenInputContainer,
 style:styles.hiddenInput,
 enableErrors:false,
 hideUnderline:true,
-placeholder:'',
+placeholder:''},
+TextInputProps,{
 onChangeText:this.onChangeText})),
 
 _react2.default.createElement(_touchableOpacity2.default,{

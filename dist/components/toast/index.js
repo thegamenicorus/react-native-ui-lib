@@ -104,14 +104,19 @@ Toast=function(_BaseComponent){_inherits(Toast,_BaseComponent);
 
 
 
+
+
+
+
 function Toast(props){_classCallCheck(this,Toast);var _this=_possibleConstructorReturn(this,(Toast.__proto__||Object.getPrototypeOf(Toast)).call(this,
 props));_this.state={isVisible:false,animationConfig:_this.getAnimation(true),contentAnimation:_this.getContentAnimation(true),duration:DURATION,delay:DELAY};var
 
 animated=_this.props.animated;
-
 if(animated){
 setupRelativeAnimation(getHeight(_this.props));
-}return _this;
+}
+
+_this.onDismiss=_this.onDismiss.bind(_this);return _this;
 }_createClass(Toast,[{key:'componentWillReceiveProps',value:function componentWillReceiveProps(
 
 nextProps){var
@@ -238,7 +243,7 @@ _react2.default.createElement(_button2.default,_extends({'marginL-12':true,size:
 }},{key:'renderDismissButton',value:function renderDismissButton()
 
 {var _props3=
-this.props,allowDismiss=_props3.allowDismiss,onDismiss=_props3.onDismiss,color=_props3.color;var
+this.props,allowDismiss=_props3.allowDismiss,color=_props3.color;var
 contentAnimation=this.state.contentAnimation;
 if(allowDismiss){
 return(
@@ -247,7 +252,7 @@ _react2.default.createElement(_button2.default,{
 link:true,
 iconStyle:[this.styles.dismissIconStyle,color&&{tintColor:color}],
 iconSource:_assets2.default.icons.x,
-onPress:onDismiss})));
+onPress:this.onDismiss})));
 
 
 
@@ -303,7 +308,23 @@ visible=this.props.visible;
 this.setState({
 isVisible:visible});
 
-}}]);return Toast;}(_commons.BaseComponent);Toast.displayName='Toast';Toast.propTypes={visible:_propTypes2.default.bool,position:_propTypes2.default.oneOf(['relative','top','bottom']),height:_propTypes2.default.number,backgroundColor:_propTypes2.default.string,color:_propTypes2.default.string,message:_propTypes2.default.string,messageStyle:_propTypes2.default.oneOfType([_propTypes2.default.object,_propTypes2.default.number,_propTypes2.default.array]),actions:_propTypes2.default.arrayOf(_propTypes2.default.shape(_button2.default.propTypes)),onDismiss:_propTypes2.default.func,allowDismiss:_propTypes2.default.bool,renderContent:_propTypes2.default.func,centerMessage:_propTypes2.default.bool,animated:_propTypes2.default.bool,enableBlur:_propTypes2.default.bool,blurOptions:_propTypes2.default.object,zIndex:_propTypes2.default.number};Toast.defaultProps={position:'top',color:_style.Colors.white,animated:true,zIndex:100};exports.default=Toast;
+this.setDismissTimer();
+}},{key:'setDismissTimer',value:function setDismissTimer()
+
+{var _this4=this;var _props4=
+this.props,autoDismiss=_props4.autoDismiss,onDismiss=_props4.onDismiss;
+if(autoDismiss&&onDismiss){
+this.timer=setTimeout(function(){
+_lodash2.default.invoke(_this4.props,'onDismiss');
+},autoDismiss);
+}
+}},{key:'onDismiss',value:function onDismiss()
+
+{
+if(this.timer){clearTimeout(this.timer);}
+_lodash2.default.invoke(this.props,'onDismiss');
+}}]);return Toast;}(_commons.BaseComponent);Toast.displayName='Toast';Toast.propTypes={visible:_propTypes2.default.bool,position:_propTypes2.default.oneOf(['relative','top','bottom']),height:_propTypes2.default.number,backgroundColor:_propTypes2.default.string,color:_propTypes2.default.string,message:_propTypes2.default.string,messageStyle:_propTypes2.default.oneOfType([_propTypes2.default.object,_propTypes2.default.number,_propTypes2.default.array]),actions:_propTypes2.default.arrayOf(_propTypes2.default.shape(_button2.default.propTypes)),onDismiss:_propTypes2.default.func,autoDismiss:_propTypes2.default.number,allowDismiss:_propTypes2.default.bool,renderContent:_propTypes2.default.func,centerMessage:_propTypes2.default.bool,animated:_propTypes2.default.bool,enableBlur:_propTypes2.default.bool,blurOptions:_propTypes2.default.object,zIndex:_propTypes2.default.number};Toast.defaultProps={position:'top',color:_style.Colors.white,animated:true,zIndex:100};exports.default=Toast;
+
 
 
 function createStyles(){

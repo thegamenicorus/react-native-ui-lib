@@ -32,6 +32,10 @@ Modal=function(_BaseComponent){_inherits(Modal,_BaseComponent);function Modal(){
 
 
 
+
+
+
+
 {var _props=
 this.props,overlayBackgroundColor=_props.overlayBackgroundColor,onBackgroundPress=_props.onBackgroundPress;
 if(_lodash2.default.isFunction(onBackgroundPress)||!!overlayBackgroundColor){
@@ -46,17 +50,19 @@ _react2.default.createElement(_view2.default,{flex:true}))));
 }},{key:'render',value:function render()
 
 {var _props2=
-this.props,enableModalBlur=_props2.enableModalBlur,others=_objectWithoutProperties(_props2,['enableModalBlur']);
-var Container=enableModalBlur&&_helpers.Constants.isIOS?_reactNativeBlur.BlurView:_view2.default;
+this.props,blurView=_props2.blurView,enableModalBlur=_props2.enableModalBlur,visible=_props2.visible,others=_objectWithoutProperties(_props2,['blurView','enableModalBlur','visible']);
+var defaultContainer=enableModalBlur&&_helpers.Constants.isIOS?_reactNativeBlur.BlurView:_view2.default;
+var Container=blurView?blurView:defaultContainer;
+
 return(
-_react2.default.createElement(_reactNative.Modal,others,
+_react2.default.createElement(_reactNative.Modal,_extends({visible:Boolean(visible)},others),
 _react2.default.createElement(Container,{style:{flex:1},blurType:'light'},
 this.renderTouchableOverlay(),
 this.props.children)));
 
 
 
-}}]);return Modal;}(_commons.BaseComponent);Modal.displayName='Modal';Modal.propTypes={enableModalBlur:_propTypes2.default.bool,onBackgroundPress:_propTypes2.default.func,overlayBackgroundColor:_propTypes2.default.string};exports.default=Modal;
+}}]);return Modal;}(_commons.BaseComponent);Modal.displayName='Modal';Modal.propTypes={enableModalBlur:_propTypes2.default.bool,blurView:_propTypes2.default.element,onBackgroundPress:_propTypes2.default.func,overlayBackgroundColor:_propTypes2.default.string};exports.default=Modal;
 
 
 var styles=_reactNative.StyleSheet.create({

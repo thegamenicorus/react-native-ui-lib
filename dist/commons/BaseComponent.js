@@ -3,7 +3,7 @@ var _propTypes=require('prop-types');var _propTypes2=_interopRequireDefault(_pro
 var _reactNative=require('react-native');
 var _lodash=require('lodash');var _lodash2=_interopRequireDefault(_lodash);
 var _style=require('../style');
-var _helpers=require('../helpers');function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _toConsumableArray(arr){if(Array.isArray(arr)){for(var i=0,arr2=Array(arr.length);i<arr.length;i++){arr2[i]=arr[i];}return arr2;}else{return Array.from(arr);}}function _defineProperty(obj,key,value){if(key in obj){Object.defineProperty(obj,key,{value:value,enumerable:true,configurable:true,writable:true});}else{obj[key]=value;}return obj;}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self,call){if(!self){throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call&&(typeof call==="object"||typeof call==="function")?call:self;}function _inherits(subClass,superClass){if(typeof superClass!=="function"&&superClass!==null){throw new TypeError("Super expression must either be null or a function, not "+typeof superClass);}subClass.prototype=Object.create(superClass&&superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__=superClass;}
+var _helpers=require('../helpers');function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _defineProperty(obj,key,value){if(key in obj){Object.defineProperty(obj,key,{value:value,enumerable:true,configurable:true,writable:true});}else{obj[key]=value;}return obj;}function _toConsumableArray(arr){if(Array.isArray(arr)){for(var i=0,arr2=Array(arr.length);i<arr.length;i++){arr2[i]=arr[i];}return arr2;}else{return Array.from(arr);}}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self,call){if(!self){throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call&&(typeof call==="object"||typeof call==="function")?call:self;}function _inherits(subClass,superClass){if(typeof superClass!=="function"&&superClass!==null){throw new TypeError("Super expression must either be null or a function, not "+typeof superClass);}subClass.prototype=Object.create(superClass&&superClass.prototype,{constructor:{value:subClass,enumerable:false,writable:true,configurable:true}});if(superClass)Object.setPrototypeOf?Object.setPrototypeOf(subClass,superClass):subClass.__proto__=superClass;}
 
 var FLEX_KEY_PATTERN=/^flex(G|S)?(-\d*)?$/;
 var PADDING_KEY_PATTERN=new RegExp('padding[LTRBHV]?-([0-9]*|'+_style.Spacings.getKeysPattern()+')');
@@ -24,7 +24,8 @@ BaseComponent=function(_Component){_inherits(BaseComponent,_Component);_createCl
 
 props,ignoreProps){
 var ownPropTypes=this.propTypes;
-var ownProps=_lodash2.default.chain(props).
+var ownProps=_lodash2.default.
+chain(props).
 pickBy(function(value,key){return _lodash2.default.includes(Object.keys(ownPropTypes),key);}).
 omit(ignoreProps).
 value();
@@ -39,9 +40,13 @@ _this.generateStyles();
 }
 
 _this.state=_extends({},
-_this.extractStyleProps());return _this;
+_this.buildStyleOutOfModifiers());return _this;
 
-}_createClass(BaseComponent,[{key:'getThemeProps',value:function getThemeProps()
+}_createClass(BaseComponent,[{key:'componentWillReceiveProps',value:function componentWillReceiveProps(
+
+nextProps){
+this.updateModifiers(this.props,nextProps);
+}},{key:'getThemeProps',value:function getThemeProps()
 
 {
 var componentName=this.constructor.displayName||this.constructor.name;
@@ -56,6 +61,38 @@ return _extends({},themeProps,this.props);
 
 {
 return _helpers.DocsGenerator.generateSnippet(_helpers.DocsGenerator.extractComponentInfo(this));
+}},{key:'updateModifiers',value:function updateModifiers(
+
+currentProps,nextProps){
+var allKeys=_lodash2.default.union([].concat(_toConsumableArray(_lodash2.default.keys(currentProps)),_toConsumableArray(_lodash2.default.keys(nextProps))));
+var changedKeys=_lodash2.default.filter(allKeys,function(key){return!_lodash2.default.isEqual(currentProps[key],nextProps[key]);});
+
+var options={};
+if(_lodash2.default.find(changedKeys,function(key){return FLEX_KEY_PATTERN.test(key);})){
+options.flex=true;
+}
+
+if(_lodash2.default.find(changedKeys,function(key){return PADDING_KEY_PATTERN.test(key);})){
+options.paddings=true;
+}
+
+if(_lodash2.default.find(changedKeys,function(key){return MARGIN_KEY_PATTERN.test(key);})){
+options.margins=true;
+}
+
+if(_lodash2.default.find(changedKeys,function(key){return ALIGNMENT_KEY_PATTERN.test(key);})){
+options.alignments=true;
+}
+
+if(_lodash2.default.find(changedKeys,function(key){return _style.Colors.getBackgroundKeysPattern().test(key);})){
+options.backgroundColor=true;
+}
+
+if(!_lodash2.default.isEmpty(options)){
+this.setState(_extends({},
+this.buildStyleOutOfModifiers(options,nextProps)));
+
+}
 }},{key:'generateStyles',value:function generateStyles()
 
 {
@@ -89,7 +126,8 @@ return containerStyle;
 }},{key:'extractTypographyValue',value:function extractTypographyValue()
 
 {var _this2=this;
-var typographyPropsKeys=_lodash2.default.chain(this.props).
+var typographyPropsKeys=_lodash2.default.
+chain(this.props).
 keys(this.props).
 filter(function(key){return _style.Typography.getKeysPattern().test(key);}).
 value();
@@ -116,10 +154,10 @@ return color;
 }},{key:'extractBackgroundColorValue',value:function extractBackgroundColorValue()
 
 
-{var _this3=this;
+{var props=arguments.length>0&&arguments[0]!==undefined?arguments[0]:this.props;
 var backgroundColor=void 0;
 _lodash2.default.forEach(_style.Colors,function(value,key){
-if(_this3.props['background-'+key]===true||_this3.props['bg-'+key]===true){
+if(props['background-'+key]===true||props['bg-'+key]===true){
 backgroundColor=value;
 }
 });
@@ -127,14 +165,15 @@ backgroundColor=value;
 return backgroundColor;
 }},{key:'extractBorderRadiusValue',value:function extractBorderRadiusValue()
 
-{var _this4=this;
-var borderRadiusPropsKeys=_lodash2.default.chain(this.props).
-keys(this.props).
+{var props=arguments.length>0&&arguments[0]!==undefined?arguments[0]:this.props;
+var borderRadiusPropsKeys=_lodash2.default.
+chain(props).
+keys().
 filter(function(key){return _style.BorderRadiuses.getKeysPattern().test(key);}).
 value();
 var borderRadius=void 0;
 _lodash2.default.forEach(borderRadiusPropsKeys,function(key){
-if(_this4.props[key]===true){
+if(props[key]===true){
 borderRadius=_style.BorderRadiuses[key];
 }
 });
@@ -142,7 +181,7 @@ borderRadius=_style.BorderRadiuses[key];
 return borderRadius;
 }},{key:'extractPaddingValues',value:function extractPaddingValues()
 
-{var _this5=this;
+{var props=arguments.length>0&&arguments[0]!==undefined?arguments[0]:this.props;
 var PADDING_VARIATIONS={
 padding:'padding',
 paddingL:'paddingLeft',
@@ -153,13 +192,14 @@ paddingH:'paddingHorizontal',
 paddingV:'paddingVertical'};
 
 var paddings={};
-var paddingPropsKeys=_lodash2.default.chain(this.props).
-keys(this.props).
+var paddingPropsKeys=_lodash2.default.
+chain(props).
+keys().
 filter(function(key){return PADDING_KEY_PATTERN.test(key);}).
 value();
 
 _lodash2.default.forEach(paddingPropsKeys,function(key){
-if(_this5.props[key]===true){var _key$split=
+if(props[key]===true){var _key$split=
 key.split('-'),_key$split2=_slicedToArray(_key$split,2),paddingKey=_key$split2[0],paddingValue=_key$split2[1];
 var paddingVariation=PADDING_VARIATIONS[paddingKey];
 if(!isNaN(paddingValue)){
@@ -173,7 +213,7 @@ paddings[paddingVariation]=_style.Spacings[paddingValue];
 return paddings;
 }},{key:'extractMarginValues',value:function extractMarginValues()
 
-{var _this6=this;
+{var props=arguments.length>0&&arguments[0]!==undefined?arguments[0]:this.props;
 var MARGIN_VARIATIONS={
 margin:'margin',
 marginL:'marginLeft',
@@ -185,13 +225,14 @@ marginV:'marginVertical'};
 
 
 var margins={};
-var marginPropsKeys=_lodash2.default.chain(this.props).
-keys(this.props).
+var marginPropsKeys=_lodash2.default.
+chain(props).
+keys().
 filter(function(key){return MARGIN_KEY_PATTERN.test(key);}).
 value();
 
 _lodash2.default.forEach(marginPropsKeys,function(key){
-if(_this6.props[key]===true){var _key$split3=
+if(props[key]===true){var _key$split3=
 key.split('-'),_key$split4=_slicedToArray(_key$split3,2),marginKey=_key$split4[0],marginValue=_key$split4[1];
 var paddingVariation=MARGIN_VARIATIONS[marginKey];
 if(!isNaN(marginValue)){
@@ -205,8 +246,8 @@ margins[paddingVariation]=_style.Spacings[marginValue];
 return margins;
 }},{key:'extractAlignmentsValues',value:function extractAlignmentsValues()
 
-{var _this7=this;var _props=
-this.props,row=_props.row,center=_props.center;
+{var props=arguments.length>0&&arguments[0]!==undefined?arguments[0]:this.props;var
+row=props.row,center=props.center;
 var alignments={};
 
 var alignmentRules={};
@@ -221,7 +262,7 @@ alignmentRules.alignItems=['left','right','centerH'];
 
 _lodash2.default.forEach(alignmentRules,function(positions,attribute){
 _lodash2.default.forEach(positions,function(position){
-if(_this7.props[position]){
+if(props[position]){
 if(_lodash2.default.includes(['top','left'],position)){
 alignments[attribute]='flex-start';
 }else if(_lodash2.default.includes(['bottom','right'],position)){
@@ -241,62 +282,55 @@ alignments.alignItems='center';
 }
 
 return alignments;
-}},{key:'extractFlexValue',value:function extractFlexValue()
-
-
-{
-var flexPropKey=_lodash2.default.chain(this.props).
-keys(this.props).
-filter(function(key){return FLEX_KEY_PATTERN.test(key);}).
-last().
-value();
-if(flexPropKey&&this.props[flexPropKey]===true){
-var value=flexPropKey.split('-').pop();
-if(value==='flex'||value===''){
-return 1;
-}else if(!isNaN(value)){
-return Number(value);
-}
-}
 }},{key:'extractFlexStyle',value:function extractFlexStyle()
 
-{
+{var props=arguments.length>0&&arguments[0]!==undefined?arguments[0]:this.props;
 var STYLE_KEY_CONVERTERS={
 flex:'flex',
 flexG:'flexGrow',
 flexS:'flexShrink'};
 
-var flexPropKey=_lodash2.default.chain(this.props).
-keys(this.props).
+var flexPropKey=_lodash2.default.
+chain(props).
+keys(props).
 filter(function(key){return FLEX_KEY_PATTERN.test(key);}).
 last().
 value();
-if(flexPropKey&&this.props[flexPropKey]===true){var _flexPropKey$split=
+if(flexPropKey&&props[flexPropKey]===true){var _flexPropKey$split=
 flexPropKey.split('-'),_flexPropKey$split2=_slicedToArray(_flexPropKey$split,2),flexKey=_flexPropKey$split2[0],flexValue=_flexPropKey$split2[1];
 flexKey=STYLE_KEY_CONVERTERS[flexKey];
 flexValue=_lodash2.default.isEmpty(flexValue)?1:Number(flexValue);
 
 return _defineProperty({},flexKey,flexValue);
 }
-}},{key:'extractStyleProps',value:function extractStyleProps()
+}},{key:'buildStyleOutOfModifiers',value:function buildStyleOutOfModifiers()
 
-{
-var backgroundColor=this.extractBackgroundColorValue();
-var borderRadius=this.extractBorderRadiusValue();
-var paddings=this.extractPaddingValues();
-var margins=this.extractMarginValues();
-var alignments=this.extractAlignmentsValues();
 
-var flexStyle=this.extractFlexStyle();
 
-return{
-backgroundColor:backgroundColor,
-borderRadius:borderRadius,
-paddings:paddings,
-margins:margins,
-alignments:alignments,
-flexStyle:flexStyle};
 
+{var options=arguments.length>0&&arguments[0]!==undefined?arguments[0]:{backgroundColor:true,borderRadius:true,paddings:true,margins:true,alignments:true,flex:true};var props=arguments.length>1&&arguments[1]!==undefined?arguments[1]:this.props;
+var style={};
+
+if(options.backgroundColor){
+style.backgroundColor=this.extractBackgroundColorValue(props);
+}
+if(options.borderRadius){
+style.borderRadius=this.extractBorderRadiusValue(props);
+}
+if(options.paddings){
+style.paddings=this.extractPaddingValues(props);
+}
+if(options.margins){
+style.margins=this.extractMarginValues(props);
+}
+if(options.alignments){
+style.alignments=this.extractAlignmentsValues(props);
+}
+if(options.flex){
+style.flexStyle=this.extractFlexStyle(props);
+}
+
+return style;
 }},{key:'extractTextProps',value:function extractTextProps(
 
 props){

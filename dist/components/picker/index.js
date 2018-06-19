@@ -104,6 +104,18 @@ Picker=function(_TextInput){_inherits(Picker,_TextInput);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 function Picker(props){_classCallCheck(this,Picker);var _this=_possibleConstructorReturn(this,(Picker.__proto__||Object.getPrototypeOf(Picker)).call(this,
 props));_this.
 
@@ -240,7 +252,7 @@ rightIconSource&&_react2.default.createElement(_image2.default,{source:rightIcon
 }},{key:'renderExpandableModal',value:function renderExpandableModal()
 
 {var _this3=this;var _getThemeProps=
-this.getThemeProps(),mode=_getThemeProps.mode,enableModalBlur=_getThemeProps.enableModalBlur,topBarProps=_getThemeProps.topBarProps,showSearch=_getThemeProps.showSearch;var _state2=
+this.getThemeProps(),mode=_getThemeProps.mode,enableModalBlur=_getThemeProps.enableModalBlur,topBarProps=_getThemeProps.topBarProps,showSearch=_getThemeProps.showSearch,searchStyle=_getThemeProps.searchStyle,searchPlaceholder=_getThemeProps.searchPlaceholder;var _state2=
 this.state,showExpandableModal=_state2.showExpandableModal,selectedItemPosition=_state2.selectedItemPosition;
 return(
 _react2.default.createElement(_PickerModal2.default,{
@@ -253,6 +265,8 @@ onCancel:this.cancelSelect,
 onDone:mode===Picker.modes.MULTI?function(){return _this3.onDoneSelecting(_this3.state.value);}:undefined}),
 
 showSearch:showSearch,
+searchStyle:searchStyle,
+searchPlaceholder:searchPlaceholder,
 onSearchChange:this.onSearchChange},
 
 this.appendPropsToChildren(this.props.children)));
@@ -278,7 +292,7 @@ this.renderExpandableModal()));
 }
 
 return _get(Picker.prototype.__proto__||Object.getPrototypeOf(Picker.prototype),'render',this).call(this);
-}}]);return Picker;}(_inputs.TextInput);Picker.displayName='Picker';Picker.modes=PICKER_MODES;Picker.propTypes=_extends({},_inputs.TextInput.propTypes,{value:_propTypes2.default.oneOfType([ItemType,_propTypes2.default.arrayOf(ItemType),_propTypes2.default.object,_propTypes2.default.string,_propTypes2.default.number]),onChange:_propTypes2.default.func,mode:_propTypes2.default.oneOf(Object.keys(PICKER_MODES)),enableModalBlur:_propTypes2.default.bool,renderPicker:_propTypes2.default.func,onPress:_propTypes2.default.func,getItemValue:_propTypes2.default.func,getLabel:_propTypes2.default.func,topBarProps:_propTypes2.default.shape(_modal2.default.TopBar.propTypes),showSearch:_propTypes2.default.bool,useNativePicker:_propTypes2.default.bool,renderNativePicker:_propTypes2.default.func,rightIconSource:_propTypes2.default.oneOfType([_propTypes2.default.object,_propTypes2.default.number])});Picker.defaultProps=_extends({},_inputs.TextInput.defaultProps,{mode:PICKER_MODES.SINGLE,expandable:true,text70:true,enableErrors:false});
+}}]);return Picker;}(_inputs.TextInput);Picker.displayName='Picker';Picker.modes=PICKER_MODES;Picker.propTypes=_extends({},_inputs.TextInput.propTypes,{value:_propTypes2.default.oneOfType([ItemType,_propTypes2.default.arrayOf(ItemType),_propTypes2.default.object,_propTypes2.default.string,_propTypes2.default.number]),onChange:_propTypes2.default.func,mode:_propTypes2.default.oneOf(Object.keys(PICKER_MODES)),enableModalBlur:_propTypes2.default.bool,renderPicker:_propTypes2.default.func,onPress:_propTypes2.default.func,getItemValue:_propTypes2.default.func,getLabel:_propTypes2.default.func,topBarProps:_propTypes2.default.shape(_modal2.default.TopBar.propTypes),showSearch:_propTypes2.default.bool,searchStyle:_propTypes2.default.shape({color:_propTypes2.default.string,placeholderTextColor:_propTypes2.default.string,selectionColor:_propTypes2.default.string}),searchPlaceholder:_propTypes2.default.string,useNativePicker:_propTypes2.default.bool,renderNativePicker:_propTypes2.default.func,rightIconSource:_propTypes2.default.oneOfType([_propTypes2.default.object,_propTypes2.default.number])});Picker.defaultProps=_extends({},_inputs.TextInput.defaultProps,{mode:PICKER_MODES.SINGLE,expandable:true,text70:true,enableErrors:false});
 
 
 var styles=_reactNative.StyleSheet.create({

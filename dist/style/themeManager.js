@@ -23,6 +23,19 @@ throttleOptions:{leading:true,trailing:false}}}};}_createClass(ThemeManager,[{ke
 
 overrides){
 this.theme=_lodash2.default.merge(this.theme,overrides);
+}},{key:'getTheme',value:function getTheme()
+
+{
+return this.theme;
+}},{key:'setItem',value:function setItem(
+
+key,value){
+if(key==='components')throw new Error('Overriding the "components" key is not possible.');
+this.theme[key]=value;
+}},{key:'getItem',value:function getItem(
+
+key){
+return this.theme[key];
 }},{key:'setComponentTheme',value:function setComponentTheme(
 
 componentName,overrides){

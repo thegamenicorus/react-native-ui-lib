@@ -224,6 +224,11 @@ it('should return disabled color for outline if button is disabled',function(){
 var uut=new _index2.default({disabled:true,outline:true});
 expect(uut.getOutlineStyle()).toEqual({borderWidth:1,borderColor:_style.Colors.dark70});
 });
+
+it('should return custom borderWidth according to outlineWidth passed',function(){
+var uut=new _index2.default({outline:true,outlineWidth:3});
+expect(uut.getOutlineStyle()).toEqual({borderWidth:3,borderColor:_style.Colors.blue30});
+});
 });
 
 describe('getBorderRadiusStyle',function(){

@@ -67,6 +67,11 @@ PickerItem=function(_BaseComponent){_inherits(PickerItem,_BaseComponent);functio
 
 
 
+
+
+
+
+
 {
 this.styles=createStyles(this.props);
 }},{key:'getLabel',value:function getLabel()
@@ -125,7 +130,7 @@ testID:testID},
 renderItem?renderItem(value,this.props):this.renderItem()));
 
 
-}}]);return PickerItem;}(_commons.BaseComponent);PickerItem.displayName='Picker.Item';PickerItem.propTypes={label:_propTypes2.default.string,value:_propTypes2.default.oneOfType([_propTypes2.default.object,_propTypes2.default.string,_propTypes2.default.number]),getItemLabel:_propTypes2.default.func,getItemValue:_propTypes2.default.func,isSelected:_propTypes2.default.bool,disabled:_propTypes2.default.bool,renderItem:_propTypes2.default.func,onPress:_propTypes2.default.func,onSelectedLayout:_propTypes2.default.func,useNativePicker:_propTypes2.default.bool};var _initialiseProps=function _initialiseProps(){var _this2=this;this.onSelectedLayout=function(){for(var _len2=arguments.length,args=Array(_len2),_key2=0;_key2<_len2;_key2++){args[_key2]=arguments[_key2];}_lodash2.default.invoke.apply(_lodash2.default,[_this2.props,'onSelectedLayout'].concat(args));};};
+}}]);return PickerItem;}(_commons.BaseComponent);PickerItem.displayName='Picker.Item';PickerItem.propTypes={label:_propTypes2.default.string,value:_propTypes2.default.oneOfType([_propTypes2.default.object,_propTypes2.default.string,_propTypes2.default.number]),getItemLabel:_propTypes2.default.func,getItemValue:_propTypes2.default.func,isSelected:_propTypes2.default.bool,disabled:_propTypes2.default.bool,renderItem:_propTypes2.default.func,onPress:_propTypes2.default.func,onSelectedLayout:_propTypes2.default.func};var _initialiseProps=function _initialiseProps(){var _this2=this;this.onSelectedLayout=function(){for(var _len2=arguments.length,args=Array(_len2),_key2=0;_key2<_len2;_key2++){args[_key2]=arguments[_key2];}_lodash2.default.invoke.apply(_lodash2.default,[_this2.props,'onSelectedLayout'].concat(args));};};
 
 
 function createStyles(){

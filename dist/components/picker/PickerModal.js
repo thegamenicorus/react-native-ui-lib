@@ -20,6 +20,18 @@ PickerModal=function(_BaseComponent){_inherits(PickerModal,_BaseComponent);funct
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 state={
 scrollHeight:undefined,
 scrollContentHeight:undefined},_this.
@@ -67,15 +79,17 @@ this.scrollView.scrollTo({x:0,y:pageNumber*scrollHeight,animated:false});
 }},{key:'renderSearchInput',value:function renderSearchInput()
 
 {var _this2=this;var _props=
-this.props,showSearch=_props.showSearch,onSearchChange=_props.onSearchChange;
+this.props,showSearch=_props.showSearch,searchStyle=_props.searchStyle,searchPlaceholder=_props.searchPlaceholder,onSearchChange=_props.onSearchChange;
 if(showSearch){
 return(
 _react2.default.createElement(_view2.default,{style:this.styles.searchInputContainer},
 _react2.default.createElement(_image2.default,{style:this.styles.searchIcon,source:_assets2.default.icons.search}),
 _react2.default.createElement(_reactNative.TextInput,{
 ref:function ref(r){return _this2.search=r;},
-style:this.styles.searchInput,
-placeholder:'Search...',
+style:[this.styles.searchInput,{color:searchStyle.color}],
+placeholderTextColor:searchStyle.placeholderTextColor,
+selectionColor:searchStyle.selectionColor,
+placeholder:searchPlaceholder,
 onChangeText:_lodash2.default.throttle(onSearchChange,300),
 autoCorrect:false,
 underlineColorAndroid:'transparent'})));
@@ -107,7 +121,7 @@ _react2.default.createElement(_view2.default,{style:this.styles.modalBody},child
 
 
 
-}}]);return PickerModal;}(_commons.BaseComponent);PickerModal.displayName='IGNORE';PickerModal.propTypes=_extends({},_screensComponents.Modal.propTypes,{topBarProps:_propTypes2.default.shape(_screensComponents.Modal.TopBar.propTypes),scrollPosition:_propTypes2.default.number,showSearch:_propTypes2.default.bool,onSearchChange:_propTypes2.default.func});
+}}]);return PickerModal;}(_commons.BaseComponent);PickerModal.displayName='IGNORE';PickerModal.propTypes=_extends({},_screensComponents.Modal.propTypes,{topBarProps:_propTypes2.default.shape(_screensComponents.Modal.TopBar.propTypes),scrollPosition:_propTypes2.default.number,showSearch:_propTypes2.default.bool,searchStyle:_propTypes2.default.shape({color:_propTypes2.default.string,placeholderTextColor:_propTypes2.default.string,selectionColor:_propTypes2.default.string}),searchPlaceholder:_propTypes2.default.string,onSearchChange:_propTypes2.default.func});PickerModal.defaultProps={searchPlaceholder:'Search...',searchStyle:{}};
 
 
 function createStyles(){

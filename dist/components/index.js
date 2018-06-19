@@ -6,6 +6,7 @@ var _button=require('./button');var _button2=_interopRequireDefault(_button);
 var _card=require('./card');var _card2=_interopRequireDefault(_card);
 
 var _carousel=require('./carousel');var _carousel2=_interopRequireDefault(_carousel);
+var _checkbox=require('./checkbox');var _checkbox2=_interopRequireDefault(_checkbox);
 var _connectionStatusBar=require('./connectionStatusBar');var _connectionStatusBar2=_interopRequireDefault(_connectionStatusBar);
 var _dialog=require('./dialog');var _dialog2=_interopRequireDefault(_dialog);
 var _featureHighlight=require('./featureHighlight');var _featureHighlight2=_interopRequireDefault(_featureHighlight);
@@ -15,7 +16,9 @@ var _listItem=require('./listItem');var _listItem2=_interopRequireDefault(_listI
 var _notification=require('./notification');var _notification2=_interopRequireDefault(_notification);
 var _pageControl=require('./pageControl');var _pageControl2=_interopRequireDefault(_pageControl);
 var _picker=require('./picker');var _picker2=_interopRequireDefault(_picker);
+var _radioButton=require('./radioButton');
 var _stepper=require('./stepper');var _stepper2=_interopRequireDefault(_stepper);
+var _switch=require('./switch');var _switch2=_interopRequireDefault(_switch);
 var _tabBar=require('./tabBar');var _tabBar2=_interopRequireDefault(_tabBar);
 var _tagsInput=require('./tagsInput');var _tagsInput2=_interopRequireDefault(_tagsInput);
 var _text=require('./text');var _text2=_interopRequireDefault(_text);
@@ -34,6 +37,7 @@ Badge:_badge2.default,
 Button:_button2.default,
 Card:_card2.default,
 Carousel:_carousel2.default,
+Checkbox:_checkbox2.default,
 ConnectionStatusBar:_connectionStatusBar2.default,
 Dialog:_dialog2.default,
 FeatureHighlight:_featureHighlight2.default,
@@ -46,6 +50,9 @@ Picker:_picker2.default,
 Stepper:_stepper2.default,
 TabBar:_tabBar2.default,
 TagsInput:_tagsInput2.default,
+RadioButton:_radioButton.RadioButton,
+RadioGroup:_radioButton.RadioGroup,
+Switch:_switch2.default,
 Text:_text2.default,
 Toast:_toast2.default,
 TouchableOpacity:_touchableOpacity2.default,
