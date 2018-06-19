@@ -1,5 +1,5 @@
-const validColors = require("./src/style/colorsPalette").colorsPalette;
-const extraFixColorsMap = require("./src/style/colorsPalette").extraFixColorsMap;
+// const validColors = require("./src/style/colorsPalette").colorsPalette;
+// const extraFixColorsMap = require("./src/style/colorsPalette").extraFixColorsMap;
 
 
 module.exports = {
@@ -7,6 +7,7 @@ module.exports = {
   "plugins": ["react-native", "uilib"],
   "extends": ["airbnb"],
   "rules": {
+    "no-unneeded-ternary": "off",
     "arrow-body-style": "off",
     "class-methods-use-this": "off",
     "consistent-return": "off",
@@ -16,7 +17,7 @@ module.exports = {
     "no-plusplus": "off",
     "no-return-assign": "off",
     "no-use-before-define": "off",
-    "max-len": [2, 150, 4, {"ignoreUrls": true}],
+    "max-len": [2, 130, 4, {"ignoreUrls": true}],
     "object-curly-spacing": "off",
     "react/forbid-prop-types": "off",
     "react/jsx-filename-extension": "off",
@@ -25,8 +26,9 @@ module.exports = {
     "react/prefer-stateless-function": "off",
     "react/require-default-props": "off",
     "no-else-return": "off",
-    // "uilib/no-hard-coded-font": "error",
-    "uilib/no-hard-coded-color": ["error", validColors, extraFixColorsMap]
+    "no-trailing-spaces": "off",
+    "import/no-extraneous-dependencies": ["error", {"devDependencies": true, "optionalDependencies": false, "peerDependencies": true}],
+    // "uilib/no-hard-coded-color": ["error", validColors, extraFixColorsMap]
   },
   "env": {
     "browser": true,
