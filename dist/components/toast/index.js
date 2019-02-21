@@ -275,7 +275,7 @@ return null;
 }
 
 return(
-_react2.default.createElement(_view2.default,{style:[positionStyle],useSafeArea:true,testID:testID},
+_react2.default.createElement(_view2.default,{style:[positionStyle],testID:testID},
 _react2.default.createElement(_view2.default,{height:height}),
 
 _react2.default.createElement(Animatable.View,_extends({

@@ -275,7 +275,7 @@ export default class Toast extends BaseComponent {
     }
 
     return (
-      <View style={[positionStyle]} useSafeArea testID={testID}>
+      <View style={[positionStyle]} testID={testID}>
         <View height={height} />
 
         <Animatable.View
