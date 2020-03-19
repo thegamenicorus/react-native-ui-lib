@@ -81,6 +81,10 @@ class Picker extends TextInput {
      */
     showSearch: PropTypes.bool,
     /**
+     * Determine if need to hide picker after selecting value or not
+     */
+    hidePickerWhenSelect: PropTypes.bool,
+    /**
      * Style object for the search input (only when passing showSearch)
      */
     searchStyle: PropTypes.shape({
@@ -111,6 +115,7 @@ class Picker extends TextInput {
     mode: PICKER_MODES.SINGLE,
     // enableModalBlur: true,
     expandable: true,
+    hidePickerWhenSelect: true,
     text70: true,
     // floatingPlaceholder: true,
     enableErrors: false,
@@ -161,7 +166,9 @@ class Picker extends TextInput {
   onDoneSelecting(item) {
     this.setState({searchValue: ''}); // clean search when done selecting
     this.onChangeText(item);
-    this.toggleExpandableModal(false);
+    if (this.props.hidePickerWhenSelect) {
+      this.toggleExpandableModal(false);
+    }
     _.invoke(this.props, 'onChange', item);
   }
 
@@ -260,9 +267,9 @@ class Picker extends TextInput {
         scrollPosition={selectedItemPosition}
         enableModalBlur={enableModalBlur}
         topBarProps={{
-          ...topBarProps,
           onCancel: this.cancelSelect,
           onDone: mode === Picker.modes.MULTI ? () => this.onDoneSelecting(this.state.value) : undefined,
+          ...topBarProps,
         }}
         showSearch={showSearch}
         searchStyle={searchStyle}
