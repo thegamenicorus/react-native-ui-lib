@@ -275,6 +275,7 @@ class Picker extends TextInput {
         searchStyle={searchStyle}
         searchPlaceholder={searchPlaceholder}
         onSearchChange={this.onSearchChange}
+        enableContentSizeChange={this.props.hidePickerWhenSelect}
       >
         {this.appendPropsToChildren(this.props.children)}
       </PickerModal>

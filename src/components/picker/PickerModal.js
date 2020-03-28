@@ -100,7 +100,7 @@ class PickerModal extends BaseComponent {
   }
 
   render() {
-    const {visible, enableModalBlur, topBarProps, children} = this.props;
+    const {visible, enableModalBlur, topBarProps, enableContentSizeChange, children} = this.props;
     return (
       <Modal
         animationType={'slide'}
@@ -114,7 +114,7 @@ class PickerModal extends BaseComponent {
         <ScrollView
           ref={r => (this.scrollView = r)}
           onLayout={this.onScrollViewLayout}
-          onContentSizeChange={this.onScrollViewContentSizeChange}
+          onContentSizeChange={(enableContentSizeChange) ? this.onScrollViewContentSizeChange : null}
           keyboardShouldPersistTaps="always"
         >
           <View style={this.styles.modalBody}>{children}</View>
