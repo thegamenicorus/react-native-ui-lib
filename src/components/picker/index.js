@@ -143,7 +143,7 @@ class Picker extends TextInput {
     this.state = {
       ...this.state,
       showModal: false,
-      selectedItemPosition: 0,
+      selectedItemPosition: this.props.selectedItemPosition || 0,
     };
 
     if (props.mode === Picker.modes.SINGLE && Array.isArray(props.value)) {
@@ -161,10 +161,24 @@ class Picker extends TextInput {
     }
   }
 
-  componentWillReceiveProps(nexProps) {
-    this.setState({
-      value: nexProps.value,
-    });
+  // componentWillReceiveProps(nexProps) {
+  //   this.setState({
+  //     value: nexProps.value,
+  //   });
+  // }
+
+  componentDidUpdate(prevProps, prevState) {
+    const isValueUpdated = prevProps.value !== this.props.value;
+    const isSelectedItemPositionUpdated =
+      prevProps.selectedItemPosition !== this.props.selectedItemPosition;
+    const shouldUpdate = isValueUpdated || isSelectedItemPositionUpdated;
+    let value = this.props.value;
+    let selectedItemPosition = this.props.selectedItemPosition;
+    if (shouldUpdate)
+      this.setState({
+        value,
+        selectedItemPosition,
+      });
   }
 
   toggleItemSelection(item) {
@@ -176,7 +190,7 @@ class Picker extends TextInput {
   }
 
   onDoneSelecting(item) {
-    this.setState({ searchValue: '' }); // clean search when done selecting
+    // this.setState({ searchValue: '' }); // clean search when done selecting
     this.onChangeText(item);
     if (this.props.hidePickerWhenSelect) {
       this.toggleExpandableModal(false);
@@ -190,14 +204,29 @@ class Picker extends TextInput {
     });
   };
 
+  scrollToSelected = () => {
+    if (this.pickerModal) {
+      this.pickerModal.scrollToSelected();
+    }
+  };
+
+  clearSearch = () => {
+    this.setState({ searchValue: '' });
+    if (this.pickerModal) {
+      this.pickerModal.clearSearch();
+    }
+  };
+
   cancelSelect() {
     this.setState({
       value: this.props.value,
+      searchValue: '',
     });
     this.toggleExpandableModal(false);
   }
 
   close() {
+    this.setState({ searchValue: '' });
     this.toggleExpandableModal(false);
   }
 
@@ -237,7 +266,9 @@ class Picker extends TextInput {
               ? this.toggleItemSelection
               : this.onDoneSelecting,
           getItemValue: child.props.getItemValue || getItemValue,
-          onSelectedLayout: this.onSelectedItemLayout,
+          onSelectedLayout: this.props.customSelectedItemPosition
+            ? null
+            : this.onSelectedItemLayout,
         });
       }
     });
@@ -303,8 +334,10 @@ class Picker extends TextInput {
     const { showExpandableModal, selectedItemPosition } = this.state;
     return (
       <PickerModal
+        ref={(pickerModal) => (this.pickerModal = pickerModal)}
         visible={showExpandableModal}
         scrollPosition={selectedItemPosition}
+        customSelectedItemPosition={this.props.customSelectedItemPosition}
         enableModalBlur={enableModalBlur}
         topBarProps={{
           onCancel: this.cancelSelect,
@@ -318,7 +351,9 @@ class Picker extends TextInput {
         searchStyle={searchStyle}
         searchPlaceholder={searchPlaceholder}
         onSearchChange={this.onSearchChange}
-        enableContentSizeChange={this.props.hidePickerWhenSelect}
+        enableContentSizeChange={
+          this.props.hidePickerWhenSelect || this.props.enableContentSizeChange
+        }
       >
         {this.appendPropsToChildren(this.props.children)}
       </PickerModal>

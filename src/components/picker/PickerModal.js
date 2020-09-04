@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {StyleSheet, ScrollView, TextInput} from 'react-native';
+import { StyleSheet, ScrollView, TextInput } from 'react-native';
 import _ from 'lodash';
-import {Constants} from '../../helpers';
-import {BaseComponent} from '../../commons';
-import {Modal} from '../../screensComponents';
+import { Constants } from '../../helpers';
+import { BaseComponent } from '../../commons';
+import { Modal } from '../../screensComponents';
 import View from '../view';
 import Image from '../image';
-import {Typography, Colors} from '../../style';
+import { Typography, Colors } from '../../style';
 import Assets from '../../assets';
 
 class PickerModal extends BaseComponent {
@@ -30,7 +30,7 @@ class PickerModal extends BaseComponent {
   static defaultProps = {
     searchPlaceholder: 'Search...',
     searchStyle: {},
-  }
+  };
 
   state = {
     scrollHeight: undefined,
@@ -42,51 +42,78 @@ class PickerModal extends BaseComponent {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.scrollToSelected(nextProps.scrollPosition);
+    // this.scrollToSelected(nextProps.scrollPosition);
   }
 
+  clearSearch = () => {
+    if (!this.search) {
+      return;
+    }
+    this.search.clear();
+  };
   onScrollViewLayout = ({
     nativeEvent: {
-      layout: {height},
+      layout: { height },
     },
   }) => {
-    this.setState({scrollHeight: height}, () => {
+    this.setState({ scrollHeight: height }, () => {
       this.scrollToSelected();
     });
   };
 
   onScrollViewContentSizeChange = (contentWidth, contentHeight) => {
-    this.setState({scrollContentHeight: contentHeight}, () => {
+    this.setState({ scrollContentHeight: contentHeight }, () => {
       this.scrollToSelected();
     });
   };
 
-  scrollToSelected(scrollPosition = this.props.scrollPosition) {
-    const isSearchFocused = _.invoke(this.search, 'isFocused');
-    if (!scrollPosition || isSearchFocused) return;
+  scrollToSelected(
+    scrollPosition = this.props.scrollPosition,
+    customSelectedItemPosition = this.props.customSelectedItemPosition
+  ) {
+    // const isSearchFocused = _.invoke(this.search, 'isFocused');
+    // if (!scrollPosition || isSearchFocused) return;
 
-    const {scrollHeight, scrollContentHeight} = this.state;
+    // if(customSelectedItemPosition){
+    //   this.scrollView.scrollTo({x: 0, y: scrollPosition, animated: false});
+    //   return;
+    // }
+    // else if(!scrollPosition || isSearchFocused){
+    //   return;
+    // }
+
+    const { scrollHeight, scrollContentHeight } = this.state;
+
     if (this.scrollView && scrollHeight && scrollContentHeight) {
       const pageNumber = Math.floor(scrollPosition / scrollHeight);
       const numberOfPages = Math.ceil(scrollContentHeight / scrollHeight);
 
       if (pageNumber === numberOfPages - 1) {
-        this.scrollView.scrollToEnd({animated: false});
+        this.scrollView.scrollToEnd({ animated: false });
       } else {
-        this.scrollView.scrollTo({x: 0, y: pageNumber * scrollHeight, animated: false});
+        this.scrollView.scrollTo({
+          x: 0,
+          y: pageNumber * scrollHeight,
+          animated: false,
+        });
       }
     }
   }
 
   renderSearchInput() {
-    const {showSearch, searchStyle, searchPlaceholder, onSearchChange} = this.props;
+    const {
+      showSearch,
+      searchStyle,
+      searchPlaceholder,
+      onSearchChange,
+    } = this.props;
     if (showSearch) {
       return (
         <View style={this.styles.searchInputContainer}>
-          <Image style={this.styles.searchIcon} source={Assets.icons.search}/>
+          <Image style={this.styles.searchIcon} source={Assets.icons.search} />
           <TextInput
-            ref={r => this.search = r}
-            style={[this.styles.searchInput, {color: searchStyle.color}]}
+            ref={(r) => (this.search = r)}
+            style={[this.styles.searchInput, { color: searchStyle.color }]}
             placeholderTextColor={searchStyle.placeholderTextColor}
             selectionColor={searchStyle.selectionColor}
             placeholder={searchPlaceholder}
@@ -100,7 +127,13 @@ class PickerModal extends BaseComponent {
   }
 
   render() {
-    const {visible, enableModalBlur, topBarProps, enableContentSizeChange, children} = this.props;
+    const {
+      visible,
+      enableModalBlur,
+      topBarProps,
+      enableContentSizeChange,
+      children,
+    } = this.props;
     return (
       <Modal
         animationType={'slide'}
@@ -112,9 +145,11 @@ class PickerModal extends BaseComponent {
         <Modal.TopBar {...topBarProps} />
         {this.renderSearchInput()}
         <ScrollView
-          ref={r => (this.scrollView = r)}
+          ref={(r) => (this.scrollView = r)}
           onLayout={this.onScrollViewLayout}
-          onContentSizeChange={(enableContentSizeChange) ? this.onScrollViewContentSizeChange : null}
+          onContentSizeChange={
+            enableContentSizeChange ? this.onScrollViewContentSizeChange : null
+          }
           keyboardShouldPersistTaps="always"
         >
           <View style={this.styles.modalBody}>{children}</View>
