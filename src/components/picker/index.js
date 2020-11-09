@@ -292,7 +292,12 @@ class Picker extends TextInput {
 
   renderExpandableInput() {
     const { value } = this.state;
-    const { placeholder, rightIconSource, style } = this.props;
+    const {
+      placeholder,
+      rightIconSource,
+      style,
+      placeholderStyle,
+    } = this.props;
     const typography = this.getTypography();
     const color = this.extractColorValue() || Colors.dark10;
     const label = this.getLabel();
@@ -311,7 +316,9 @@ class Picker extends TextInput {
             { color },
             style,
             { height: Constants.isAndroid ? typography.lineHeight : undefined },
-            shouldShowPlaceholder && this.styles.placeholder,
+            shouldShowPlaceholder &&
+              this.styles.placeholder &&
+              placeholderStyle,
           ]}
           numberOfLines={3}
         >
